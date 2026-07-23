@@ -338,74 +338,99 @@ function Hero() {
           </span>
         </div>
 
-        {/* Title */}
-        <h1
-          className="anim-1 gradient-headline"
-          aria-label="ProNail Complex"
+        <div
           style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(52px, 10vw, 120px)',
-            fontWeight: 300,
-            letterSpacing: '0.08em',
-            lineHeight: 1.0,
-            margin: '0 0 28px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2rem',
+            flexWrap: 'wrap',
           }}
         >
-          PRONAIL <br className="hidden md:inline" /> COMPLEX
-        </h1>
-
-        {/* Description + CTAs */}
-        <div className="anim-2" style={{ maxWidth: 580 }}>
-          <p
-            style={{
-              fontSize: 'clamp(16px, 1.5vw, 19px)',
-              lineHeight: 1.6,
-              color: 'var(--color-muted)',
-              marginBottom: 36,
-              fontWeight: 300,
-            }}
-          >
-            A clinically backed, doctor-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
-            <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
-              The uniquely formulated mist spray that supports healthy toenails.
-            </strong>
-          </p>
-
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-            <a
-              href={AFFILIATE_URL}
-              rel="nofollow sponsored"
+          {/* Coluna Esquerda */}
+          <div style={{ flex: 1, minWidth: '320px' }}>
+            {/* Title */}
+            <h1
+              className="anim-1 gradient-headline"
+              aria-label="ProNail Complex"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                backgroundColor: 'var(--color-text)',
-                color: '#fff',
-                padding: '16px 36px',
-                borderRadius: 100,
-                fontSize: 14,
-                fontWeight: 500,
-                letterSpacing: '0.04em',
-                textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(52px, 10vw, 120px)',
+                fontWeight: 300,
+                letterSpacing: '0.08em',
+                lineHeight: 1.0,
+                margin: '0 0 28px',
               }}
             >
-              Claim Your Discount <FiArrowRight size={15} />
-            </a>
-            <a
-              href="#benefits"
+              PRONAIL <br className="hidden md:inline" /> COMPLEX
+            </h1>
+
+            {/* Description + CTAs */}
+            <div className="anim-2" style={{ maxWidth: 580 }}>
+              <p
+                style={{
+                  fontSize: 'clamp(16px, 1.5vw, 19px)',
+                  lineHeight: 1.6,
+                  color: 'var(--color-muted)',
+                  marginBottom: 36,
+                  fontWeight: 300,
+                }}
+              >
+                A clinically backed, doctor-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
+                <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
+                  The uniquely formulated mist spray that supports healthy toenails.
+                </strong>
+              </p>
+
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+                <a
+                  href={AFFILIATE_URL}
+                  rel="nofollow sponsored"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    backgroundColor: 'var(--color-text)',
+                    color: '#fff',
+                    padding: '16px 36px',
+                    borderRadius: 100,
+                    fontSize: 14,
+                    fontWeight: 500,
+                    letterSpacing: '0.04em',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
+                  }}
+                >
+                  Claim Your Discount <FiArrowRight size={15} />
+                </a>
+                <a
+                  href="#benefits"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    color: 'var(--color-accent)',
+                    fontSize: 14,
+                    fontWeight: 400,
+                    textDecoration: 'none',
+                  }}
+                >
+                  See benefits <FiChevronDown size={15} />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Coluna Direita */}
+          <div style={{ flex: 1, minWidth: '320px', display: 'flex', justifyContent: 'center' }}>
+            <img
+              src="/pronail1.png.png"
+              alt="Produto Pronail"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                color: 'var(--color-accent)',
-                fontSize: 14,
-                fontWeight: 400,
-                textDecoration: 'none',
+                maxWidth: '100%',
+                height: 'auto',
+                objectFit: 'contain',
               }}
-            >
-              See benefits <FiChevronDown size={15} />
-            </a>
+            />
           </div>
         </div>
 
