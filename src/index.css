@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ground:  #F4F8FB;
+  --color-deep:    #0B1A27;
+  --color-surface: #FFFFFF;
+  --color-accent:  #5AADA7;
+  --color-nude:    #D4A98A;
+  --color-text:    #0E1C2A;
+  --color-muted:   #5A7080;
+  --color-border:  #D8E4EC;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-ground);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+/* Single orchestrated entry animation — hero only */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-0 { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-1 { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both; }
+  .anim-2 { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both; }
+  .anim-3 { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both; }
+}
+
+/* Gradient text — the editorial hero headline */
+.gradient-headline {
+  background: linear-gradient(130deg, #0E1C2A 0%, #5AADA7 52%, #D4A98A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Consistent section padding */
+.section-pad {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* FAQ transition */
+.faq-body {
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+}
