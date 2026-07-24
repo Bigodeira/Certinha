@@ -347,7 +347,7 @@ function Hero() {
           }}
         >
           {/* Coluna Esquerda */}
-          <div style={{ flex: 1, minWidth: '320px' }}>
+          <div style={{ flex: 1.5, minWidth: '320px' }}>
             {/* Title */}
             <h1
               className="anim-1 gradient-headline"
@@ -359,6 +359,7 @@ function Hero() {
                 letterSpacing: '0.08em',
                 lineHeight: 1.0,
                 margin: '0 0 28px',
+                paddingRight: '20px',
               }}
             >
               PRONAIL <br className="hidden md:inline" /> COMPLEX
