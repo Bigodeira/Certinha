@@ -27,7 +27,7 @@ const BENEFITS = [
   },
   {
     Icon: FiAward,
-    title: 'Doctor Formulated',
+    title: 'Specialist Formulated',
     body: 'A proprietary, GMO-free blend of medical-grade oils and skin-repairing vitamins tested for purity. Completely non-greasy.',
   },
 ]
@@ -91,7 +91,7 @@ const TESTIMONIALS = [
 const FAQS = [
   {
     q: 'How does ProNail Complex work?',
-    a: 'ProNail Complex is a doctor-formulated mist spray containing extremely potent natural oils and vitamins. Unlike creams that sit on top of the nail, our micro-particles penetrate deep beneath the nail plate and skin to target the root cause of fungus and promote cellular repair.',
+    a: 'ProNail Complex is a Specialist-formulated mist spray containing extremely potent natural oils and vitamins. Unlike creams that sit on top of the nail, our micro-particles penetrate deep beneath the nail plate and skin to target the root cause of fungus and promote cellular repair.',
   },
   {
     q: 'How should I apply it?',
@@ -334,7 +334,7 @@ function Hero() {
               color: 'var(--color-accent)',
             }}
           >
-            Advanced Toenail Formula
+            Advanced Nail Formula
           </span>
         </div>
 
@@ -376,7 +376,7 @@ function Hero() {
                   fontWeight: 300,
                 }}
               >
-                A clinically backed, doctor-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
+                A clinically backed, Specialist-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
                 <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
                   The uniquely formulated mist spray that supports healthy toenails.
                 </strong>
@@ -447,7 +447,7 @@ function Hero() {
             borderTop: '1px solid var(--color-border)',
           }}
         >
-          {['Doctor Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
+          {['Specialist Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
             <span
               key={badge}
               style={{
@@ -555,7 +555,7 @@ function Benefits() {
               maxWidth: 580,
             }}
           >
-            Advanced Micro-Particle Therapy for Your Nails
+            Advanced Micro-Particle Formula for Your Nails
           </h2>
         </div>
 
@@ -652,7 +652,7 @@ function HowItWorks() {
               maxWidth: 520,
             }}
           >
-            Three steps. Sixty seconds.
+            Pronail Complex
           </h2>
         </div>
 
