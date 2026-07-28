@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import iconeAcid from '../iconeacid.png';
+import iconeAloe from '../iconealoevera.png';
+import iconetea from '../teaicone.png';
 import iconeCemPorCento from '../iconefolha.png';
 import icone60 from '../icone60.png';
+import iconevitamin from '../vitamine.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
@@ -55,21 +59,25 @@ const STEPS = [
 const INGREDIENTS = [
   {
     name: 'Tea Tree Oil',
+    icon: iconetea,
     fn: 'Antiseptic powerhouse that stops fungal growth and purifies the nail.',
     tag: 'Antifungal',
   },
   {
     name: 'Aloe Vera',
+    icon: iconeAloe,
     fn: 'Soothes irritated skin, relieves itching, and accelerates cell repair.',
     tag: 'Soothe',
   },
   {
     name: 'Undecylenic Acid',
+    icon: iconeAcid,
     fn: 'An organic compound that disrupts and eliminates fungal cells.',
     tag: 'Defense',
   },
   {
     name: 'Vitamin E',
+    icon: iconevitamin,
     fn: 'Antioxidant skin-repair vitamin that promotes healthy nail regrowth.',
     tag: 'Regenerate',
   },
@@ -770,7 +778,7 @@ function Ingredients() {
             backgroundColor: 'rgba(255,255,255,0.06)',
           }}
         >
-          {INGREDIENTS.map(({ name, fn, tag }) => (
+          {INGREDIENTS.map(({ name, fn, tag, icon }) => (
             <div
               key={name}
               style={{
@@ -808,7 +816,16 @@ function Ingredients() {
                     marginBottom: 8,
                   }}
                 >
-                  {name}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {icon && (
+              <img 
+                src={icon} 
+                alt="Ícone" 
+                style={{ height: '32px', width: 'auto', objectFit: 'contain' }} 
+              />
+            )}
+            <span>{name}</span>
+          </div>
                 </div>
                 <p
                   style={{
