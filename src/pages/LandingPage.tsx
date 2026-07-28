@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import iconeCemPorCento from '../iconefolha.png';
+import icone60 from '../icone60.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
@@ -472,8 +474,8 @@ function Hero() {
 function Stats() {
   const data = [
     { value: '87k+', icon: iconeEstrelas, label: 'Happy Customers Worldwide' },
-    { value: '100%', label: 'Natural & Safe Ingredients' },
-    { value: '60', suffix: ' Days', label: '100% Money-Back Guarantee' },
+    { value: '100%', icon: iconeCemPorCento, label: 'Natural & Safe Ingredients' },
+    { value: '60', icon: icone60, suffix: ' Days', label: '100% Money-Back Guarantee' },
   ]
 
   return (
