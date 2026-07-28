@@ -3,7 +3,7 @@ import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
 } from 'react-icons/fi'
-
+import iconeEstrelas from '../icone-estrela.png';
 // ─── ProNail Complex Affiliate URL ──────────────────────────────────────────
 const AFFILIATE_URL = 'https://pronailcomplex.com/text.php?hopId=f72fc4db-5c5e-405a-81d6-29b599e4db2f'
 
@@ -471,7 +471,7 @@ function Hero() {
 
 function Stats() {
   const data = [
-    { value: '87k+', label: 'Happy Customers Worldwide' },
+    { value: '87k+', icon: iconeEstrelas, label: 'Happy Customers Worldwide' },
     { value: '100%', label: 'Natural & Safe Ingredients' },
     { value: '60', suffix: ' Days', label: '100% Money-Back Guarantee' },
   ]
@@ -503,7 +503,16 @@ function Stats() {
                 color: '#fff',
               }}
             >
-              {stat.value}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+            {stat.icon && (
+              <img 
+                src={stat.icon} 
+                alt="Ícone" 
+                style={{ height: '40px', width: 'auto', objectFit: 'contain' }} 
+              />
+            )}
+            <span>{stat.value}</span>
+          </div>
               {stat.suffix && <span style={{ color: 'var(--color-accent)' }}>{stat.suffix}</span>}
             </div>
             <div
