@@ -5,6 +5,7 @@ import iconetea from '../teaicone.png';
 import iconeCemPorCento from '../iconefolha.png';
 import icone60 from '../icone60.png';
 import iconevitamin from '../vitamine.png';
+import tarjaFda from '../tarjafda.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
@@ -38,23 +39,6 @@ const BENEFITS = [
   },
 ]
 
-const STEPS = [
-  {
-    num: '01',
-    title: 'Spray after your daily shower',
-    body: 'Apply the lightweight mist directly over your clean, dry toenails and surrounding skin. The micro-particles absorb in seconds.',
-  },
-  {
-    num: '02',
-    title: 'Let the ingredients penetrate',
-    body: 'The rapid-acting formula goes deep beneath the nail plate with zero greasy residue. No need to brush, rub, or wait to dry.',
-  },
-  {
-    num: '03',
-    title: 'Put on cotton socks',
-    body: 'Slip on a clean pair of cotton socks. This locks in the organic oils, creating a barrier that nourishes the skin and fights fungus.',
-  },
-]
 
 const INGREDIENTS = [
   {
@@ -646,91 +630,23 @@ function Benefits() {
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="section-pad" style={{ backgroundColor: 'var(--color-ground)' }}>
-      <div className="inner">
-        <div style={{ marginBottom: 48 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent)',
-              marginBottom: 12,
-            }}
-          >
-            The Routine
-          </p>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(28px, 3.5vw, 44px)',
-              fontWeight: 400,
-              lineHeight: 1.2,
-              margin: 0,
-              maxWidth: 520,
-            }}
-          >
-            Pronail Complex
-          </h2>
-        </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {STEPS.map(({ num, title, body }, i) => (
-              <div
-                key={num}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '80px 1fr',
-                  gap: 32,
-                  padding: '36px 0',
-                  borderTop: i === 0 ? '1px solid var(--color-border)' : 'none',
-                  borderBottom: '1px solid var(--color-border)',
-                  alignItems: 'start',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 40,
-                    fontWeight: 300,
-                    lineHeight: 1,
-                    color: 'var(--color-accent)',
-                    opacity: 0.6,
-                  }}
-                >
-                  {num}
-                </span>
-
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 'clamp(18px, 2vw, 24px)',
-                      fontWeight: 400,
-                      margin: '0 0 10px',
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: 14,
-                      lineHeight: 1.6,
-                      color: 'var(--color-muted)',
-                      margin: 0,
-                      fontWeight: 300,
-                      maxWidth: 600,
-                    }}
-                  >
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <section 
+      id="selos-qualidade" 
+      className="section-pad" 
+      style={{ backgroundColor: 'var(--color-ground)' }}
+    >
+      <div className="inner" style={{ display: 'flex', justifyContent: 'center' }}>
+        <img 
+          src={tarjaFda} 
+          alt="Selos de Qualidade FDA, GMP e 100% Natural" 
+          style={{ 
+            width: '100%', 
+            maxWidth: '1000px', 
+            height: 'auto', 
+            objectFit: 'contain' 
+          }} 
+        />
+      </div>
     </section>
   )
 }
