@@ -9,6 +9,8 @@ import iconeCemPorCento from '../iconefolha.png';
 import icone60 from '../icone60.png';
 import iconevitamin from '../vitamine.png';
 import tarjaFda from '../tarjafda.png';
+import imgSeal from '../entregagratis.png';
+import selo60dias from '../60dias.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
@@ -872,6 +874,36 @@ function Ingredients() {
 
 function Pricing() {
   return (
+    <>
+    {/* FAIXA 1: FRETE GRÁTIS (Layout Clean Fundo Branco) */}
+        <div style={{ 
+          backgroundColor: '#ffffff', 
+          padding: '60px 20px 20px 20px', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          flexWrap: 'wrap', 
+          gap: '30px',
+          width: '100%'
+        }}>
+          {/* Imagem do Selo */}
+          <img src={imgSeal} alt="Fast and Free Shipping" style={{ width: '140px', height: 'auto' }} />
+          
+          {/* Textos de Destaque */}
+          <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
+            <h2 style={{ color: 'var(--color-deep)', fontSize: '32px', margin: '0 0 5px 0', fontWeight: '800' }}>
+              Every 6 Bottles Order
+            </h2>
+            <h2 style={{ color: 'var(--color-accent)', fontSize: '32px', margin: '0 0 12px 0', fontWeight: '800', textDecoration: 'underline' }}>
+              Gets FREE Shipping Too!
+            </h2>
+            <p style={{ color: '#666666', fontSize: '18px', margin: 0, fontWeight: '500' }}>
+              *97% Of Customers Order 6 Bottles (Our Recommended Option)
+            </p>
+          </div>
+        </div>
+
+       
     <section id="pricing" style={{ padding: '80px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
       <div style={{ 
         maxWidth: '1000px', 
@@ -986,6 +1018,42 @@ function Pricing() {
 
       </div>
     </section>
+    {/* SEÇÃO DE GARANTIA (Fundo Escuro com Caixa Branca) */}
+        <div style={{ backgroundColor: 'var(--color-deep)', padding: '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+          
+          {/* Caixa Branca Central */}
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '12px',
+            padding: '40px',
+            maxWidth: '850px',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '40px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            flexWrap: 'wrap'
+          }}>
+            
+            {/* Lado Esquerdo: Imagem do Selo */}
+            <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: '160px', margin: '0 auto' }}>
+              <img src={selo60dias} alt="60-Day Money Back Guarantee" style={{ width: '100%', height: 'auto' }} />
+            </div>
+
+            {/* Lado Direito: Textos */}
+            <div style={{ flex: 1, minWidth: '250px' }}>
+              <h3 style={{ color: 'var(--color-deep)', fontSize: '26px', margin: '0 0 12px 0', fontWeight: '800', fontFamily: 'Arial, sans-serif' }}>
+                100% Satisfaction<br/>
+                60-Day Money Back Guarantee
+              </h3>
+              <p style={{ color: '#444444', fontSize: '16px', lineHeight: '1.6', margin: 0, fontFamily: 'Arial, sans-serif' }}>
+                Your order today is covered by our iron-clad <strong>60-day 100% money-back guarantee</strong>. If you are not impressed with the results, then just write to us and we'll refund every single cent.
+              </p>
+            </div>
+
+          </div>
+        </div>
+    </>
   );
 }
 // ─── Testimonials ─────────────────────────────────────────────────────────────
