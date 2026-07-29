@@ -219,7 +219,11 @@ function Navbar() {
         {/* CTA + hamburger */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <a
-            href={AFFILIATE_URL}
+            href="#pricing"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+          }}
             rel="nofollow sponsored"
             className="hidden md:inline-flex"
             style={{
@@ -288,7 +292,11 @@ function Navbar() {
             </a>
           ))}
           <a
-            href={AFFILIATE_URL}
+            href="#pricing"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+          }}
             rel="nofollow sponsored"
             style={{
               display: 'inline-flex',
@@ -421,7 +429,11 @@ function Hero() {
 
               <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
                 <a
-                  href={AFFILIATE_URL}
+                  href="#pricing"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+          }}
                   rel="nofollow sponsored"
                   style={{
                     display: 'inline-flex',
