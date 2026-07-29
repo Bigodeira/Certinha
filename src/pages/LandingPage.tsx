@@ -67,7 +67,7 @@ const PRICING_PACKAGES = [
     newTotal: '$294',
     shipping: '+ FREE Shipping',
     highlight: true,
-    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002',
+    link: ' https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55361&cbitems=306&corid=7e25eb8a-a9bb-4725-a209-6f75f9d9c5d3&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0006&time=1784875153&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA2OzI5NDtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55361%26cbitems%3D306%26cbskin%26exitoffer%3D2%26template%3D0006',
   },
   {
     id: 'pack-3',
@@ -80,9 +80,10 @@ const PRICING_PACKAGES = [
     newTotal: '$207',
     shipping: '+ FREE Shipping',
     highlight: false,
-    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002',
+    link: ' https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55360&cbitems=302&corid=565476e0-4fb9-4480-b219-3346c27d80d4&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0003&time=1784875155&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzAyOzIwNztmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55360%26cbitems%3D302%26cbskin%26exitoffer%3D2%26template%3D0003', 
   }
-];
+  ];
+
 const INGREDIENTS = [
   {
     name: 'Tea Tree Oil',
@@ -151,7 +152,7 @@ function Navbar() {
   const navLinks = ['Benefits', 'How It Works', 'Ingredients', 'Reviews', 'FAQ']
 
   return (
-    <header
+  <header
       role="banner"
       style={{
         position: 'sticky',
@@ -162,6 +163,53 @@ function Navbar() {
         backdropFilter: 'blur(8px)',
       }}
     >
+      
+      {/* BARRA DE CONFIANÇA CLICKBANK */}
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        width: '100%', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        padding: '12px 20px',
+        borderBottom: '1px solid #eaeaea',
+        position: 'relative',
+        zIndex: 50,
+        fontFamily: 'Arial, sans-serif'
+      }}>
+        {/* Texto Interativo com Efeito Hover (Sem link) */}
+        <div 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '6px',
+            transition: 'transform 0.2s ease-in-out',
+            cursor: 'default'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          
+          <strong style={{ color: '#1a1a24', fontSize: '18px', fontWeight: '900', letterSpacing: '-0.5px' }}>
+            CLICKBANK<sup style={{ fontSize: '10px', fontWeight: 'bold' }}>®</sup>
+          </strong>
+          
+          <span style={{ color: '#d1d1d1', margin: '0 4px', fontSize: '18px' }}>|</span>
+          
+          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+            TRUSTED
+          </span>
+          
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#888" style={{ marginTop: '-2px' }}>
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+          </svg>
+          
+          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+            SECURE
+          </span>
+
+        </div>
+      </div>
       <nav
         aria-label="Main navigation"
         style={{
@@ -429,27 +477,30 @@ function Hero() {
 
               <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
                 <a
-                  href="#pricing"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-                  rel="nofollow sponsored"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    backgroundColor: 'var(--color-text)',
-                    color: '#fff',
-                    padding: '16px 36px',
-                    borderRadius: 100,
-                    fontSize: 14,
-                    fontWeight: 500,
-                    letterSpacing: '0.04em',
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
-                  }}
-                >
+      href="#pricing"
+      onClick={(e) => {
+        e.preventDefault();
+        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+      }}
+      rel="nofollow sponsored"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        backgroundColor: 'var(--color-text)',
+        color: '#fff',
+        padding: '16px 36px',
+        borderRadius: 100,
+        fontSize: 14,
+        fontWeight: 500,
+        letterSpacing: '0.04em',
+        textDecoration: 'none',
+        boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
+        transition: 'background-color 0.2s',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-text)')}
+    >
                   Claim Your Discount <FiArrowRight size={15} />
                 </a>
                 <a
@@ -838,7 +889,7 @@ function Pricing() {
             flex: '1 1 300px',
             maxWidth: '320px',
             backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
-            border: pkg.highlight ? '3px solid #77b5c4' : '1px solid #e0e0e0',
+            border: pkg.highlight ? '3px solid var(--color-deep)' : '1px solid #e0e0e0',
             borderRadius: '8px',
             padding: '32px 16px',
             textAlign: 'center',
@@ -868,7 +919,7 @@ function Pricing() {
             )}
 
             {/* Títulos */}
-            <h3 style={{ fontSize: '26px', color: '#77b5c4', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <h3 style={{ fontSize: '26px', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
               {pkg.title}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '0 0 24px 0' }}>{pkg.subtitle}</p>
@@ -877,7 +928,7 @@ function Pricing() {
             <img src={pkg.image} alt={pkg.title} style={{ height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
 
             {/* Preço Principal */}
-            <div style={{ color: '#77b5c4', marginBottom: '24px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
+            <div style={{ color: 'var(--color-deep)', marginBottom: '24px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
               <span style={{ fontSize: '72px', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
               <span style={{ fontSize: '18px', marginLeft: '4px' }}>/ Bottle</span>
             </div>
