@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import img2Bottles from '../2frascos.png';
+import img6Bottles from '../6frascos.png'; // O pacote de 3+3
+import img3Bottles from '../3frascos.png'; // O pacote de 2+1
 import iconeAcid from '../iconeacid.png';
 import iconeAloe from '../iconealoevera.png';
 import iconetea from '../teaicone.png';
@@ -39,7 +42,47 @@ const BENEFITS = [
   },
 ]
 
-
+const PRICING_PACKAGES = [
+  {
+    id: 'pack-2',
+    title: '2 BOTTLES',
+    subtitle: '· 60 Day Supply ·',
+    image: img2Bottles,
+    price: '79',
+    perks: ['YOU SAVE $200!', '60 DAYS GUARANTEE'],
+    oldTotal: '$358',
+    newTotal: '$158',
+    shipping: '+ 9.99 Shipping',
+    highlight: false,
+    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002', 
+  },
+  {
+    id: 'pack-6',
+    title: '3 + 3 BOTTLES',
+    subtitle: '· 180 Day Supply ·',
+    image: img6Bottles,
+    price: '49',
+    perks: ['YOU SAVE $780!', 'BIGGEST DISCOUNT', '60 DAYS GUARANTEE', '3 FREE EBOOKS!'],
+    oldTotal: '$1074',
+    newTotal: '$294',
+    shipping: '+ FREE Shipping',
+    highlight: true,
+    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002',
+  },
+  {
+    id: 'pack-3',
+    title: '2 + 1 BOTTLES',
+    subtitle: '· 90 Day Supply ·',
+    image: img3Bottles,
+    price: '69',
+    perks: ['YOU SAVE $330!', '60 DAYS GUARANTEE'],
+    oldTotal: '$537',
+    newTotal: '$207',
+    shipping: '+ FREE Shipping',
+    highlight: false,
+    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002',
+  }
+];
 const INGREDIENTS = [
   {
     name: 'Tea Tree Oil',
@@ -763,6 +806,125 @@ function Ingredients() {
   )
 }
 
+
+function Pricing() {
+  return (
+    <section id="pricing" style={{ padding: '80px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
+      <div style={{ 
+        maxWidth: '1000px', 
+        margin: '0 auto', 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        justifyContent: 'center', 
+        alignItems: 'stretch',
+        gap: '24px' 
+      }}>
+        
+        {PRICING_PACKAGES.map((pkg) => (
+          <div key={pkg.id} style={{
+            width: '100%',
+            flex: '1 1 300px',
+            maxWidth: '320px',
+            backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
+            border: pkg.highlight ? '3px solid #77b5c4' : '1px solid #e0e0e0',
+            borderRadius: '8px',
+            padding: '32px 16px',
+            textAlign: 'center',
+            boxShadow: pkg.highlight ? '0 12px 24px rgba(0,0,0,0.1)' : '0 4px 8px rgba(0,0,0,0.05)',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            
+            {/* Selo Best Value (Aparece só no do meio) */}
+            {pkg.highlight && (
+              <div style={{
+                position: 'absolute',
+                top: '-20px',
+                right: '-10px',
+                backgroundColor: '#ff4d4d',
+                color: '#fff',
+                fontWeight: 'bold',
+                padding: '12px 16px',
+                borderRadius: '50px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                transform: 'rotate(10deg)',
+                zIndex: 10
+              }}>
+                BEST<br/>VALUE
+              </div>
+            )}
+
+            {/* Títulos */}
+            <h3 style={{ fontSize: '26px', color: '#77b5c4', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              {pkg.title}
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 24px 0' }}>{pkg.subtitle}</p>
+
+            {/* Imagem do Produto */}
+            <img src={pkg.image} alt={pkg.title} style={{ height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+
+            {/* Preço Principal */}
+            <div style={{ color: '#77b5c4', marginBottom: '24px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
+              <span style={{ fontSize: '72px', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
+              <span style={{ fontSize: '18px', marginLeft: '4px' }}>/ Bottle</span>
+            </div>
+
+            {/* Vantagens (Perks) */}
+            <div style={{ marginBottom: '32px', flexGrow: 1 }}>
+              {pkg.perks.map((perk, i) => (
+                <div key={i} style={{
+                  border: '1.5px dashed #aaa',
+                  borderRadius: '4px',
+                  padding: '8px',
+                  marginBottom: '8px',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
+                }}>
+                  <span style={{ color: '#4caf50', marginRight: '6px' }}>✔</span> {perk}
+                </div>
+              ))}
+            </div>
+
+            {/* Botão de Compra */}
+            <button 
+            onClick={() => window.location.href = pkg.link}
+              style={{
+          
+              backgroundColor: '#ffd700',
+              background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
+              color: '#000',
+              border: '1px solid #d49a00',
+              borderRadius: '8px',
+              padding: '16px',
+              fontSize: '26px',
+              fontWeight: '900',
+              cursor: 'pointer',
+              marginBottom: '16px',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+              width: '100%'
+            }}>
+              BUY NOW
+            </button>
+
+            {/* Totais e Frete */}
+            <div style={{ fontSize: '16px', color: '#333', marginBottom: '12px' }}>
+              TOTAL: <del style={{ color: '#888', marginRight: '8px' }}>{pkg.oldTotal}</del> 
+              <span style={{ fontWeight: 'bold', fontSize: '20px' }}>{pkg.newTotal}</span>
+            </div>
+
+            <div style={{ fontSize: '14px', color: '#555' }}>
+              {pkg.shipping}
+            </div>
+
+          </div>
+        ))}
+
+      </div>
+    </section>
+  );
+}
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
 function Testimonials() {
@@ -1276,6 +1438,7 @@ export default function LandingPage() {
         <Benefits />
         <HowItWorks />
         <Ingredients />
+        <Pricing />
         <Testimonials />
         <FAQ />
         <FinalCTA />
