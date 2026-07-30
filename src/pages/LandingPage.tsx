@@ -1094,13 +1094,13 @@ function Pricing() {
        
     <section id="pricing" style={{ padding: '80px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
       <div style={{ 
-        maxWidth: '1000px', 
+        maxWidth: '1180px', 
         margin: '0 auto', 
         display: 'flex', 
         flexWrap: 'wrap', 
         justifyContent: 'center', 
         alignItems: 'stretch',
-        gap: '24px' 
+        gap: '28px' 
       }}>
         
         {PRICING_PACKAGES.map((pkg) => (
@@ -1108,15 +1108,15 @@ function Pricing() {
         key={pkg.id} 
         style={{
           width: '100%',
-          flex: '1 1 300px',
-          maxWidth: '320px',
+          flex: '1 1 330px',
+          maxWidth: '370px',
           backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
-          border: pkg.highlight ? '3px solid var(--color-deep)' : '1px solid #e0e0e0',
-          borderRadius: '8px',
-          padding: '32px 16px',
+          border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
+          borderRadius: '10px',
+          padding: '40px 24px',
           textAlign: 'center',
           /* Sombra mais forte por padrão no banner do meio */
-          boxShadow: pkg.highlight ? '0 15px 35px rgba(0,0,0,0.18)' : '0 4px 8px rgba(0,0,0,0.05)',
+          boxShadow: pkg.highlight ? '0 18px 40px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
@@ -1126,21 +1126,21 @@ function Pricing() {
         }}
         onMouseEnter={(e) => {
           if (pkg.highlight) {
-            /* Efeito exclusivo para o banner do meio: Cresce 4% e a sombra dobra */
-            e.currentTarget.style.transform = 'scale(1.04)';
-            e.currentTarget.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
+            /* Efeito exclusivo para o banner do meio: Cresce 5% e a sombra dobra */
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 28px 55px rgba(0,0,0,0.32)';
             e.currentTarget.style.zIndex = '10'; // Traz o banner para frente
           } else {
-            /* Efeito sutil para os banners laterais: Crescem apenas 1% */
-            e.currentTarget.style.transform = 'scale(1.01)';
-            e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            /* Efeito sutil para os banners laterais: Crescem apenas 2% */
+            e.currentTarget.style.transform = 'scale(1.02)';
+            e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.12)';
             e.currentTarget.style.zIndex = '5';
           }
         }}
         onMouseLeave={(e) => {
           /* Quando o mouse sai, tudo volta exatamente ao normal */
           e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.boxShadow = pkg.highlight ? '0 15px 35px rgba(0,0,0,0.18)' : '0 4px 8px rgba(0,0,0,0.05)';
+          e.currentTarget.style.boxShadow = pkg.highlight ? '0 18px 40px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
           e.currentTarget.style.zIndex = '1';
         }}
       >
@@ -1149,14 +1149,15 @@ function Pricing() {
             {pkg.highlight && (
               <div style={{
                 position: 'absolute',
-                top: '-20px',
-                right: '-10px',
+                top: '-24px',
+                right: '-14px',
                 backgroundColor: '#ff4d4d',
                 color: '#fff',
                 fontWeight: 'bold',
-                padding: '12px 16px',
+                fontSize: '16px',
+                padding: '14px 20px',
                 borderRadius: '50px',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                boxShadow: '0 6px 12px rgba(0,0,0,0.25)',
                 transform: 'rotate(10deg)',
                 zIndex: 10
               }}>
@@ -1165,29 +1166,38 @@ function Pricing() {
             )}
 
             {/* Títulos */}
-            <h3 style={{ fontSize: '26px', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <h3 style={{ fontSize: '30px', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
               {pkg.title}
             </h3>
-            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 24px 0' }}>{pkg.subtitle}</p>
+            <p style={{ fontSize: '15px', color: '#666', margin: '0 0 28px 0' }}>{pkg.subtitle}</p>
 
             {/* Imagem do Produto */}
-            <img src={pkg.image} alt={pkg.title} style={{ height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+            <img src={pkg.image} alt={pkg.title} style={{
+              height: '260px',
+              width: 'auto',
+              objectFit: 'contain',
+              borderRadius: '20px',
+              boxShadow: '14px 12px 28px rgba(0,0,0,0.22)',
+              marginBottom: '28px',
+              display: 'block',
+              alignSelf: 'center',
+            }} />
 
             {/* Preço Principal */}
-            <div style={{ color: 'var(--color-deep)', marginBottom: '24px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
-              <span style={{ fontSize: '72px', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
-              <span style={{ fontSize: '18px', marginLeft: '4px' }}>/ Bottle</span>
+            <div style={{ color: 'var(--color-deep)', marginBottom: '28px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
+              <span style={{ fontSize: '84px', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
+              <span style={{ fontSize: '20px', marginLeft: '4px' }}>/ Bottle</span>
             </div>
 
             {/* Vantagens (Perks) */}
-            <div style={{ marginBottom: '32px', flexGrow: 1 }}>
+            <div style={{ marginBottom: '36px', flexGrow: 1 }}>
               {pkg.perks.map((perk, i) => (
                 <div key={i} style={{
                   border: '1.5px dashed #aaa',
-                  borderRadius: '4px',
-                  padding: '8px',
-                  marginBottom: '8px',
-                  fontSize: '14px',
+                  borderRadius: '6px',
+                  padding: '11px',
+                  marginBottom: '10px',
+                  fontSize: '15px',
                   fontWeight: 'bold',
                   backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
                 }}>
@@ -1204,35 +1214,35 @@ function Pricing() {
     background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
     color: '#000',
     border: '1px solid #d49a00',
-    borderRadius: '8px',
-    padding: '16px',
-    fontSize: '26px',
+    borderRadius: '10px',
+    padding: '20px',
+    fontSize: '30px',
     fontWeight: '900',
     cursor: 'pointer',
-    marginBottom: '16px',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+    marginBottom: '18px',
+    boxShadow: '0 6px 10px rgba(0,0,0,0.22)',
     width: '100%',
     transition: 'all 0.2s ease-in-out',
   }}
   onMouseEnter={(e) => {
     e.currentTarget.style.transform = 'scale(1.03)';
-    e.currentTarget.style.boxShadow = '0 10px 15px rgba(0,0,0,0.4)';
+    e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
   }}
   onMouseLeave={(e) => {
     e.currentTarget.style.transform = 'scale(1)';
-    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.2)';
+    e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
   }}
 >
   BUY NOW
 </button>
 
             {/* Totais e Frete */}
-            <div style={{ fontSize: '16px', color: '#333', marginBottom: '12px' }}>
+            <div style={{ fontSize: '17px', color: '#333', marginBottom: '12px' }}>
               TOTAL: <del style={{ color: '#888', marginRight: '8px' }}>{pkg.oldTotal}</del> 
-              <span style={{ fontWeight: 'bold', fontSize: '20px' }}>{pkg.newTotal}</span>
+              <span style={{ fontWeight: 'bold', fontSize: '22px' }}>{pkg.newTotal}</span>
             </div>
 
-            <div style={{ fontSize: '14px', color: '#555' }}>
+            <div style={{ fontSize: '15px', color: '#555' }}>
               {pkg.shipping}
             </div>
 
