@@ -17,7 +17,7 @@ import imgSeal from '../entregagratis.png';
 import selo60dias from '../60dias.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
-  FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar, FiArrowUp, 
+  FiChevronDown, FiChevronUp, FiArrowRight, FiStar, FiArrowUp, 
 } from 'react-icons/fi'
 import iconeEstrelas from '../icone-estrela.png';
 // ─── ProNail Complex Affiliate URL ──────────────────────────────────────────
@@ -151,25 +151,17 @@ const FAQS = [
   },
 ]
 
-// ─── Navbar ───────────────────────────────────────────────────────────────────
+// ─── Top Bar (logo apenas, NÃO fixo — rola junto com a página) ───────────────
 
-function Navbar() {
-  const [open, setOpen] = useState(false)
-  const navLinks = ['Benefits', 'How It Works', 'Ingredients', 'Reviews', 'FAQ']
-
+function TopBar() {
   return (
-  <header
+    <div
       role="banner"
       style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
         backgroundColor: 'var(--color-ground)',
         borderBottom: '1px solid var(--color-border)',
-        backdropFilter: 'blur(8px)',
       }}
     >
-      
       {/* BARRA DE CONFIANÇA CLICKBANK */}
       <div style={{ 
         backgroundColor: '#ffffff', 
@@ -179,11 +171,8 @@ function Navbar() {
         alignItems: 'center',
         padding: '12px 20px',
         borderBottom: '1px solid #eaeaea',
-        position: 'relative',
-        zIndex: 50,
         fontFamily: 'Arial, sans-serif'
       }}>
-        {/* Texto Interativo com Efeito Hover (Sem link) */}
         <div 
           style={{ 
             display: 'flex', 
@@ -195,37 +184,36 @@ function Navbar() {
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          
           <strong style={{ color: '#1a1a24', fontSize: '18px', fontWeight: '900', letterSpacing: '-0.5px' }}>
             CLICKBANK<sup style={{ fontSize: '10px', fontWeight: 'bold' }}>®</sup>
           </strong>
-          
+
           <span style={{ color: '#d1d1d1', margin: '0 4px', fontSize: '18px' }}>|</span>
-          
+
           <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
             TRUSTED
           </span>
-          
+
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#888" style={{ marginTop: '-2px' }}>
             <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
           </svg>
-          
+
           <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
             SECURE
           </span>
-
         </div>
       </div>
-      <nav
-        aria-label="Main navigation"
+
+      <div
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '0 24px',
+          padding: '24px 24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: 72,
+          gap: 24,
+          flexWrap: 'wrap',
         }}
       >
         <a
@@ -243,12 +231,12 @@ function Navbar() {
           PRONAIL <span style={{ color: 'var(--color-accent)', fontWeight: 300 }}>COMPLEX</span>
         </a>
 
-        {/* Desktop Links */}
+        {/* Links de navegação */}
         <ul
           className="hidden md:flex"
           style={{ listStyle: 'none', margin: 0, padding: 0, gap: 32, display: 'flex' }}
         >
-          {navLinks.map(label => (
+          {['Benefits', 'Ingredients', 'FAQ'].map(label => (
             <li key={label}>
               <a
                 href={`#${label.toLowerCase().replace(/ /g, '-')}`}
@@ -269,110 +257,46 @@ function Navbar() {
             </li>
           ))}
         </ul>
+      </div>
+    </div>
+  )
+}
 
-        {/* CTA + hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <a
-            href="#pricing"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-            rel="nofollow sponsored"
-            className="hidden md:inline-flex"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              backgroundColor: 'var(--color-text)',
-              color: '#fff',
-              padding: '10px 22px',
-              borderRadius: 100,
-              fontSize: 13,
-              fontWeight: 500,
-              letterSpacing: '0.04em',
-              textDecoration: 'none',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={e => ((e.target as HTMLAnchorElement).style.backgroundColor = 'var(--color-accent)')}
-            onMouseLeave={e => ((e.target as HTMLAnchorElement).style.backgroundColor = 'var(--color-text)')}
-          >
-            Claim Your Discount <FiArrowRight size={13} />
-          </a>
-          <button
-            onClick={() => setOpen(!open)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            className="md:hidden"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: 'var(--color-text)',
-              padding: 4,
-              display: 'flex',
-            }}
-          >
-            {open ? <FiX size={22} /> : <FiMenu size={22} />}
-          </button>
-        </div>
-      </nav>
+// ─── Floating CTA (botão fixo que acompanha o scroll) ────────────────────────
 
-      {/* Mobile drawer */}
-      {open && (
-        <div
-          className="md:hidden"
-          style={{
-            backgroundColor: 'var(--color-ground)',
-            borderTop: '1px solid var(--color-border)',
-            padding: '8px 24px 24px',
-          }}
-        >
-          {navLinks.map(label => (
-            <a
-              key={label}
-              href={`#${label.toLowerCase().replace(/ /g, '-')}`}
-              onClick={() => setOpen(false)}
-              style={{
-                display: 'block',
-                padding: '14px 0',
-                borderBottom: '1px solid var(--color-border)',
-                color: 'var(--color-text)',
-                textDecoration: 'none',
-                fontSize: 15,
-              }}
-            >
-              {label}
-            </a>
-          ))}
-          <a
-            href="#pricing"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-            rel="nofollow sponsored"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              backgroundColor: 'var(--color-text)',
-              color: '#fff',
-              padding: '12px 28px',
-              borderRadius: 100,
-              fontSize: 14,
-              fontWeight: 500,
-              textDecoration: 'none',
-              marginTop: 20,
-              width: '100%',
-              justifyContent: 'center',
-            }}
-          >
-            Claim Your Discount <FiArrowRight size={14} />
-          </a>
-        </div>
-      )}
-    </header>
+function FloatingCTA() {
+  return (
+    <a
+      href="#pricing"
+      onClick={(e) => {
+        e.preventDefault();
+        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+      }}
+      rel="nofollow sponsored"
+      style={{
+        position: 'fixed',
+        top: 20,
+        right: 20,
+        zIndex: 999,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        backgroundColor: 'var(--color-text)',
+        color: '#fff',
+        padding: '12px 22px',
+        borderRadius: 100,
+        fontSize: 13,
+        fontWeight: 500,
+        letterSpacing: '0.04em',
+        textDecoration: 'none',
+        boxShadow: '0 6px 18px rgba(0,0,0,0.2)',
+        transition: 'background-color 0.2s',
+      }}
+      onMouseEnter={e => ((e.target as HTMLAnchorElement).style.backgroundColor = 'var(--color-accent)')}
+      onMouseLeave={e => ((e.target as HTMLAnchorElement).style.backgroundColor = 'var(--color-text)')}
+    >
+      Claim Your Discount <FiArrowRight size={13} />
+    </a>
   )
 }
 
@@ -1699,7 +1623,8 @@ function Footer() {
 export default function LandingPage() {
   return (
     <>
-      <Navbar />
+      <TopBar />
+      <FloatingCTA />
       <main>
         <Hero />
         <Stats />
