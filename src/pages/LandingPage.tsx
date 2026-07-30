@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import imgEstrelas from '../estrelas.png';
+import imgCreditCards from '../creditcards.png';
 import img2Bottles from '../2frascos.png';
 import img6Bottles from '../6frascos.png'; // O pacote de 3+3
 import img3Bottles from '../3frascos.png'; // O pacote de 2+1
@@ -13,7 +15,7 @@ import imgSeal from '../entregagratis.png';
 import selo60dias from '../60dias.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
-  FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar,
+  FiChevronDown, FiChevronUp, FiMenu, FiX, FiArrowRight, FiStar, FiArrowUp, 
 } from 'react-icons/fi'
 import iconeEstrelas from '../icone-estrela.png';
 // ─── ProNail Complex Affiliate URL ──────────────────────────────────────────
@@ -916,20 +918,46 @@ function Pricing() {
       }}>
         
         {PRICING_PACKAGES.map((pkg) => (
-          <div key={pkg.id} style={{
-            width: '100%',
-            flex: '1 1 300px',
-            maxWidth: '320px',
-            backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
-            border: pkg.highlight ? '3px solid var(--color-deep)' : '1px solid #e0e0e0',
-            borderRadius: '8px',
-            padding: '32px 16px',
-            textAlign: 'center',
-            boxShadow: pkg.highlight ? '0 12px 24px rgba(0,0,0,0.1)' : '0 4px 8px rgba(0,0,0,0.05)',
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
+          <div 
+        key={pkg.id} 
+        style={{
+          width: '100%',
+          flex: '1 1 300px',
+          maxWidth: '320px',
+          backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
+          border: pkg.highlight ? '3px solid var(--color-deep)' : '1px solid #e0e0e0',
+          borderRadius: '8px',
+          padding: '32px 16px',
+          textAlign: 'center',
+          /* Sombra mais forte por padrão no banner do meio */
+          boxShadow: pkg.highlight ? '0 15px 35px rgba(0,0,0,0.18)' : '0 4px 8px rgba(0,0,0,0.05)',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          /* Prepara a div para uma animação suave de 0.3 segundos */
+          transition: 'all 0.3s ease', 
+          zIndex: 1
+        }}
+        onMouseEnter={(e) => {
+          if (pkg.highlight) {
+            /* Efeito exclusivo para o banner do meio: Cresce 4% e a sombra dobra */
+            e.currentTarget.style.transform = 'scale(1.04)';
+            e.currentTarget.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
+            e.currentTarget.style.zIndex = '10'; // Traz o banner para frente
+          } else {
+            /* Efeito sutil para os banners laterais: Crescem apenas 1% */
+            e.currentTarget.style.transform = 'scale(1.01)';
+            e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            e.currentTarget.style.zIndex = '5';
+          }
+        }}
+        onMouseLeave={(e) => {
+          /* Quando o mouse sai, tudo volta exatamente ao normal */
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = pkg.highlight ? '0 15px 35px rgba(0,0,0,0.18)' : '0 4px 8px rgba(0,0,0,0.05)';
+          e.currentTarget.style.zIndex = '1';
+        }}
+      >
             
             {/* Selo Best Value (Aparece só no do meio) */}
             {pkg.highlight && (
@@ -983,25 +1011,34 @@ function Pricing() {
             </div>
 
             {/* Botão de Compra */}
-            <button 
-            onClick={() => window.location.href = pkg.link}
-              style={{
-          
-              backgroundColor: '#ffd700',
-              background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
-              color: '#000',
-              border: '1px solid #d49a00',
-              borderRadius: '8px',
-              padding: '16px',
-              fontSize: '26px',
-              fontWeight: '900',
-              cursor: 'pointer',
-              marginBottom: '16px',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
-              width: '100%'
-            }}>
-              BUY NOW
-            </button>
+            <button
+  onClick={() => window.location.href = pkg.link}
+  style={{
+    backgroundColor: '#ffd700',
+    background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
+    color: '#000',
+    border: '1px solid #d49a00',
+    borderRadius: '8px',
+    padding: '16px',
+    fontSize: '26px',
+    fontWeight: '900',
+    cursor: 'pointer',
+    marginBottom: '16px',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+    width: '100%',
+    transition: 'all 0.2s ease-in-out',
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = 'scale(1.03)';
+    e.currentTarget.style.boxShadow = '0 10px 15px rgba(0,0,0,0.4)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.2)';
+  }}
+>
+  BUY NOW
+</button>
 
             {/* Totais e Frete */}
             <div style={{ fontSize: '16px', color: '#333', marginBottom: '12px' }}>
@@ -1017,7 +1054,56 @@ function Pricing() {
         ))}
 
       </div>
+      {/* IMAGEM DOS CARTÕES: Centralizada abaixo das ofertas */}
+        <div style={{ 
+          width: '100%', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginTop: '40px',
+          paddingBottom: '20px'
+        }}>
+          <img 
+            src={imgCreditCards} 
+            alt="Cartões Aceitos" 
+            style={{ width: '100%', maxWidth: '320px', height: 'auto' }} 
+          />
+        </div>
+      {/* AVALIAÇÕES DOS CLIENTES */}
+      <div style={{ 
+        width: '100%', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        marginTop: '10px', 
+        paddingBottom: '40px', 
+        fontFamily: "'Montserrat', Arial, sans-serif" 
+      }}>
+        <p style={{ fontSize: '24px', color: '#1a1a1a', margin: '0', marginBottom: '-25px' }}>
+          Our customers say
+        </p>
+        
+        <img 
+          src={imgEstrelas} 
+          alt="4.5 de 5 estrelas" 
+          style={{ 
+            width: '100%', 
+            maxWidth: '220px', 
+            height: 'auto',
+            /* Puxa os textos fortemente para cima e para baixo para colar nas estrelas */
+            marginTop: '-60px', 
+            marginBottom: '-53px',
+            position: 'relative',
+            zIndex: 2
+          }} 
+        />
+        
+        <p style={{ fontSize: '20px', color: '#1a1a1a', margin: '0', marginTop: '-25px' }}>
+          based on <strong style={{ fontWeight: '900' }}>14,369 reviews!</strong>
+        </p>
+      </div>
+
     </section>
+  
     {/* SEÇÃO DE GARANTIA (Fundo Escuro com Caixa Branca) */}
         <div style={{ backgroundColor: 'var(--color-deep)', padding: '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
           
@@ -1056,151 +1142,7 @@ function Pricing() {
     </>
   );
 }
-// ─── Testimonials ─────────────────────────────────────────────────────────────
 
-function Testimonials() {
-  return (
-    <section id="reviews" className="section-pad" style={{ backgroundColor: 'var(--color-surface)' }}>
-      <div className="inner">
-        <div style={{ marginBottom: 48 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent)',
-              marginBottom: 12,
-            }}
-          >
-            Reviews
-          </p>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(28px, 3.5vw, 44px)',
-              fontWeight: 400,
-              lineHeight: 1.2,
-              margin: 0,
-            }}
-          >
-            Real Reviews From Real Users
-          </h2>
-        </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 20,
-          }}
-        >
-          {TESTIMONIALS.map(({ name, text }) => (
-            <article
-              key={name}
-              style={{
-                padding: '36px',
-                backgroundColor: 'var(--color-ground)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-                borderRadius: 4,
-              }}
-            >
-              {/* Stars */}
-              <div style={{ display: 'flex', gap: 3 }} aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <FiStar
-                    key={i}
-                    size={13}
-                    style={{ fill: 'var(--color-nude)', color: 'var(--color-nude)' }}
-                  />
-                ))}
-              </div>
-
-              {/* Quote */}
-              <blockquote
-                style={{
-                  margin: 0,
-                  fontSize: 14,
-                  lineHeight: 1.6,
-                  color: 'var(--color-text)',
-                  fontStyle: 'normal',
-                  fontWeight: 300,
-                }}
-              >
-                "{text}"
-              </blockquote>
-
-              {/* Attribution */}
-              <footer style={{ marginTop: 'auto' }}>
-                <cite
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 11,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-muted)',
-                    fontStyle: 'normal',
-                  }}
-                >
-                  {name} · Verified Buyer
-                </cite>
-              </footer>
-            </article>
-          ))}
-        </div>
-
-        {/* Aggregate rating */}
-        <div
-          style={{
-            marginTop: 36,
-            padding: '24px 32px',
-            backgroundColor: 'var(--color-ground)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-            flexWrap: 'wrap',
-            borderRadius: 4,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 48,
-              fontWeight: 300,
-              lineHeight: 1,
-            }}
-          >
-            4.8
-          </div>
-          <div>
-            <div style={{ display: 'flex', gap: 3, marginBottom: 4 }} aria-label="4.8 out of 5 stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <FiStar
-                  key={i}
-                  size={14}
-                  style={{ fill: 'var(--color-nude)', color: 'var(--color-nude)' }}
-                />
-              ))}
-            </div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--color-muted)',
-              }}
-            >
-              Based on over 14,300+ verified customer reviews
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 
@@ -1323,83 +1265,82 @@ function FinalCTA() {
         }}
       />
 
-      <div className="inner" style={{ position: 'relative' }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--color-accent)',
-            marginBottom: 20,
-          }}
-        >
+      <div className="inner" style={{ position: 'relative', maxWidth: '900px', margin: '0 auto' }}>
+        
+        <p style={{ 
+          fontFamily: 'var(--font-mono)', 
+          fontSize: 11, 
+          letterSpacing: '0.18em', 
+          textTransform: 'uppercase', 
+          color: 'var(--color-accent)', 
+          marginBottom: 20 
+        }}>
           Risk-Free Purchase
         </p>
 
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(32px, 5vw, 64px)',
-            fontWeight: 300,
-            color: '#fff',
-            lineHeight: 1.15,
-            margin: '0 auto 20px',
-            maxWidth: 680,
-          }}
-        >
-          Claim Your Discounted ProNail Complex Bottle Today
+        <h2 style={{ 
+          fontSize: 'clamp(32px, 4.5vw, 52px)', 
+          fontFamily: 'serif', 
+          color: '#ffffff', 
+          lineHeight: '1.2', 
+          marginBottom: '20px',
+          fontWeight: '400'
+        }}>
+          Claim Your Discounted <br />
+          ProNail Complex Bottle <br />
+          Today
         </h2>
 
-        <p
-          style={{
-            fontSize: 15,
-            color: 'rgba(255,255,255,0.55)',
-            lineHeight: 1.6,
-            maxWidth: 480,
-            margin: '0 auto 40px',
-            fontWeight: 300,
-          }}
-        >
+        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 35px auto', lineHeight: '1.6' }}>
           Try it for 60 days with an ironclad 100% money-back guarantee. Zero risk, maximum results for your feet.
         </p>
 
-        <a
-          href={AFFILIATE_URL}
-          rel="nofollow sponsored"
+        <button
+          onClick={() => {
+            const element = document.getElementById('pricing');
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 10,
+            gap: '12px',
             backgroundColor: 'var(--color-accent)',
             color: '#fff',
-            padding: '16px 40px',
+            padding: '20px 48px',
             borderRadius: 100,
-            fontSize: 15,
-            fontWeight: 500,
-            letterSpacing: '0.04em',
-            textDecoration: 'none',
-            boxShadow: '0 4px 14px rgba(90,173,167,0.3)',
+            fontSize: '19px',
+            fontWeight: 600,
+            letterSpacing: '0.03em',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 6px 20px rgba(90,173,167,0.4)',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#427f77';
+            e.currentTarget.style.transform = 'translateY(-3px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
-          Order ProNail Complex <FiArrowRight size={16} />
-        </a>
+          Order ProNail Complex <FiArrowUp size={22} />
+        </button>
 
-        <p
-          style={{
-            marginTop: 20,
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.3)',
-          }}
-        >
-          Free Shipping · 60-Day Guarantee · Secure Checkout
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '25px', fontSize: '11px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+          <span>Free Shipping</span>
+          <span>•</span>
+          <span>60-Day Guarantee</span>
+          <span>•</span>
+          <span>Secure Checkout</span>
+        </div>
+
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
@@ -1570,7 +1511,6 @@ export default function LandingPage() {
         <HowItWorks />
         <Ingredients />
         <Pricing />
-        <Testimonials />
         <FAQ />
         <FinalCTA />
       </main>
