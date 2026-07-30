@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import imgEstrelas from '../estrelas.png';
+import bgFolhas from '../6frascosfundo.png';
+import imgGarrafas from '../pronailfundo.png';
 import imgCreditCards from '../creditcards.png';
 import img2Bottles from '../2frascos.png';
 import img6Bottles from '../6frascos.png'; // O pacote de 3+3
@@ -642,7 +644,7 @@ function Stats() {
 
 function Benefits() {
   return (
-    <section id="benefits" className="section-pad" style={{ backgroundColor: 'var(--color-surface)' }}>
+   <section id="benefits" className="section-pad" style={{ backgroundColor: 'var(--color-surface)', paddingBottom: 0, marginBottom: 0 }}>
       <div className="inner">
         {/* Section header */}
         <div style={{ marginBottom: 48 }}>
@@ -731,6 +733,190 @@ function Benefits() {
             </article>
           ))}
         </div>
+
+       {/* NOVO BANNER: FUNDO COM FRASCOS INTEIROS (SEM CORTAR O TOPO) */}
+        <div style={{
+          backgroundImage: typeof bgFolhas !== 'undefined' ? `url(${bgFolhas})` : 'none',
+          backgroundColor: '#eaeaea', /* Cor de fundo suave para preencher caso falte altura */
+          backgroundSize: '100% auto',   /* Ou troque por '100% auto' se ainda cortar em telas ultrawide */
+          backgroundPosition: 'center 40%', /* Foca o enquadramento no topo para mostrar as tampas dos frascos */
+          backgroundRepeat: 'no-repeat',
+          padding: '120px 20px 100px 20px', /* Aumentamos a altura vertical para dar espaço aos frascos */
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          position: 'relative',
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          marginTop: '60px',
+          boxSizing: 'border-box'
+        }}>
+          {/* Cartão Branco Flutuante Centralizado (Elementos Maiores) */}
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '20px',
+            maxWidth: '1050px',
+            width: '100%',
+            padding: '55px 50px',
+            boxShadow: '0 20px 45px rgba(0,0,0,0.2)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '35px',
+            boxSizing: 'border-box'
+          }}>
+
+            {/* Lado Esquerdo: Título e Ícones Maiores */}
+            <div style={{ flex: '1 1 450px' }}>
+              <h2 style={{
+                fontSize: 'clamp(42px, 5.5vw, 56px)',
+                fontFamily: 'Arial, sans-serif',
+                color: '#1a1a1a',
+                lineHeight: '1.05',
+                marginBottom: '40px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
+              }}>
+                <span style={{ fontWeight: '300' }}>ProNail</span><br />
+                <strong style={{ fontWeight: '800' }}>Complex</strong>
+              </h2>
+
+              {/* Grid 2x2 dos Benefícios com Check e Texto Maiores */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '28px 20px',
+                fontSize: '20px',
+                color: '#222222',
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: '600'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{
+                    backgroundColor: '#4caf50',
+                    borderRadius: '6px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    flexShrink: 0
+                  }}>
+                    ✓
+                  </div>
+                  <span>Natural Formula</span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{
+                    backgroundColor: '#4caf50',
+                    borderRadius: '6px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    flexShrink: 0
+                  }}>
+                    ✓
+                  </div>
+                  <span>Easy To Use</span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{
+                    backgroundColor: '#4caf50',
+                    borderRadius: '6px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    flexShrink: 0
+                  }}>
+                    ✓
+                  </div>
+                  <span>No Stimulants</span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{
+                    backgroundColor: '#4caf50',
+                    borderRadius: '6px',
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    flexShrink: 0
+                  }}>
+                    ✓
+                  </div>
+                  <span>Non-GMO</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Lado Direito: Foto do Produto */}
+            <div style={{ flex: '1 1 320px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img
+                src={typeof imgGarrafas !== 'undefined' ? imgGarrafas : ''}
+                alt="ProNail Complex"
+                style={{ maxWidth: '100%', height: 'auto', maxHeight: '380px', objectFit: 'contain' }}
+              />
+            </div>
+
+      </div> {/* Fechamento do Cartão Branco */}
+      </div> {/* Fechamento da Imagem de Fundo (bgFolhas) */}
+
+      {/* TARJA DE CERTIFICADOS (ENCOSTADA NA SEÇÃO ESCURA) */}
+      <div
+        id="selos-qualidade"
+        style={{
+          backgroundColor: 'var(--color-ground)',
+          paddingTop: '30px',
+          paddingBottom: '30px',
+          marginBottom: '0px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          position: 'relative',
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          boxSizing: 'border-box'
+        }}
+      >
+        <img
+          src={typeof tarjaFda !== 'undefined' ? tarjaFda : ''}
+          alt="Selos de Qualidade FDA, GMP e 100% Natural"
+          style={{
+            width: '100%',
+            maxWidth: '900px',
+            height: 'auto',
+            objectFit: 'contain',
+            display: 'block'
+          }}
+        />
+      </div>
       </div>
     </section>
   )
@@ -1508,7 +1694,6 @@ export default function LandingPage() {
         <Hero />
         <Stats />
         <Benefits />
-        <HowItWorks />
         <Ingredients />
         <Pricing />
         <FAQ />
