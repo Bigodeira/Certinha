@@ -23,6 +23,12 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  /* Guarda contra scroll horizontal indesejado no mobile, causado pelas
+     seções "full-bleed" (width:100vw + margin-left:-50vw) usadas na página. */
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-text);
@@ -52,10 +58,11 @@ body {
   background-clip: text;
 }
 
-/* Consistent section padding */
+/* Consistent section padding — agora fluido (clamp) em vez de fixo, reduz em
+   telas menores automaticamente sem precisar de media query por breakpoint. */
 .section-pad {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: clamp(56px, 8vw, 96px);
+  padding-bottom: clamp(56px, 8vw, 96px);
   padding-left: 24px;
   padding-right: 24px;
 }
@@ -70,4 +77,13 @@ body {
 .faq-body {
   overflow: hidden;
   transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+}
+
+/* O CTA flutuante fica escondido em telas pequenas: no mobile o CTA do Hero
+   já está visível ao carregar a página, então o botão fixo só ocuparia
+   espaço/sobreporia conteúdo sem necessidade. */
+@media (max-width: 640px) {
+  .floating-cta {
+    display: none;
+  }
 }

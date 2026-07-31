@@ -15,13 +15,12 @@ import iconevitamin from '../vitamine.png';
 import tarjaFda from '../tarjafda.png';
 import imgSeal from '../entregagratis.png';
 import selo60dias from '../60dias.png';
+import imgReferencia from '../referencia.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
   FiChevronDown, FiChevronUp, FiArrowRight, FiStar, FiArrowUp, 
 } from 'react-icons/fi'
 import iconeEstrelas from '../icone-estrela.png';
-// ─── ProNail Complex Affiliate URL ──────────────────────────────────────────
-const AFFILIATE_URL = 'https://pronailcomplex.com/text.php?hopId=f72fc4db-5c5e-405a-81d6-29b599e4db2f'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -51,6 +50,7 @@ const BENEFITS = [
 const PRICING_PACKAGES = [
   {
     id: 'pack-2',
+    badgeLabel: 'Basic',
     title: '2 BOTTLES',
     subtitle: '· 60 Day Supply ·',
     image: img2Bottles,
@@ -64,6 +64,7 @@ const PRICING_PACKAGES = [
   },
   {
     id: 'pack-6',
+    badgeLabel: 'Best Value',
     title: '3 + 3 BOTTLES',
     subtitle: '· 180 Day Supply ·',
     image: img6Bottles,
@@ -77,6 +78,7 @@ const PRICING_PACKAGES = [
   },
   {
     id: 'pack-3',
+    badgeLabel: 'Most Popular',
     title: '2 + 1 BOTTLES',
     subtitle: '· 90 Day Supply ·',
     image: img3Bottles,
@@ -117,21 +119,6 @@ const INGREDIENTS = [
   },
 ]
 
-const TESTIMONIALS = [
-  {
-    name: 'Marcus K.',
-    text: 'I struggled with unsightly toenails for years. After just 3 weeks of spraying ProNail Complex after my shower, the yellowing is almost gone and my nails feel incredibly strong!',
-  },
-  {
-    name: 'Sarah J.',
-    text: 'The best part is how clean and non-greasy it is. It takes 10 seconds to spray, I put on my socks, and it works all day. Highly recommend to anyone dealing with stubborn fungus.',
-  },
-  {
-    name: 'Robert L.',
-    text: 'A truly premium product. My dermatologist was shocked at how fast my nail bed recovered. Undecylenic acid and tea tree oil are a perfect combo.',
-  },
-]
-
 const FAQS = [
   {
     q: 'How does ProNail Complex work?',
@@ -154,6 +141,8 @@ const FAQS = [
 // ─── Top Bar (logo apenas, NÃO fixo — rola junto com a página) ───────────────
 
 function TopBar() {
+  const [showClickbankInfo, setShowClickbankInfo] = useState(false)
+
   return (
     <div
       role="banner"
@@ -171,15 +160,23 @@ function TopBar() {
         alignItems: 'center',
         padding: '12px 20px',
         borderBottom: '1px solid #eaeaea',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Arial, sans-serif',
+        position: 'relative',
       }}>
-        <div 
+        <button
+          onClick={() => setShowClickbankInfo(v => !v)}
+          aria-expanded={showClickbankInfo}
+          aria-label="ClickBank trust information"
           style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: '6px',
             transition: 'transform 0.2s ease-in-out',
-            cursor: 'default'
+            cursor: 'pointer',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            font: 'inherit',
           }}
           onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
@@ -201,7 +198,65 @@ function TopBar() {
           <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
             SECURE
           </span>
-        </div>
+        </button>
+
+        {/* Caixa de informação ClickBank (em inglês) */}
+        {showClickbankInfo && (
+          <div
+            role="dialog"
+            aria-label="ClickBank trust information"
+            style={{
+              position: 'absolute',
+              top: 'calc(100% + 8px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '340px',
+              maxWidth: '90vw',
+              backgroundColor: '#ffffff',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              boxShadow: '0 12px 28px rgba(0,0,0,0.18)',
+              padding: '16px 18px',
+              textAlign: 'left',
+              zIndex: 60,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <strong style={{ color: '#1a1a24', fontSize: '14px', fontWeight: '900', letterSpacing: '-0.3px' }}>
+                  CLICKBANK<sup style={{ fontSize: '8px', fontWeight: 'bold' }}>®</sup>
+                </strong>
+                <span style={{ color: '#d1d1d1', fontSize: '14px' }}>|</span>
+                <span style={{ color: '#888', fontSize: '12px', fontWeight: '400', letterSpacing: '0.3px' }}>TRUSTED</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#888">
+                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                </svg>
+                <span style={{ color: '#888', fontSize: '12px', fontWeight: '400', letterSpacing: '0.3px' }}>SECURE</span>
+              </div>
+              <button
+                onClick={() => setShowClickbankInfo(false)}
+                aria-label="Close"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: '#888',
+                  fontSize: 16,
+                  lineHeight: 1,
+                  padding: 4,
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <p style={{ margin: '0 0 8px 0', fontSize: 13, lineHeight: 1.5, color: '#333' }}>
+              ClickBank is a trusted retailer for pronailcomplex.com.
+            </p>
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: '#333' }}>
+              If you're not completely satisfied with your purchase, contact us. We'll fix any problem. Your satisfaction is guaranteed.
+            </p>
+          </div>
+        )}
       </div>
 
       <div
@@ -1016,15 +1071,15 @@ function Pricing() {
         </div>
 
        
-    <section id="pricing" style={{ padding: '80px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
+    <section id="pricing" style={{ padding: '60px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
       <div style={{ 
-        maxWidth: '1180px', 
+        maxWidth: '1000px', 
         margin: '0 auto', 
         display: 'flex', 
         flexWrap: 'wrap', 
         justifyContent: 'center', 
         alignItems: 'stretch',
-        gap: '28px' 
+        gap: '20px' 
       }}>
         
         {PRICING_PACKAGES.map((pkg) => (
@@ -1032,27 +1087,29 @@ function Pricing() {
         key={pkg.id} 
         style={{
           width: '100%',
-          flex: '1 1 330px',
-          maxWidth: '370px',
+          flex: pkg.highlight ? '1 1 280px' : '1 1 250px',
+          maxWidth: pkg.highlight ? '320px' : '290px',
           backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
           border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
           borderRadius: '10px',
-          padding: '40px 24px',
+          padding: pkg.highlight ? '34px 24px' : '30px 20px',
           textAlign: 'center',
           /* Sombra mais forte por padrão no banner do meio */
-          boxShadow: pkg.highlight ? '0 18px 40px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
+          boxShadow: pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
+          /* Card do meio fica levemente elevado para se destacar, em proporção mais discreta */
+          transform: pkg.highlight ? 'scale(1.02) translateY(-8px)' : 'scale(1)',
           /* Prepara a div para uma animação suave de 0.3 segundos */
           transition: 'all 0.3s ease', 
-          zIndex: 1
+          zIndex: pkg.highlight ? 2 : 1
         }}
         onMouseEnter={(e) => {
           if (pkg.highlight) {
-            /* Efeito exclusivo para o banner do meio: Cresce 5% e a sombra dobra */
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 28px 55px rgba(0,0,0,0.32)';
+            /* Efeito exclusivo para o banner do meio: cresce um pouco mais e a sombra dobra */
+            e.currentTarget.style.transform = 'scale(1.06) translateY(-8px)';
+            e.currentTarget.style.boxShadow = '0 26px 48px rgba(0,0,0,0.3)';
             e.currentTarget.style.zIndex = '10'; // Traz o banner para frente
           } else {
             /* Efeito sutil para os banners laterais: Crescem apenas 2% */
@@ -1062,66 +1119,95 @@ function Pricing() {
           }
         }}
         onMouseLeave={(e) => {
-          /* Quando o mouse sai, tudo volta exatamente ao normal */
-          e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.boxShadow = pkg.highlight ? '0 18px 40px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
-          e.currentTarget.style.zIndex = '1';
+          /* Quando o mouse sai, volta ao estado de destaque (ou normal, no caso dos laterais) */
+          e.currentTarget.style.transform = pkg.highlight ? 'scale(1.02) translateY(-8px)' : 'scale(1)';
+          e.currentTarget.style.boxShadow = pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
+          e.currentTarget.style.zIndex = pkg.highlight ? '2' : '1';
         }}
       >
             
-            {/* Selo Best Value (Aparece só no do meio) */}
+            {/* Barra de Bônus (Aparece só no card do meio) */}
             {pkg.highlight && (
-              <div style={{
-                position: 'absolute',
-                top: '-24px',
-                right: '-14px',
-                backgroundColor: '#ff4d4d',
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '16px',
-                padding: '14px 20px',
-                borderRadius: '50px',
-                boxShadow: '0 6px 12px rgba(0,0,0,0.25)',
-                transform: 'rotate(10deg)',
-                zIndex: 10
-              }}>
-                BEST<br/>VALUE
-              </div>
+              <>
+                {/* Seta apontando para a barra */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    top: '-14px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 0,
+                    height: 0,
+                    borderLeft: '11px solid transparent',
+                    borderRight: '11px solid transparent',
+                    borderTop: '11px solid #ff4d4d',
+                  }}
+                />
+                {/* Barra vermelha de bônus — dentro do contorno escuro do card */}
+                <div style={{
+                  margin: '-34px -24px 18px -24px',
+                  backgroundColor: '#ff4d4d',
+                  color: '#fff',
+                  fontWeight: 800,
+                  fontSize: 'clamp(12px, 2vw, 14px)',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  padding: '11px 14px',
+                  borderRadius: '6px 6px 0 0',
+                  textAlign: 'center',
+                }}>
+                  $163 E-Book Bonus
+                </div>
+              </>
             )}
 
+            {/* Rótulo (Basic / Best Value / Most Popular) */}
+            <p style={{
+              fontSize: '12px',
+              fontWeight: 800,
+              color: pkg.highlight ? '#b8860b' : 'var(--color-accent)',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              margin: '0 0 8px 0'
+            }}>
+              {pkg.badgeLabel}
+            </p>
+
             {/* Títulos */}
-            <h3 style={{ fontSize: '30px', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
+            <h3 style={{ fontSize: pkg.highlight ? 'clamp(22px, 4vw, 26px)' : 'clamp(20px, 3.5vw, 24px)', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 800 }}>
               {pkg.title}
             </h3>
-            <p style={{ fontSize: '15px', color: '#666', margin: '0 0 28px 0' }}>{pkg.subtitle}</p>
+            <p style={{ fontSize: '13px', color: '#666', margin: '0 0 20px 0' }}>{pkg.subtitle}</p>
 
             {/* Imagem do Produto */}
             <img src={pkg.image} alt={pkg.title} style={{
-              height: '260px',
+              height: pkg.highlight ? 'clamp(150px, 20vw, 190px)' : 'clamp(140px, 18vw, 170px)',
               width: 'auto',
+              maxWidth: '100%',
               objectFit: 'contain',
-              borderRadius: '20px',
-              boxShadow: '14px 12px 28px rgba(0,0,0,0.22)',
-              marginBottom: '28px',
+              borderRadius: '14px',
+              boxShadow: '10px 8px 20px rgba(0,0,0,0.2)',
+              marginBottom: '20px',
               display: 'block',
               alignSelf: 'center',
             }} />
 
             {/* Preço Principal */}
-            <div style={{ color: 'var(--color-deep)', marginBottom: '28px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
-              <span style={{ fontSize: '84px', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
-              <span style={{ fontSize: '20px', marginLeft: '4px' }}>/ Bottle</span>
+            <div style={{ color: 'var(--color-deep)', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
+              <span style={{ fontSize: pkg.highlight ? 'clamp(44px, 9vw, 58px)' : 'clamp(40px, 8vw, 52px)', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
+              <span style={{ fontSize: '15px', marginLeft: '4px' }}>/ Bottle</span>
             </div>
 
             {/* Vantagens (Perks) */}
-            <div style={{ marginBottom: '36px', flexGrow: 1 }}>
+            <div style={{ marginBottom: '24px', flexGrow: 1 }}>
               {pkg.perks.map((perk, i) => (
                 <div key={i} style={{
                   border: '1.5px dashed #aaa',
                   borderRadius: '6px',
-                  padding: '11px',
-                  marginBottom: '10px',
-                  fontSize: '15px',
+                  padding: '9px',
+                  marginBottom: '8px',
+                  fontSize: '13px',
                   fontWeight: 'bold',
                   backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
                 }}>
@@ -1138,12 +1224,12 @@ function Pricing() {
     background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
     color: '#000',
     border: '1px solid #d49a00',
-    borderRadius: '10px',
-    padding: '20px',
-    fontSize: '30px',
+    borderRadius: '9px',
+    padding: '15px',
+    fontSize: 'clamp(18px, 3.5vw, 22px)',
     fontWeight: '900',
     cursor: 'pointer',
-    marginBottom: '18px',
+    marginBottom: '14px',
     boxShadow: '0 6px 10px rgba(0,0,0,0.22)',
     width: '100%',
     transition: 'all 0.2s ease-in-out',
@@ -1161,12 +1247,12 @@ function Pricing() {
 </button>
 
             {/* Totais e Frete */}
-            <div style={{ fontSize: '17px', color: '#333', marginBottom: '12px' }}>
+            <div style={{ fontSize: '14px', color: '#333', marginBottom: '10px' }}>
               TOTAL: <del style={{ color: '#888', marginRight: '8px' }}>{pkg.oldTotal}</del> 
-              <span style={{ fontWeight: 'bold', fontSize: '22px' }}>{pkg.newTotal}</span>
+              <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{pkg.newTotal}</span>
             </div>
 
-            <div style={{ fontSize: '15px', color: '#555' }}>
+            <div style={{ fontSize: '13px', color: '#555' }}>
               {pkg.shipping}
             </div>
 
@@ -1463,6 +1549,82 @@ function FinalCTA() {
   );
 }
 
+// ─── Scientific References ─────────────────────────────────────────────────────
+
+function ScientificReferences() {
+  return (
+    <section
+      aria-label="Scientific references"
+      className="section-pad"
+      style={{ backgroundColor: 'var(--color-ground)' }}
+    >
+      <div className="inner">
+        <h2
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(22px, 2.8vw, 28px)',
+            fontWeight: 500,
+            textAlign: 'center',
+            color: 'var(--color-text)',
+            margin: '0 0 40px',
+          }}
+        >
+          Scientific References:
+        </h2>
+
+        {/* Logos das publicações/instituições citadas */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 48 }}>
+          <img
+            src={imgReferencia}
+            alt="JCAD, Mayo Clinic College of Medicine and Science, ScienceDaily, Frontiers Science News"
+            style={{ width: '100%', maxWidth: '820px', height: 'auto', objectFit: 'contain' }}
+          />
+        </div>
+
+        {/* Lista de referências em duas colunas */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '8px 40px',
+            fontSize: 12.5,
+            lineHeight: 1.6,
+            color: 'var(--color-muted)',
+            fontWeight: 300,
+          }}
+        >
+          <ol style={{ margin: 0, paddingLeft: 18 }}>
+            <li style={{ marginBottom: 12 }}>Barros S, Ribeiro APD, Offenbacher S, Loewy ZG. Anti-Inflammatory Effects of Vitamin E in Response to Candida albicans. Microorganisms. 2020 May 26;8(6):804. doi:10.3390/microorganisms8060804.</li>
+            <li style={{ marginBottom: 12 }}>Basak S, Guha P. A review on antifungal activity and mode of action of essential oils and their delivery as nano-sized oil droplets in food system. Journal of Food Science and Technology. 2018 Dec;55(12):4701-4710. doi:10.1007/s13197-018-3394-5.</li>
+            <li style={{ marginBottom: 12 }}>Chee HY, Lee MH. Antifungal activity of clove essential oil and its volatile vapour against dermatophytic fungi. Mycobiology. 2007 Dec 1;35(4):241-243. doi:10.4489/MYCO.2007.35.4.241.</li>
+            <li style={{ marginBottom: 12 }}>Cleveland Clinic. Antifungal resistance: What it is, causes, treatment & prevention [Internet]. 2023 [cited 2023 Nov 11].</li>
+            <li style={{ marginBottom: 12 }}>Colby J. Organic Flaxseed Oil: The natural remedy for nail fungus [Internet]. 2023 [cited 2023 Nov 11].</li>
+            <li style={{ marginBottom: 12 }}>D'Auria FD, Tecca M, Strippoli V, Salvatore G, Battinelli L, Mazzanti G. Antifungal activity of Lavandula angustifolia essential oil against Candida albicans yeast and mycelial form. Medical Mycology. 2005 Aug;43(5):391-396. doi:10.1080/13693780400004810.</li>
+            <li style={{ marginBottom: 12 }}>Geng H, Yu X, Lu A, Cao H, Zhou B, Zhou L, Zhao Z. Extraction, Chemical Composition, and Antifungal Activity of Essential Oil of Bitter Almond. International Journal of Molecular Sciences. 2016 Aug 29;17(9):1421. doi:10.3390/ijms17091421.</li>
+            <li style={{ marginBottom: 12 }}>Huang P. Scrubbing your house of bacteria could clear the way for fungus [Internet]. NPR; 2019 [cited 2023 Nov 11].</li>
+            <li style={{ marginBottom: 12 }}>Pai V, Ganavalli A, Kikkeri NN. Antifungal Resistance in Dermatology. Indian Journal of Dermatology. 2018 Sep-Oct;63(5):361-368. doi:10.4103/ijd.IJD_131_17.</li>
+            <li style={{ marginBottom: 12 }}>Xu Y, Hall C 3rd, Wolf-Hall C. Antifungal activity stability of flaxseed protein extract using response surface methodology. Journal of Food Science. 2008 Jan;73(1):M9-14. doi:10.1111/j.1750-3841.2007.00576.x.</li>
+            <li style={{ marginBottom: 12 }}>Manuka Research. You need to know about mānuka oil for toenail fungus [Internet]. ManukaRx; 2020 [cited 2023 Nov 11].</li>
+          </ol>
+
+          <ol start={12} style={{ margin: 0, paddingLeft: 18 }}>
+            <li style={{ marginBottom: 12 }}>Mathew C, Tesfaye W, Rasmussen P, Peterson GM, Bartholomaeus A, Sharma M, Thomas J. Mānuka Oil-A Review of Antimicrobial and Other Medicinal Properties. Pharmaceuticals (Basel). 2020 Oct 26;13(11):343. doi:10.3390/ph13110343.</li>
+            <li style={{ marginBottom: 12 }}>Mayo Clinic Staff. Tea tree oil [Internet]. Mayo Foundation for Medical Education and Research; 2023 [cited 2023 Nov 11].</li>
+            <li style={{ marginBottom: 12 }}>Muñoz-Tébar N, Carmona M, Ortiz de Elguea-Culebras G, Molina A, Berruga MI. Chia Seed Mucilage Edible Films with Origanum vulgare and Satureja montana Essential Oils: Characterization and Antifungal Properties. Membranes (Basel). 2022 Feb 11;12(2):213. doi:10.3390/membranes12020213.</li>
+            <li style={{ marginBottom: 12 }}>Rana IS, Rana AS, Rajok RC. Evaluation of antifungal activity in essential oil of the Syzygium aromaticum (L.) by extraction, purification and analysis of its main component eugenol. Brazilian Journal of Microbiology. 2011 Oct;42(4):1269-1277. doi:10.1590/S1517-83822011000400004.</li>
+            <li style={{ marginBottom: 12 }}>Rosca-Casian O, Parvu M, Vlase L, Tamas M. Antifungal activity of Aloe vera leaves. Fitoterapia. 2007 Apr;78(3):219-222. doi:10.1016/j.fitote.2006.11.008.</li>
+            <li style={{ marginBottom: 12 }}>Shi D, Zhao Y, Yan H, Fu H, Shen Y, Lu G, Mei H, Qiu Y, Li D, Liu W. Antifungal effects of undecylenic acid on the biofilm formation of Candida albicans. International Journal of Clinical Pharmacology and Therapeutics. 2016 May;54(5):343-353. doi:10.5414/CP202460.</li>
+            <li style={{ marginBottom: 12 }}>Saniasiaya J, Salim R, Mohamad I, Harun A. Antifungal Effect of Malaysian Aloe vera Leaf Extract on Selected Fungal Species of Pathogenic Otomycosis Species in In Vitro Culture Medium. Oman Medical Journal. 2017 Jan;32(1):41-46. doi:10.5001/omj.2017.08.</li>
+            <li style={{ marginBottom: 12 }}>Society for General Microbiology. Lavender oil has potent antifungal effect [Internet]. ScienceDaily; 2011 [cited 2023 Nov 11].</li>
+            <li style={{ marginBottom: 12 }}>Xu H, Wang G, Zhang J, Zhang M, Fu M, Xiang K, Zhang M, Chen X. Identification of phenolic compounds and active antifungal ingredients in walnut in response to anthracnose (Colletotrichum gloeosporioides). Postharvest Biology and Technology. 2022 Oct 1;192:112019. doi:10.1016/j.postharvbio.2022.112019.</li>
+            <li style={{ marginBottom: 12 }}>Mahilrajan S, Nandakumar J, Kailayalingam R, Manoharan NA, SriVijeindran S. Screening the antifungal activity of essential oils against decay fungi from palmyrah leaf handicrafts. Biological Research. 2014 Aug 15;47(1):35. doi:10.1186/0717-6287-47-35.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 function Footer() {
@@ -1516,7 +1678,7 @@ function Footer() {
                 margin: 0,
               }}
             >
-              Toenail Mist Spray Formula
+              Advanced Nail Formula
             </p>
           </div>
 
@@ -1531,7 +1693,7 @@ function Footer() {
                 flexWrap: 'wrap',
               }}
             >
-              {['Benefits', 'How It Works', 'Ingredients', 'Reviews', 'FAQ'].map(label => (
+              {['Benefits', 'Ingredients', 'FAQ'].map(label => (
                 <li key={label}>
                   <a
                     href={`#${label.toLowerCase().replace(/ /g, '-')}`}
@@ -1633,6 +1795,7 @@ export default function LandingPage() {
         <Pricing />
         <FAQ />
         <FinalCTA />
+        <ScientificReferences />
       </main>
       <Footer />
     </>
