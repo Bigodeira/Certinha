@@ -1045,7 +1045,7 @@ function Pricing() {
     {/* FAIXA 1: FRETE GRÁTIS (Layout Clean Fundo Branco) */}
         <div style={{ 
           backgroundColor: '#ffffff', 
-          padding: '60px 20px 20px 20px', 
+          padding: '60px 20px 30px 20px', 
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
@@ -1071,7 +1071,7 @@ function Pricing() {
         </div>
 
        
-    <section id="pricing" style={{ padding: '60px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
+    <section id="pricing" style={{ padding: '100px 24px 24px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
       <div style={{ 
         maxWidth: '1000px', 
         margin: '0 auto', 
@@ -1087,20 +1087,21 @@ function Pricing() {
         key={pkg.id} 
         style={{
           width: '100%',
-          flex: pkg.highlight ? '1 1 280px' : '1 1 250px',
-          maxWidth: pkg.highlight ? '320px' : '290px',
+          flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
+          maxWidth: pkg.highlight ? '400px' : '320px',
+          margin: pkg.highlight ? '0 24px' : '0',
           backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
           border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
           borderRadius: '10px',
-          padding: pkg.highlight ? '34px 24px' : '30px 20px',
+          padding: pkg.highlight ? '44px 32px' : '38px 26px',
           textAlign: 'center',
           /* Sombra mais forte por padrão no banner do meio */
           boxShadow: pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          /* Card do meio fica levemente elevado para se destacar, em proporção mais discreta */
-          transform: pkg.highlight ? 'scale(1.02) translateY(-8px)' : 'scale(1)',
+          /* Card do meio fica maior e elevado para se destacar */
+          transform: pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'scale(1)',
           /* Prepara a div para uma animação suave de 0.3 segundos */
           transition: 'all 0.3s ease', 
           zIndex: pkg.highlight ? 2 : 1
@@ -1108,7 +1109,7 @@ function Pricing() {
         onMouseEnter={(e) => {
           if (pkg.highlight) {
             /* Efeito exclusivo para o banner do meio: cresce um pouco mais e a sombra dobra */
-            e.currentTarget.style.transform = 'scale(1.06) translateY(-8px)';
+            e.currentTarget.style.transform = 'scale(1.14) translateY(-10px)';
             e.currentTarget.style.boxShadow = '0 26px 48px rgba(0,0,0,0.3)';
             e.currentTarget.style.zIndex = '10'; // Traz o banner para frente
           } else {
@@ -1120,7 +1121,7 @@ function Pricing() {
         }}
         onMouseLeave={(e) => {
           /* Quando o mouse sai, volta ao estado de destaque (ou normal, no caso dos laterais) */
-          e.currentTarget.style.transform = pkg.highlight ? 'scale(1.02) translateY(-8px)' : 'scale(1)';
+          e.currentTarget.style.transform = pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'scale(1)';
           e.currentTarget.style.boxShadow = pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
           e.currentTarget.style.zIndex = pkg.highlight ? '2' : '1';
         }}
@@ -1146,11 +1147,11 @@ function Pricing() {
                 />
                 {/* Barra vermelha de bônus — dentro do contorno escuro do card */}
                 <div style={{
-                  margin: '-34px -24px 18px -24px',
+                  margin: '-44px -32px 22px -32px',
                   backgroundColor: '#ff4d4d',
                   color: '#fff',
                   fontWeight: 800,
-                  fontSize: 'clamp(12px, 2vw, 14px)',
+                  fontSize: 'clamp(13px, 2vw, 15px)',
                   letterSpacing: '0.5px',
                   textTransform: 'uppercase',
                   padding: '11px 14px',
@@ -1175,14 +1176,14 @@ function Pricing() {
             </p>
 
             {/* Títulos */}
-            <h3 style={{ fontSize: pkg.highlight ? 'clamp(22px, 4vw, 26px)' : 'clamp(20px, 3.5vw, 24px)', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 800 }}>
+            <h3 style={{ fontSize: pkg.highlight ? 'clamp(25px, 4.5vw, 30px)' : 'clamp(22px, 3.8vw, 27px)', color: 'var(--color-deep)', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 800 }}>
               {pkg.title}
             </h3>
             <p style={{ fontSize: '13px', color: '#666', margin: '0 0 20px 0' }}>{pkg.subtitle}</p>
 
             {/* Imagem do Produto */}
             <img src={pkg.image} alt={pkg.title} style={{
-              height: pkg.highlight ? 'clamp(150px, 20vw, 190px)' : 'clamp(140px, 18vw, 170px)',
+              height: pkg.highlight ? 'clamp(170px, 24vw, 230px)' : 'clamp(160px, 20vw, 195px)',
               width: 'auto',
               maxWidth: '100%',
               objectFit: 'contain',
@@ -1195,8 +1196,8 @@ function Pricing() {
 
             {/* Preço Principal */}
             <div style={{ color: 'var(--color-deep)', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'baseline' }}>
-              <span style={{ fontSize: pkg.highlight ? 'clamp(44px, 9vw, 58px)' : 'clamp(40px, 8vw, 52px)', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
-              <span style={{ fontSize: '15px', marginLeft: '4px' }}>/ Bottle</span>
+              <span style={{ fontSize: pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)', fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
+              <span style={{ fontSize: pkg.highlight ? '17px' : '15px', marginLeft: '4px' }}>/ Bottle</span>
             </div>
 
             {/* Vantagens (Perks) */}
@@ -1205,9 +1206,9 @@ function Pricing() {
                 <div key={i} style={{
                   border: '1.5px dashed #aaa',
                   borderRadius: '6px',
-                  padding: '9px',
+                  padding: pkg.highlight ? '11px' : '9px',
                   marginBottom: '8px',
-                  fontSize: '13px',
+                  fontSize: pkg.highlight ? '14px' : '13px',
                   fontWeight: 'bold',
                   backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
                 }}>
@@ -1265,8 +1266,8 @@ function Pricing() {
           width: '100%', 
           display: 'flex', 
           justifyContent: 'center', 
-          marginTop: '40px',
-          paddingBottom: '20px'
+          marginTop: '60px',
+          paddingBottom: '10px'
         }}>
           <img 
             src={imgCreditCards} 
@@ -1280,8 +1281,8 @@ function Pricing() {
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        marginTop: '10px', 
-        paddingBottom: '40px', 
+        marginTop: '30px', 
+        paddingBottom: '0px', 
         fontFamily: "'Montserrat', Arial, sans-serif" 
       }}>
         <p style={{ fontSize: '24px', color: '#1a1a1a', margin: '0', marginBottom: '-25px' }}>
