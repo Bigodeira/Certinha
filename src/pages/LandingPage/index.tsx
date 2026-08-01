@@ -4,7 +4,6 @@ import Hero from './Hero'
 import Stats from './Stats'
 import Benefits from './Benefits'
 import Ingredients from './Ingredients'
-import Testimonials from './Testimonials'
 import Pricing from './Pricing'
 import FAQSection from './FAQSection'
 import FinalCTA from './FinalCTA'
@@ -26,7 +25,6 @@ export default function LandingPage() {
         <Stats />
         <Benefits />
         <Ingredients />
-        <Testimonials />
         <Pricing />
         <FAQSection />
         <FinalCTA />

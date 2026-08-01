@@ -1,6 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- ========================================== -->
+    <!-- TAG GLOBAL DO GOOGLE E EVENTO DE CONVERSÃO -->
+    <!-- ========================================== -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18309622192"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18309622192');
+    </script>
+
+    <!-- Event snippet for Compra conversion page -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18309622192/HcHDCN3lmM0cELDT2ppE',
+          'value': 1.0,
+          'currency': 'BRL',
+          'transaction_id': '',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
+    <!-- ========================================== -->
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +55,7 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pronail Complex | Beautiful Nailss" />
+    <meta name="twitter:title" content="Pronail Complex | Beautiful Nails" />
     <meta name="twitter:description" content="Clinically-proven nail strengthening serum. Visibly stronger nails in 14 days." />
 
     <!-- Google Fonts -->

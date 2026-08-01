@@ -18,7 +18,7 @@ import selo60dias from '../60dias.png';
 import imgReferencia from '../referencia.png';
 import {
   FiShield, FiZap, FiDroplet, FiAward,
-  FiChevronDown, FiChevronUp, FiArrowRight, FiStar, FiArrowUp, 
+  FiChevronDown, FiChevronUp, FiArrowRight, FiArrowUp, 
 } from 'react-icons/fi'
 import iconeEstrelas from '../icone-estrela.png';
 
@@ -901,30 +901,7 @@ function Benefits() {
   )
 }
 
-// ─── How It Works ─────────────────────────────────────────────────────────────
 
-function HowItWorks() {
-  return (
-    <section 
-      id="selos-qualidade" 
-      className="section-pad" 
-      style={{ backgroundColor: 'var(--color-ground)' }}
-    >
-      <div className="inner" style={{ display: 'flex', justifyContent: 'center' }}>
-        <img 
-          src={tarjaFda} 
-          alt="Selos de Qualidade FDA, GMP e 100% Natural" 
-          style={{ 
-            width: '100%', 
-            maxWidth: '1000px', 
-            height: 'auto', 
-            objectFit: 'contain' 
-          }} 
-        />
-      </div>
-    </section>
-  )
-}
 
 // ─── Ingredients ──────────────────────────────────────────────────────────────
 
