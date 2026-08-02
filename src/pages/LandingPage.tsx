@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import imgEstrelas from '../estrelas.png';
 import bgFolhas from '../6frascosfundo.png';
 import imgGarrafas from '../pronailfundo.png';
@@ -317,6 +317,22 @@ function TopBar() {
   )
 }
 
+// ─── Scroll até a oferta principal (Best Value) ──────────────────────────────
+// No mobile, os botões levam direto pro card "Best Value" já centralizado na
+// tela. No desktop, continuam levando pro topo da seção de preços (todos os
+// cards já aparecem lado a lado).
+function scrollToPricing() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    const highlightCard = document.getElementById('pricing-highlight');
+    if (highlightCard) {
+      highlightCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+  }
+  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+}
+
 // ─── Floating CTA (botão fixo que acompanha o scroll) ────────────────────────
 
 function FloatingCTA() {
@@ -325,7 +341,7 @@ function FloatingCTA() {
       href="#pricing"
       onClick={(e) => {
         e.preventDefault();
-        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToPricing();
       }}
       rel="nofollow sponsored"
       style={{
@@ -465,7 +481,7 @@ function Hero() {
       href="#pricing"
       onClick={(e) => {
         e.preventDefault();
-        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToPricing();
       }}
       rel="nofollow sponsored"
       style={{
@@ -1017,6 +1033,15 @@ function Ingredients() {
 
 
 function Pricing() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
     {/* FAIXA 1: FRETE GRÁTIS (Layout Clean Fundo Branco) */}
@@ -1056,17 +1081,18 @@ function Pricing() {
         flexWrap: 'wrap', 
         justifyContent: 'center', 
         alignItems: 'stretch',
-        gap: '20px' 
+        gap: isMobile ? '48px' : '20px' 
       }}>
         
         {PRICING_PACKAGES.map((pkg) => (
           <div 
         key={pkg.id} 
+        id={pkg.highlight ? 'pricing-highlight' : undefined}
         style={{
           width: '100%',
           flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
-          maxWidth: pkg.highlight ? '400px' : '320px',
-          margin: pkg.highlight ? '0 24px' : '0',
+          maxWidth: isMobile ? '420px' : (pkg.highlight ? '400px' : '320px'),
+          margin: isMobile ? '0' : (pkg.highlight ? '0 24px' : '0'),
           backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
           border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
           borderRadius: '10px',
@@ -1077,13 +1103,16 @@ function Pricing() {
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          /* Card do meio fica maior e elevado para se destacar */
-          transform: pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'scale(1)',
+          /* Card do meio fica maior e elevado para se destacar — só no desktop.
+             No mobile o scale() empurra o card por cima dos vizinhos, então
+             desativamos e mantemos o destaque via borda/sombra/cor. */
+          transform: (!isMobile && pkg.highlight) ? 'scale(1.1) translateY(-10px)' : 'none',
           /* Prepara a div para uma animação suave de 0.3 segundos */
           transition: 'all 0.3s ease', 
           zIndex: pkg.highlight ? 2 : 1
         }}
         onMouseEnter={(e) => {
+          if (isMobile) return; // sem animação de hover/tap no mobile — evita sobreposição
           if (pkg.highlight) {
             /* Efeito exclusivo para o banner do meio: cresce um pouco mais e a sombra dobra */
             e.currentTarget.style.transform = 'scale(1.14) translateY(-10px)';
@@ -1097,6 +1126,7 @@ function Pricing() {
           }
         }}
         onMouseLeave={(e) => {
+          if (isMobile) return;
           /* Quando o mouse sai, volta ao estado de destaque (ou normal, no caso dos laterais) */
           e.currentTarget.style.transform = pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'scale(1)';
           e.currentTarget.style.boxShadow = pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
@@ -1215,10 +1245,12 @@ function Pricing() {
                 transition: 'all 0.2s ease-in-out',
               }}
               onMouseEnter={(e) => {
+                if (isMobile) return;
                 e.currentTarget.style.transform = 'scale(1.03)';
                 e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
               }}
               onMouseLeave={(e) => {
+                if (isMobile) return;
                 e.currentTarget.style.transform = 'scale(1)';
                 e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
               }}
@@ -1483,10 +1515,7 @@ function FinalCTA() {
 
         <button
           onClick={() => {
-            const element = document.getElementById('pricing');
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
+            scrollToPricing();
           }}
           style={{
             display: 'inline-flex',
