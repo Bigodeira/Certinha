@@ -1196,33 +1196,35 @@ function Pricing() {
 
             {/* Botão de Compra */}
             <button
-  onClick={() => window.location.href = pkg.link}
-  style={{
-    backgroundColor: '#ffd700',
-    background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
-    color: '#000',
-    border: '1px solid #d49a00',
-    borderRadius: '9px',
-    padding: '15px',
-    fontSize: 'clamp(18px, 3.5vw, 22px)',
-    fontWeight: '900',
-    cursor: 'pointer',
-    marginBottom: '14px',
-    boxShadow: '0 6px 10px rgba(0,0,0,0.22)',
-    width: '100%',
-    transition: 'all 0.2s ease-in-out',
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.transform = 'scale(1.03)';
-    e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform = 'scale(1)';
-    e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
-  }}
->
-  BUY NOW
-</button>
+              onClick={() => {
+                // Dispara o relatório oficial de conversão do Google Ads e redireciona pelo callback
+              (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;}}
+              style={{
+                backgroundColor: '#ffd700',
+                background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
+                color: '#000',
+                border: '1px solid #d49a00',
+                borderRadius: '9px',
+                padding: '15px',
+                fontSize: 'clamp(18px, 3.5vw, 22px)',
+                fontWeight: '900',
+                cursor: 'pointer',
+                marginBottom: '14px',
+                boxShadow: '0 6px 10px rgba(0,0,0,0.22)',
+                width: '100%',
+                transition: 'all 0.2s ease-in-out',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.03)';
+                e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
+              }}
+            >
+              BUY NOW
+            </button>
 
             {/* Totais e Frete */}
             <div style={{ fontSize: '14px', color: '#333', marginBottom: '10px' }}>
