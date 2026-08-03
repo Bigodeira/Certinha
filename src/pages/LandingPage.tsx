@@ -1226,9 +1226,17 @@ function Pricing() {
 
             {/* Botão de Compra */}
             <button
+              id={`buy-button-${pkg.id}`}
               onClick={() => {
+                // Clarity: identifica qual pacote foi clicado e registra o evento de conversão
+                // (dispara ANTES do redirect, para garantir que o evento seja enviado a tempo)
+                if ((window as any).clarity) {
+                  (window as any).clarity('set', 'offer', pkg.title);
+                  (window as any).clarity('event', 'clickbank_cta_click');
+                }
                 // Dispara o relatório oficial de conversão do Google Ads e redireciona pelo callback
-              (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;}}
+                (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;
+              }}
               style={{
                 backgroundColor: '#ffd700',
                 background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
