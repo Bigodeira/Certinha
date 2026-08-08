@@ -76,35 +76,77 @@ export default function Pricing() {
     ? [...PRICING_PACKAGES].sort((a, b) => MOBILE_ORDER[a.id] - MOBILE_ORDER[b.id])
     : PRICING_PACKAGES;
 
+  // Cor do selo flutuante (pill) — exclusivo do mobile.
+  const pillBackground = (pkg: typeof PRICING_PACKAGES[number]) =>
+    pkg.highlight
+      ? 'linear-gradient(180deg,#f4c430,#d49a00)'
+      : pkg.badgeLabel === 'Most Popular'
+        ? 'linear-gradient(180deg,#4fc3ac,#2f9484)'
+        : 'linear-gradient(180deg,#8b8b90,#6a6a6f)';
+
   return (
     <>
-    {/* FAIXA 1: FRETE GRÁTIS (Layout Clean Fundo Branco) */}
-        <div style={{
-          backgroundColor: '#ffffff',
-          padding: isMobile ? '32px 16px 18px 16px' : '60px 20px 30px 20px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: isMobile ? '14px' : '30px',
-          width: '100%'
-        }}>
-          {/* Imagem do Selo */}
-          <img src={imgSeal} alt="Fast and Free Shipping" style={{ width: isMobile ? '80px' : '140px', height: 'auto' }} />
-
-          {/* Textos de Destaque */}
-          <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
-            <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 4px 0', fontWeight: '800', lineHeight: 1.2 }}>
-              Every 6 Bottles Order
-            </h2>
-            <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 8px 0', fontWeight: '800', textDecoration: 'underline', lineHeight: 1.2 }}>
-              Gets FREE Shipping Too!
-            </h2>
-            <p style={{ color: '#666666', fontSize: 'clamp(13px, 3.2vw, 18px)', margin: 0, fontWeight: '500' }}>
-              *97% Of Customers Order 6 Bottles (Our Recommended Option)
-            </p>
+    {/* FAIXA 1: FRETE GRÁTIS */}
+        {isMobile ? (
+          // Mobile: mesmo padrão visual da seção de garantia — fundo escuro
+          // envolvendo um retângulo branco arredondado com o conteúdo dentro.
+          <div style={{
+            backgroundColor: 'var(--color-deep)',
+            padding: '28px 16px 22px',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%'
+          }}>
+            <div style={{
+              backgroundColor: '#ffffff',
+              borderRadius: '22px',
+              padding: '26px 20px',
+              textAlign: 'center',
+              width: '100%',
+              boxShadow: '0 20px 40px -20px rgba(0,0,0,0.4)'
+            }}>
+              <img
+                src={imgSeal}
+                alt="Fast and Free Shipping"
+                style={{ width: '110px', height: 'auto', margin: '0 auto 12px auto', display: 'block', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.15))' }}
+              />
+              <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 2px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: 'Arial, sans-serif' }}>
+                Every 6 Bottles Order
+              </h2>
+              <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 8px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: 'Arial, sans-serif' }}>
+                Gets FREE Shipping Too!
+              </h2>
+              <p style={{ color: '#8a8a8e', fontSize: '13px', margin: '8px 0 0', fontWeight: '500', lineHeight: 1.4, fontFamily: 'Arial, sans-serif' }}>
+                *97% Of Customers Order 6 Bottles (Our Recommended Option)
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          // Desktop: idêntico ao original.
+          <div style={{
+            backgroundColor: '#ffffff',
+            padding: '60px 20px 30px 20px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '30px',
+            width: '100%'
+          }}>
+            <img src={imgSeal} alt="Fast and Free Shipping" style={{ width: '140px', height: 'auto' }} />
+            <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
+              <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 4px 0', fontWeight: '800', lineHeight: 1.2 }}>
+                Every 6 Bottles Order
+              </h2>
+              <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 8px 0', fontWeight: '800', textDecoration: 'underline', lineHeight: 1.2 }}>
+                Gets FREE Shipping Too!
+              </h2>
+              <p style={{ color: '#666666', fontSize: 'clamp(13px, 3.2vw, 18px)', margin: 0, fontWeight: '500' }}>
+                *97% Of Customers Order 6 Bottles (Our Recommended Option)
+              </p>
+            </div>
+          </div>
+        )}
 
 
     <section id="pricing" style={{ padding: isMobile ? '32px 14px 14px 14px' : '100px 24px 24px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
@@ -122,25 +164,40 @@ export default function Pricing() {
           <div
         key={pkg.id}
         id={pkg.highlight ? 'pricing-highlight' : undefined}
-        style={{
-          width: '100%',
-          flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
-          maxWidth: isMobile ? '440px' : (pkg.highlight ? '400px' : '320px'),
-          margin: isMobile ? '0' : (pkg.highlight ? '0 24px' : '0'),
-          backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
-          border: pkg.highlight ? (isMobile ? '2px solid var(--color-deep)' : '4px solid var(--color-deep)') : '1px solid #e0e0e0',
-          borderRadius: '10px',
-          padding: 0,
-          overflow: 'hidden',
-          textAlign: 'center',
-          boxShadow: pkg.highlight ? (isMobile ? '0 6px 14px rgba(0,0,0,0.14)' : '0 16px 34px rgba(0,0,0,0.2)') : (isMobile ? '0 3px 10px rgba(0,0,0,0.08)' : '0 6px 14px rgba(0,0,0,0.08)'),
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          transform: (!isMobile && pkg.highlight) ? 'scale(1.1) translateY(-10px)' : 'none',
-          transition: 'all 0.3s ease',
-          zIndex: pkg.highlight ? 2 : 1
-        }}
+        style={
+          isMobile
+            ? {
+                // Wrapper mobile: só reserva espaço pro selo flutuante e
+                // define largura/flex — o visual real vive no cardInnerStyle.
+                width: '100%',
+                flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
+                maxWidth: '440px',
+                margin: '0',
+                padding: 0,
+                position: 'relative',
+                paddingTop: '13px',
+                zIndex: pkg.highlight ? 2 : 1,
+              }
+            : {
+                width: '100%',
+                flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
+                maxWidth: pkg.highlight ? '400px' : '320px',
+                margin: pkg.highlight ? '0 24px' : '0',
+                backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
+                border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
+                borderRadius: '10px',
+                padding: 0,
+                overflow: 'hidden',
+                textAlign: 'center',
+                boxShadow: pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                transform: pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'none',
+                transition: 'all 0.3s ease',
+                zIndex: pkg.highlight ? 2 : 1
+              }
+        }
         onMouseEnter={(e) => {
           if (isMobile) return;
           if (pkg.highlight) {
@@ -161,40 +218,99 @@ export default function Pricing() {
         }}
       >
 
-            {/* Cabeçalho do card — barra colorida com o rótulo (Basic / Most Popular).
-                No highlight, mantemos a barra vermelha de bônus no lugar do cabeçalho padrão. */}
-            {pkg.highlight ? (
+            {/* Selo flutuante (Best Value / Most Popular / Basic) — exclusivo do
+                mobile, vive FORA da área com overflow:hidden pra não ser cortado */}
+            {isMobile && (
               <div style={{
-                backgroundColor: '#ff4d4d',
+                position: 'absolute',
+                top: 0,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '6px 16px',
+                borderRadius: '100px',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.03em',
                 color: '#fff',
-                fontWeight: 800,
-                fontSize: isMobile ? '12px' : 'clamp(13px, 2vw, 15px)',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                padding: isMobile ? '8px 10px' : '11px 14px',
-                textAlign: 'center',
-              }}>
-                $163 E-Book Bonus
-              </div>
-            ) : (
-              <div style={{
-                backgroundColor: 'var(--color-accent)',
-                color: '#fff',
-                fontWeight: 800,
-                fontSize: isMobile ? '15px' : '13px',
-                letterSpacing: '0.5px',
-                textTransform: isMobile ? 'none' : 'uppercase',
-                padding: isMobile ? '10px 14px' : '9px 14px',
-                textAlign: 'center',
+                whiteSpace: 'nowrap',
+                zIndex: 3,
+                boxShadow: '0 6px 14px -4px rgba(0,0,0,0.35)',
+                background: pillBackground(pkg),
               }}>
                 {pkg.badgeLabel}
               </div>
             )}
 
-            {/* Corpo do card: no mobile usamos um grid de 2 colunas (imagem+título | preço+perks),
-                exatamente como na referência, para reduzir a altura total do banner. */}
+            {/* Card visual — no mobile carrega o visual "Apple style" completo;
+                no desktop fica praticamente vazio (o visual já está no wrapper acima) */}
+            <div style={
+              isMobile
+                ? {
+                    background: pkg.highlight ? 'linear-gradient(180deg, #fffdf2, #fffaf0)' : '#ffffff',
+                    border: pkg.highlight ? '1px solid rgba(212,166,0,0.22)' : '1px solid rgba(0,0,0,0.06)',
+                    borderRadius: '26px',
+                    boxShadow: pkg.highlight
+                      ? '0 1px 0 rgba(255,255,255,0.7) inset, 0 26px 46px -24px rgba(180,140,0,0.28)'
+                      : '0 1px 0 rgba(255,255,255,0.6) inset, 0 24px 40px -26px rgba(0,0,0,0.22)',
+                    overflow: 'hidden',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }
+                : undefined
+            }>
+
+            {/* Cabeçalho do card — barra colorida com o rótulo (Basic / Most Popular).
+                No mobile essa barra some (virou o selo flutuante acima); no highlight
+                mobile mantemos só a faixa de bônus, mais suave. */}
+            {!isMobile && (
+              pkg.highlight ? (
+                <div style={{
+                  backgroundColor: '#ff4d4d',
+                  color: '#fff',
+                  fontWeight: 800,
+                  fontSize: 'clamp(13px, 2vw, 15px)',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  padding: '11px 14px',
+                  textAlign: 'center',
+                }}>
+                  $163 E-Book Bonus
+                </div>
+              ) : (
+                <div style={{
+                  backgroundColor: 'var(--color-accent)',
+                  color: '#fff',
+                  fontWeight: 800,
+                  fontSize: '13px',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  padding: '9px 14px',
+                  textAlign: 'center',
+                }}>
+                  {pkg.badgeLabel}
+                </div>
+              )
+            )}
+
+            {isMobile && pkg.highlight && (
+              <div style={{
+                background: 'linear-gradient(180deg,#ff6961,#ef4136)',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.02em',
+                textTransform: 'uppercase',
+                padding: '16px 16px 8px',
+                textAlign: 'center',
+              }}>
+                $163 E-Book Bonus
+              </div>
+            )}
+
+            {/* Corpo do card: no mobile usamos um grid de 2 colunas (imagem+título | preço+perks) */}
             <div style={{
-              padding: isMobile ? '14px 16px 4px 16px' : (pkg.highlight ? '22px 32px 0 32px' : '20px 26px 0 26px'),
+              padding: isMobile ? (pkg.highlight ? '14px 18px 4px 18px' : '22px 18px 4px 18px') : (pkg.highlight ? '22px 32px 0 32px' : '20px 26px 0 26px'),
               display: isMobile ? 'grid' : 'block',
               gridTemplateColumns: isMobile ? '1fr 1fr' : undefined,
               gap: isMobile ? '10px' : undefined,
@@ -203,7 +319,7 @@ export default function Pricing() {
             }}>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'center' }}>
-                {/* Rótulo (apenas desktop — no mobile já está na barra do cabeçalho) */}
+                {/* Rótulo (apenas desktop — no mobile já está no selo flutuante) */}
                 {!isMobile && (
                   <p style={{
                     fontSize: '12px',
@@ -222,14 +338,14 @@ export default function Pricing() {
                   fontSize: isMobile ? 'clamp(17px, 4.6vw, 20px)' : (pkg.highlight ? 'clamp(25px, 4.5vw, 30px)' : 'clamp(22px, 3.8vw, 27px)'),
                   color: 'var(--color-deep)',
                   margin: '0 0 2px 0',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px',
-                  fontWeight: 800,
+                  textTransform: isMobile ? 'none' : 'uppercase',
+                  letterSpacing: isMobile ? '-0.01em' : '0.5px',
+                  fontWeight: isMobile ? 700 : 800,
                   lineHeight: 1.15,
                 }}>
-                  {pkg.title}
+                  {isMobile ? pkg.title.charAt(0) + pkg.title.slice(1).toLowerCase().replace('bottles', 'Bottles') : pkg.title}
                 </h3>
-                <p style={{ fontSize: isMobile ? '11px' : '13px', color: '#666', margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>{pkg.subtitle}</p>
+                <p style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#666', fontWeight: isMobile ? 500 : undefined, margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>{pkg.subtitle}</p>
 
                 {/* Imagem do Produto */}
                 <img src={pkg.image} alt={pkg.title} style={{
@@ -237,8 +353,8 @@ export default function Pricing() {
                   width: 'auto',
                   maxWidth: '100%',
                   objectFit: 'contain',
-                  borderRadius: isMobile ? '8px' : '14px',
-                  boxShadow: isMobile ? '5px 4px 10px rgba(0,0,0,0.15)' : '10px 8px 20px rgba(0,0,0,0.2)',
+                  borderRadius: isMobile ? '14px' : '14px',
+                  boxShadow: isMobile ? '0 10px 18px -8px rgba(0,0,0,0.25)' : '10px 8px 20px rgba(0,0,0,0.2)',
                   marginBottom: isMobile ? '0' : '20px',
                   display: 'block',
                   alignSelf: isMobile ? 'flex-start' : 'center',
@@ -249,31 +365,70 @@ export default function Pricing() {
                 {/* Vantagens (Perks) */}
                 <div style={{ marginBottom: isMobile ? '8px' : '24px', flexGrow: isMobile ? 0 : 1, width: '100%' }}>
                   {pkg.perks.map((perk, i) => (
-                    <div key={i} style={{
-                      border: '1.5px dashed #aaa',
-                      borderRadius: '6px',
-                      padding: isMobile ? '5px 6px' : (pkg.highlight ? '11px' : '9px'),
-                      marginBottom: isMobile ? '5px' : '8px',
-                      fontSize: isMobile ? '10px' : (pkg.highlight ? '14px' : '13px'),
-                      fontWeight: 'bold',
-                      lineHeight: 1.25,
-                      backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
-                    }}>
-                      <span style={{ color: '#4caf50', marginRight: '4px' }}>✔</span> {perk}
-                    </div>
+                    isMobile ? (
+                      <div key={i} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        background: pkg.highlight ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.03)',
+                        borderRadius: '10px',
+                        padding: '7px 9px',
+                        marginBottom: '6px',
+                        fontSize: '10.5px',
+                        fontWeight: 600,
+                        color: '#3a3a3c',
+                        lineHeight: 1.2,
+                      }}>
+                        <span style={{
+                          width: '14px', height: '14px', borderRadius: '50%',
+                          backgroundColor: 'var(--color-accent)',
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          flexShrink: 0,
+                        }}>
+                          <svg width="8" height="8" viewBox="0 0 10 8" fill="none">
+                            <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        {perk}
+                      </div>
+                    ) : (
+                      <div key={i} style={{
+                        border: '1.5px dashed #aaa',
+                        borderRadius: '6px',
+                        padding: pkg.highlight ? '11px' : '9px',
+                        marginBottom: '8px',
+                        fontSize: pkg.highlight ? '14px' : '13px',
+                        fontWeight: 'bold',
+                        lineHeight: 1.25,
+                        backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
+                      }}>
+                        <span style={{ color: '#4caf50', marginRight: '4px' }}>✔</span> {perk}
+                      </div>
+                    )
                   ))}
                 </div>
 
                 {/* Preço Principal */}
                 <div style={{ color: 'var(--color-deep)', marginBottom: isMobile ? '4px' : '20px', display: 'flex', justifyContent: isMobile ? 'flex-start' : 'center', alignItems: 'baseline' }}>
-                  <span style={{ fontSize: isMobile ? 'clamp(34px, 11vw, 46px)' : (pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)'), fontWeight: 'bold', lineHeight: '1' }}>${pkg.price}</span>
-                  <span style={{ fontSize: isMobile ? '13px' : (pkg.highlight ? '17px' : '15px'), marginLeft: '4px' }}>/ Bottle</span>
+                  <span style={{
+                    fontSize: isMobile ? 'clamp(34px, 11vw, 46px)' : (pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)'),
+                    fontWeight: isMobile ? 800 : 'bold',
+                    letterSpacing: isMobile ? '-0.02em' : undefined,
+                    lineHeight: '1'
+                  }}>${pkg.price}</span>
+                  <span style={{
+                    fontSize: isMobile ? '13px' : (pkg.highlight ? '17px' : '15px'),
+                    fontWeight: isMobile ? 600 : undefined,
+                    color: isMobile ? '#8a8a8e' : undefined,
+                    marginLeft: '4px'
+                  }}>/ Bottle</span>
                 </div>
               </div>
             </div>
+            </div>
 
             {/* Rodapé do card: botão de compra + totais, ocupando a largura toda (fora do grid) */}
-            <div style={{ padding: isMobile ? '4px 16px 16px 16px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
+            <div style={{ padding: isMobile ? '6px 18px 20px 18px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
               {/* Botão de Compra */}
               <button
                 id={`buy-button-${pkg.id}`}
@@ -285,17 +440,18 @@ export default function Pricing() {
                   (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;
                 }}
                 style={{
-                  backgroundColor: '#ffd700',
-                  background: 'linear-gradient(to bottom, #ffe800, #ffb300)',
-                  color: '#000',
-                  border: '1px solid #d49a00',
-                  borderRadius: '9px',
-                  padding: isMobile ? '12px' : '15px',
-                  fontSize: isMobile ? 'clamp(16px, 5vw, 19px)' : 'clamp(18px, 3.5vw, 22px)',
-                  fontWeight: '900',
+                  backgroundColor: isMobile ? undefined : '#ffd700',
+                  background: isMobile ? 'linear-gradient(180deg,#ffdf5c,#f0b400)' : 'linear-gradient(to bottom, #ffe800, #ffb300)',
+                  color: isMobile ? '#1a1400' : '#000',
+                  border: isMobile ? 'none' : '1px solid #d49a00',
+                  borderRadius: isMobile ? '16px' : '9px',
+                  padding: isMobile ? '15px' : '15px',
+                  fontSize: isMobile ? 'clamp(15px, 4.5vw, 17px)' : 'clamp(18px, 3.5vw, 22px)',
+                  fontWeight: isMobile ? 700 : '900',
+                  letterSpacing: isMobile ? '-0.01em' : undefined,
                   cursor: 'pointer',
-                  marginBottom: isMobile ? '10px' : '14px',
-                  boxShadow: '0 6px 10px rgba(0,0,0,0.22)',
+                  marginBottom: isMobile ? '12px' : '14px',
+                  boxShadow: isMobile ? '0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55)' : '0 6px 10px rgba(0,0,0,0.22)',
                   width: '100%',
                   transition: 'all 0.2s ease-in-out',
                 }}
@@ -314,18 +470,23 @@ export default function Pricing() {
               </button>
 
               {/* Totais e Frete */}
-              <div style={{ fontSize: isMobile ? '12px' : '14px', color: '#333', marginBottom: isMobile ? '6px' : '10px' }}>
-                TOTAL: <del style={{ color: '#888', marginRight: '8px' }}>{pkg.oldTotal}</del>
-                <span style={{ fontWeight: 'bold', fontSize: isMobile ? '15px' : '18px' }}>{pkg.newTotal}</span>
+              <div style={{
+                fontSize: isMobile ? '12px' : '14px',
+                color: isMobile ? '#6b6b6e' : '#333',
+                marginBottom: isMobile ? '8px' : '10px',
+                textAlign: isMobile ? 'center' : undefined,
+              }}>
+                TOTAL: <del style={{ color: isMobile ? '#b0b0b3' : '#888', marginRight: '6px' }}>{pkg.oldTotal}</del>
+                <span style={{ fontWeight: isMobile ? 800 : 'bold', fontSize: isMobile ? '15px' : '18px', color: isMobile ? 'var(--color-deep)' : undefined }}>{pkg.newTotal}</span>
               </div>
 
               <img
                 src={imgCreditCards}
                 alt="Cartões Aceitos"
-                style={{ width: isMobile ? '150px' : '0', maxWidth: '100%', height: 'auto', display: isMobile ? 'block' : 'none', margin: isMobile ? '0 auto 6px auto' : undefined }}
+                style={{ width: isMobile ? '150px' : '0', maxWidth: '100%', height: 'auto', display: isMobile ? 'block' : 'none', margin: isMobile ? '0 auto 6px auto' : undefined, opacity: isMobile ? 0.9 : undefined }}
               />
 
-              <div style={{ fontSize: isMobile ? '11px' : '13px', color: '#555' }}>
+              <div style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#555', textAlign: isMobile ? 'center' : undefined, fontWeight: isMobile ? 500 : undefined }}>
                 {pkg.shipping}
               </div>
             </div>
@@ -402,9 +563,14 @@ export default function Pricing() {
             flexWrap: 'wrap'
           }}>
 
-            {/* Lado Esquerdo: Imagem do Selo */}
+            {/* Lado Esquerdo: Imagem do Selo (foto real, sem alterações — só um leve
+                drop-shadow no mobile pra dar profundidade) */}
             <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: isMobile ? '110px' : '160px', margin: '0 auto' }}>
-              <img src={selo60dias} alt="60-Day Money Back Guarantee" style={{ width: '100%', height: 'auto' }} />
+              <img
+                src={selo60dias}
+                alt="60-Day Money Back Guarantee"
+                style={{ width: '100%', height: 'auto', filter: isMobile ? 'drop-shadow(0 10px 16px rgba(0,0,0,0.18))' : undefined }}
+              />
             </div>
 
             {/* Lado Direito: Textos */}
