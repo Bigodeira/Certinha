@@ -1,4 +1,7 @@
+// ─── src/pages/LandingPage/FinalCTA.tsx ───────────────────────────────────────
+
 import { FiArrowUp } from 'react-icons/fi'
+import { scrollToPricing } from './utils'
 
 // ─── Final CTA ────────────────────────────────────────────────────────────────
 
@@ -25,20 +28,26 @@ export default function FinalCTA() {
       />
 
       <div className="inner" style={{ position: 'relative', maxWidth: '900px', margin: '0 auto' }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--color-accent)',
-            marginBottom: 20,
-          }}
-        >
+        
+        <p style={{ 
+          fontFamily: 'var(--font-mono)', 
+          fontSize: 11, 
+          letterSpacing: '0.18em', 
+          textTransform: 'uppercase', 
+          color: 'var(--color-accent)', 
+          marginBottom: 20 
+        }}>
           Risk-Free Purchase
         </p>
 
-        <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', fontFamily: 'serif', color: '#ffffff', lineHeight: '1.2', marginBottom: '20px', fontWeight: '400' }}>
+        <h2 style={{ 
+          fontSize: 'clamp(32px, 4.5vw, 52px)', 
+          fontFamily: 'serif', 
+          color: '#ffffff', 
+          lineHeight: '1.2', 
+          marginBottom: '20px',
+          fontWeight: '400'
+        }}>
           Claim Your Discounted <br />
           ProNail Complex Bottle <br />
           Today
@@ -49,7 +58,9 @@ export default function FinalCTA() {
         </p>
 
         <button
-          onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => {
+            scrollToPricing();
+          }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -64,15 +75,15 @@ export default function FinalCTA() {
             border: 'none',
             cursor: 'pointer',
             boxShadow: '0 6px 20px rgba(90,173,167,0.4)',
-            transition: 'all 0.3s ease',
+            transition: 'all 0.3s ease'
           }}
-          onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#427f77'
-            e.currentTarget.style.transform = 'translateY(-3px)'
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#427f77';
+            e.currentTarget.style.transform = 'translateY(-3px)';
           }}
-          onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent)'
-            e.currentTarget.style.transform = 'translateY(0)'
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}
         >
           Order ProNail Complex <FiArrowUp size={22} />
@@ -85,7 +96,8 @@ export default function FinalCTA() {
           <span>•</span>
           <span>Secure Checkout</span>
         </div>
+
       </div>
     </section>
-  )
+  );
 }

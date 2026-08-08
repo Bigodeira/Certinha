@@ -1,10 +1,16 @@
-import imgReferencia from '../../referencia.png'
+// ─── src/pages/LandingPage/ScientificReferences.tsx ───────────────────────────
+
+import imgReferencia from '../../referencia.png';
 
 // ─── Scientific References ─────────────────────────────────────────────────────
 
 export default function ScientificReferences() {
   return (
-    <section aria-label="Scientific references" className="section-pad" style={{ backgroundColor: 'var(--color-ground)' }}>
+    <section
+      aria-label="Scientific references"
+      className="section-pad"
+      style={{ backgroundColor: 'var(--color-ground)' }}
+    >
       <div className="inner">
         <h2
           style={{
@@ -19,6 +25,7 @@ export default function ScientificReferences() {
           Scientific References:
         </h2>
 
+        {/* Logos das publicações/instituições citadas */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 48 }}>
           <img
             src={imgReferencia}
@@ -27,6 +34,7 @@ export default function ScientificReferences() {
           />
         </div>
 
+        {/* Lista de referências em duas colunas */}
         <div
           style={{
             display: 'grid',
