@@ -198,9 +198,9 @@ export default function TopBar() {
           ))}
         </ul>
 
-        {/* Botão hambúrguer — visível apenas no mobile.
-            Fixo na tela (acompanha o scroll) na MESMA posição e com a MESMA
-            cor de fundo que o antigo botão "Claim Your Discount" ocupava. */}
+        {/* Botão hambúrguer — visível apenas no mobile. Estilo "Apple Style":
+            círculo premium em gradiente escuro, brilho especular no topo,
+            sombra em camadas e ícone que se transforma em X ao abrir. */}
         <button
           className="flex md:hidden fixed top-5 right-5 z-[1000]"
           onClick={() => setMenuOpen(v => !v)}
@@ -209,91 +209,171 @@ export default function TopBar() {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            width: 44,
-            height: 44,
+            width: 46,
+            height: 46,
             padding: 0,
-            backgroundColor: 'var(--color-text)',
+            background: 'linear-gradient(180deg, #22262a 0%, #0b0d0f 55%, #000000 100%)',
             border: 'none',
-            borderRadius: 100,
+            borderRadius: '50%',
             cursor: 'pointer',
-            boxShadow: '0 6px 18px rgba(0,0,0,0.2)',
+            boxShadow:
+              '0 1px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.5) inset, 0 0 0 1px rgba(255,255,255,0.06) inset, 0 10px 22px -6px rgba(0,0,0,0.45), 0 3px 8px rgba(0,0,0,0.25)',
             flexShrink: 0,
+            transition: 'transform 0.15s ease, filter 0.15s ease',
           }}
+          onTouchStart={(e) => { e.currentTarget.style.transform = 'scale(0.93)'; e.currentTarget.style.filter = 'brightness(0.9)'; }}
+          onTouchEnd={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.filter = 'brightness(1)'; }}
         >
-          {menuOpen ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-              <line x1="4" y1="4" x2="20" y2="20" />
-              <line x1="20" y1="4" x2="4" y2="20" />
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          )}
+          {/* brilho especular no topo do botão */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 1,
+              left: '14%',
+              right: '14%',
+              height: '40%',
+              borderRadius: '50% 50% 60% 60% / 100% 100% 40% 40%',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0) 100%)',
+              pointerEvents: 'none',
+            }}
+          />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" style={{ position: 'relative', zIndex: 1 }}>
+            <line
+              x1="3" y1="6" x2="21" y2="6"
+              style={{
+                transformOrigin: 'center',
+                transition: 'transform 0.25s ease, opacity 0.2s ease',
+                transform: menuOpen ? 'translateY(5.5px) rotate(45deg)' : 'none',
+              }}
+            />
+            <line
+              x1="3" y1="12" x2="21" y2="12"
+              style={{
+                transition: 'opacity 0.2s ease',
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <line
+              x1="3" y1="18" x2="21" y2="18"
+              style={{
+                transformOrigin: 'center',
+                transition: 'transform 0.25s ease, opacity 0.2s ease',
+                transform: menuOpen ? 'translateY(-5.5px) rotate(-45deg)' : 'none',
+              }}
+            />
+          </svg>
         </button>
 
-        {/* Menu Drawer — cartão flutuante compacto ancorado no canto superior
-            direito, acompanhando o scroll (fixed). Sem overlay: o fundo da
-            página permanece 100% visível e com a luminosidade normal. */}
-        {menuOpen && (
-          <div
-            className="flex md:hidden fixed z-[999] w-48"
+        {/* Menu Drawer — cartão flutuante em glassmorphism, estilo "Apple Style"
+            (iOS-like): fundo translúcido com blur, borda de luz fininha no topo,
+            entrada suave em fade + leve escala/deslize. Sempre montado para
+            permitir a transição de abertura/fechamento. */}
+        <div
+          className="flex md:hidden fixed z-[999] w-48"
+          aria-hidden={!menuOpen}
+          style={{
+            top: 76,
+            right: 20,
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 20,
+            textAlign: 'center',
+            padding: '26px 20px 24px 20px',
+            borderRadius: 26,
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.55) 100%)',
+            backdropFilter: 'blur(22px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(22px) saturate(180%)',
+            border: '1px solid rgba(255,255,255,0.6)',
+            boxShadow:
+              '0 1px 1px rgba(255,255,255,0.7) inset, 0 26px 50px -14px rgba(14,28,42,0.28), 0 0 0 1px rgba(14,28,42,0.03)',
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0) scale(1)' : 'translateY(-10px) scale(0.96)',
+            pointerEvents: menuOpen ? 'auto' : 'none',
+            transition: 'opacity 0.22s ease, transform 0.22s ease',
+          }}
+        >
+          {/* linha de luz fininha no topo do drawer */}
+          <span
+            aria-hidden="true"
             style={{
-              top: 76,
-              right: 20,
-              backgroundColor: '#fdfdfb',
-              borderRadius: 24,
-              boxShadow: '0 20px 45px rgba(0,0,0,0.22)',
-              padding: '28px 20px',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 22,
-              textAlign: 'center',
+              position: 'absolute',
+              top: 0,
+              left: '14%',
+              right: '14%',
+              height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
             }}
-          >
-            {['Benefits', 'Ingredients', 'FAQ'].map(label => {
-              const id = label.toLowerCase().replace(/ /g, '-');
-              return (
+          />
+
+          {['Benefits', 'Ingredients', 'FAQ'].map((label, i) => {
+            const id = label.toLowerCase().replace(/ /g, '-');
+            return (
+              <div key={label} style={{ width: '100%' }}>
+                {i > 0 && (
+                  <div
+                    aria-hidden="true"
+                    style={{ width: '100%', height: 1, background: 'rgba(14,28,42,0.08)', marginBottom: 20 }}
+                  />
+                )}
                 <a
-                  key={label}
                   href={`#${id}`}
                   onClick={(e) => handleNavClick(e, id)}
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: 18,
+                    fontSize: 16.5,
                     fontWeight: 400,
+                    letterSpacing: '0.02em',
                     color: 'var(--color-text)',
                     textDecoration: 'none',
                   }}
                 >
                   {label}
                 </a>
-              );
-            })}
+              </div>
+            );
+          })}
 
-            <button
-              onClick={handleBuyNowClick}
+          <button
+            onClick={handleBuyNowClick}
+            style={{
+              position: 'relative',
+              marginTop: 4,
+              width: '100%',
+              padding: '14px 20px',
+              border: 'none',
+              borderRadius: 100,
+              fontSize: 14.5,
+              fontWeight: 600,
+              letterSpacing: '0.02em',
+              color: '#fff',
+              cursor: 'pointer',
+              background: 'linear-gradient(180deg, #ff5a5f 0%, #e63946 55%, #c62333 100%)',
+              boxShadow:
+                '0 1px 0 rgba(255,255,255,0.35) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 0 0 1px rgba(255,255,255,0.08) inset, 0 14px 26px -8px rgba(198,35,51,0.55), 0 4px 10px rgba(198,35,51,0.3)',
+              transition: 'transform 0.15s ease, filter 0.15s ease',
+              overflow: 'hidden',
+            }}
+            onTouchStart={(e) => { e.currentTarget.style.transform = 'scale(0.97)'; e.currentTarget.style.filter = 'brightness(0.92)'; }}
+            onTouchEnd={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.filter = 'brightness(1)'; }}
+          >
+            {/* brilho especular no topo do botão */}
+            <span
+              aria-hidden="true"
               style={{
-                marginTop: 4,
-                backgroundColor: '#e63946',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 100,
-                padding: '13px 26px',
-                fontSize: 14,
-                fontWeight: 800,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                width: '100%',
+                position: 'absolute',
+                top: 1,
+                left: '6%',
+                right: '6%',
+                height: '42%',
+                borderRadius: '100px 100px 60px 60px / 100px 100px 30px 30px',
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)',
+                pointerEvents: 'none',
               }}
-            >
-              Buy Now
-            </button>
-          </div>
-        )}
+            />
+            <span style={{ position: 'relative', zIndex: 1 }}>Buy Now</span>
+          </button>
+        </div>
       </div>
     </div>
   )

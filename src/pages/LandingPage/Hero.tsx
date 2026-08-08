@@ -41,37 +41,39 @@ export default function Hero() {
         }}
       />
 
-      <div className="inner" style={{ padding: isMobile ? '08px 20px 10px 20px' : '60px 24px' }}>
-        {/* Eyebrow */}
-        <div
-          className="anim-0"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 12,
-            marginBottom: isMobile ? 0 : 24,
-          }}
-        >
-          <span
+      <div className="inner" style={{ padding: isMobile ? '0px 20px 10px 20px' : '60px 24px' }}>
+        {/* Eyebrow — oculto no mobile, mantido no desktop */}
+        {!isMobile && (
+          <div
+            className="anim-0"
             style={{
-              display: 'inline-block',
-              width: 32,
-              height: 1,
-              backgroundColor: 'var(--color-accent)',
-            }}
-          />
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 12,
+              marginBottom: 24,
             }}
           >
-            Advanced Nail Formula
-          </span>
-        </div>
+            <span
+              style={{
+                display: 'inline-block',
+                width: 32,
+                height: 1,
+                backgroundColor: 'var(--color-accent)',
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: 'var(--color-accent)',
+              }}
+            >
+              Advanced Nail Formula
+            </span>
+          </div>
+        )}
 
         {/* ═══════════════ MOBILE: Imagem → Texto → CTAs ═══════════════ */}
         {isMobile ? (
@@ -87,56 +89,211 @@ export default function Hero() {
                 maxWidth: 430,
                 height: 'auto',
                 objectFit: 'contain',
-                marginBottom: 20,
+                marginBottom: 12,
                 transform: 'translateX(-15px)',
               }}
             />
 
-            {/* 2º: Texto persuasivo (sem o título gigante) */}
-            <p
+            {/* 2º: Bloco de descrição — estilo "Apple glow" */}
+            <div
               style={{
-                fontSize: 16,
-                lineHeight: 1.55,
-                color: 'var(--color-muted)',
-                marginBottom: 24,
-                fontWeight: 300,
+                position: 'relative',
+                width: '100%',
                 maxWidth: 440,
+                margin: '4px auto 24px auto',
+                padding: '8px 0 0 0',
               }}
             >
-              A clinically backed, Specialist-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
-              <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
-                The uniquely formulated mist spray that supports healthy toenails.
-              </strong>
-            </p>
+              {/* Auras de luz ambiente */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  zIndex: 0,
+                  width: 220,
+                  height: 220,
+                  top: -60,
+                  left: -30,
+                  borderRadius: '50%',
+                  filter: 'blur(38px)',
+                  pointerEvents: 'none',
+                  background: 'radial-gradient(circle, rgba(93,202,165,0.55) 0%, rgba(93,202,165,0) 70%)',
+                }}
+              />
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  zIndex: 0,
+                  width: 200,
+                  height: 200,
+                  bottom: -50,
+                  right: -30,
+                  borderRadius: '50%',
+                  filter: 'blur(38px)',
+                  pointerEvents: 'none',
+                  background: 'radial-gradient(circle, rgba(120,170,255,0.40) 0%, rgba(120,170,255,0) 70%)',
+                }}
+              />
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  zIndex: 0,
+                  width: 160,
+                  height: 160,
+                  top: '30%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  borderRadius: '50%',
+                  filter: 'blur(38px)',
+                  pointerEvents: 'none',
+                  opacity: 0.6,
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)',
+                }}
+              />
+
+              {/* Card de vidro (glassmorphism) */}
+              <div
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  padding: '26px 24px 28px 24px',
+                  borderRadius: 26,
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.42) 100%)',
+                  backdropFilter: 'blur(18px) saturate(160%)',
+                  WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                  border: '1px solid rgba(255,255,255,0.55)',
+                  boxShadow:
+                    '0 1px 1px rgba(255,255,255,0.6) inset, 0 24px 48px -12px rgba(14,28,42,0.18), 0 0 60px rgba(93,202,165,0.22)',
+                }}
+              >
+                {/* Linha de luz fininha no topo (specular highlight) */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '14%',
+                    right: '14%',
+                    height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)',
+                  }}
+                />
+
+                <span
+                  style={{
+                    display: 'block',
+                    textAlign: 'center',
+                    fontSize: 11,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600,
+                    color: 'var(--color-accent-dark, #0E5C55)',
+                    opacity: 0.75,
+                    marginBottom: 10,
+                  }}
+                >
+                  Pronail Complex
+                </span>
+
+                <p
+                  style={{
+                    fontSize: 18.5,
+                    lineHeight: 1.55,
+                    letterSpacing: '-0.01em',
+                    color: '#111111',
+                    fontWeight: 400,
+                    textAlign: 'center',
+                    margin: 0,
+                  }}
+                >
+                  A clinically backed, Specialist Formulated micro particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
+                  <strong
+                    style={{
+                      display: 'block',
+                      marginTop: 10,
+                      fontSize: 19.5,
+                      letterSpacing: '-0.015em',
+                      fontWeight: 700,
+                      background: 'linear-gradient(90deg, #0E5C55, #17877D)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      color: 'transparent',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '0 0 30px rgba(23,135,125,0.25)',
+                    }}
+                  >
+                    The uniquely formulated mist spray that supports healthy toenails.
+                  </strong>
+                </p>
+              </div>
+            </div>
 
             {/* 3º: CTA principal + link secundário */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center', width: '100%', maxWidth: 340 }}>
-              
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center', width: '100%', maxWidth: 340, position: 'relative', zIndex: 1 }}>
+
+              <style>{`
+                .pronail-cta-btn {
+                  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+                  -webkit-tap-highlight-color: transparent;
+                }
+                .pronail-cta-btn:active {
+                  transform: scale(0.97);
+                  filter: brightness(0.92);
+                  box-shadow:
+                    0 1px 0 rgba(255,255,255,0.10) inset,
+                    0 -1px 0 rgba(0,0,0,0.5) inset,
+                    0 0 0 1px rgba(255,255,255,0.05) inset,
+                    0 6px 14px -6px rgba(0,0,0,0.45),
+                    0 2px 5px rgba(0,0,0,0.2);
+                }
+              `}</style>
+
               <a 
                 href="#pricing"
+                className="pronail-cta-btn"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToPricing();
                 }}
                 rel="nofollow sponsored"
                 style={{
+                  position: 'relative',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 8,
-                  backgroundColor: 'var(--color-text)',
-                  color: '#fff',
-                  padding: '16px 36px',
+                  gap: 9,
+                  width: '100%',
+                  padding: '18px 36px',
                   borderRadius: 100,
-                  fontSize: 15,
-                  fontWeight: 500,
-                  letterSpacing: '0.04em',
                   textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
-                  width: 'auto',
+                  fontSize: 16.5,
+                  fontWeight: 600,
+                  letterSpacing: '0.01em',
+                  color: '#F5F7F7',
+                  background: 'linear-gradient(180deg, #1c1f22 0%, #0a0c0e 55%, #000000 100%)',
+                  boxShadow:
+                    '0 1px 0 rgba(255,255,255,0.16) inset, 0 -1px 0 rgba(0,0,0,0.5) inset, 0 0 0 1px rgba(255,255,255,0.06) inset, 0 14px 30px -8px rgba(0,0,0,0.45), 0 4px 10px rgba(0,0,0,0.25)',
                 }}
               >
-                Claim Your Discount <FiArrowDown size={15} />
+                <span
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    top: 1,
+                    left: '6%',
+                    right: '6%',
+                    height: '42%',
+                    borderRadius: '100px 100px 60px 60px / 100px 100px 30px 30px',
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+                Claim Your Discount
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', transform: 'translateY(0.5px)' }}>
+                  <FiArrowDown size={16} />
+                </span>
               </a>
 
             </div>
@@ -181,7 +338,7 @@ export default function Hero() {
                     fontWeight: 300,
                   }}
                 >
-                  A clinically backed, Specialist-formulated micro-particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
+                  A clinically backed, Specialist Formulated micro particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
                   <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
                     The uniquely formulated mist spray that supports healthy toenails.
                   </strong>

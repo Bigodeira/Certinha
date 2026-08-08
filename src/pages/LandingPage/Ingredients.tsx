@@ -53,9 +53,10 @@ export default function Ingredients() {
       className="section-pad"
       style={{
         backgroundColor: 'var(--color-deep)',
-        // Sobrescreve o padding vertical padrão da classe apenas no mobile,
-        // reduzindo bastante a "moldura" azul acima e abaixo do conteúdo.
-        paddingTop: isMobile ? 36 : undefined,
+        // Sobrescreve o padding vertical padrão da classe apenas no mobile.
+        // paddingTop aumentado para dar respiro em relação à faixa de selos
+        // da seção anterior, que ficava colada no topo.
+        paddingTop: isMobile ? 64 : undefined,
         paddingBottom: isMobile ? 36 : undefined,
       }}
     >
@@ -90,38 +91,63 @@ export default function Ingredients() {
 
         {/* Ingredient Table */}
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: 1,
-            backgroundColor: 'rgba(255,255,255,0.06)',
-          }}
+          style={
+            isMobile
+              ? {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 14,
+                }
+              : {
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: 1,
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                }
+          }
         >
           {INGREDIENTS.map(({ name, fn, tag, icon }) => (
             <div
               key={name}
-              style={{
-                padding: isMobile ? '18px 20px' : '32px',
-                backgroundColor: 'var(--color-deep)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: isMobile ? 10 : 20,
-              }}
+              style={
+                isMobile
+                  ? {
+                      padding: '20px',
+                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      backdropFilter: 'blur(20px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      borderRadius: 22,
+                      boxShadow: '0 20px 36px -22px rgba(0,0,0,0.5)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      gap: 10,
+                    }
+                  : {
+                      padding: '32px',
+                      backgroundColor: 'var(--color-deep)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      gap: 20,
+                    }
+              }
             >
               <div>
                 <span
                   style={{
                     display: 'inline-block',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 9,
+                    fontSize: isMobile ? 10 : 9,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: 'var(--color-accent)',
-                    border: '1px solid rgba(90,173,167,0.3)',
+                    color: isMobile ? '#9FE1CB' : 'var(--color-accent)',
+                    backgroundColor: isMobile ? 'rgba(93,202,165,0.14)' : 'transparent',
+                    border: isMobile ? '1px solid rgba(93,202,165,0.28)' : '1px solid rgba(90,173,167,0.3)',
                     padding: '3px 8px',
                     borderRadius: 100,
-                    marginBottom: isMobile ? 8 : 16,
+                    marginBottom: isMobile ? 12 : 16,
                   }}
                 >
                   {tag}
@@ -130,7 +156,7 @@ export default function Ingredients() {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: isMobile ? 19 : 22,
-                    fontWeight: 400,
+                    fontWeight: isMobile ? 500 : 400,
                     color: '#fff',
                     marginBottom: isMobile ? 4 : 8,
                   }}
@@ -148,9 +174,9 @@ export default function Ingredients() {
                 </div>
                 <p
                   style={{
-                    fontSize: isMobile ? 12 : 13,
+                    fontSize: isMobile ? 13 : 13,
                     color: 'rgba(255,255,255,0.6)',
-                    lineHeight: isMobile ? 1.45 : 1.6,
+                    lineHeight: isMobile ? 1.55 : 1.6,
                     margin: 0,
                     fontWeight: 300,
                   }}

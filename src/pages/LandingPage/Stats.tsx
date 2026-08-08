@@ -17,41 +17,142 @@ export default function Stats() {
     <section aria-label="Key figures" style={{ backgroundColor: 'var(--color-deep)' }}>
       <div className="inner">
 
-        {/* ─── MOBILE: cards premium (visível só < md) ─────────────────────── */}
-        <div className="flex md:hidden flex-col gap-3.5 py-10">
-          {data.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4 shadow-lg shadow-black/20 transition-transform active:scale-[0.98]"
-            >
-              {stat.icon && (
+        {/* ─── MOBILE: cards premium estilo Apple (visível só < md) ────────── */}
+        <div
+          className="flex md:hidden flex-col relative overflow-hidden"
+          style={{ padding: '40px 4px 44px 4px' }}
+        >
+          {/* Auras de luz ambiente */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: -100,
+              left: -60,
+              width: 280,
+              height: 280,
+              borderRadius: '50%',
+              filter: 'blur(60px)',
+              background: 'radial-gradient(circle, rgba(93,202,165,0.16) 0%, rgba(93,202,165,0) 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              bottom: -100,
+              right: -60,
+              width: 260,
+              height: 260,
+              borderRadius: '50%',
+              filter: 'blur(60px)',
+              background: 'radial-gradient(circle, rgba(120,170,255,0.12) 0%, rgba(120,170,255,0) 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          <div className="flex flex-col gap-3.5 relative" style={{ zIndex: 1 }}>
+            {data.map((stat) => (
+              <div
+                key={stat.label}
+                className="relative flex items-center gap-4 transition-transform active:scale-[0.98]"
+                style={{
+                  padding: '18px 20px',
+                  borderRadius: 22,
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                  backdropFilter: 'blur(20px) saturate(160%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow:
+                    '0 1px 0 rgba(255,255,255,0.06) inset, 0 22px 40px -18px rgba(0,0,0,0.55), 0 0 32px rgba(93,202,165,0.06)',
+                }}
+              >
+                {/* linha de luz fininha no topo do card */}
                 <div
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
+                  aria-hidden="true"
                   style={{
-                    background: 'radial-gradient(circle, rgba(90,173,167,0.22) 0%, rgba(90,173,167,0.06) 100%)',
-                    boxShadow: '0 0 0 1px rgba(90,173,167,0.25) inset',
+                    position: 'absolute',
+                    top: 0,
+                    left: '16%',
+                    right: '16%',
+                    height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)',
                   }}
-                >
-                  <img src={stat.icon} alt="" className="h-7 w-7 object-contain" />
-                </div>
-              )}
-              <div className="flex flex-1 flex-col">
-                <div
-                  className="flex items-baseline gap-1 font-extrabold leading-none text-white"
-                  style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 7.5vw, 30px)' }}
-                >
-                  <span>{stat.value}</span>
-                  {stat.suffix && <span style={{ color: 'var(--color-accent)' }}>{stat.suffix}</span>}
-                </div>
-                <div
-                  className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/55"
-                  style={{ fontFamily: 'var(--font-mono)' }}
-                >
-                  {stat.label}
+                />
+
+                {stat.icon && (
+                  <div
+                    className="flex shrink-0 items-center justify-center"
+                    style={{
+                      position: 'relative',
+                      width: 52,
+                      height: 52,
+                      borderRadius: '50%',
+                      background:
+                        'radial-gradient(circle at 35% 30%, rgba(93,202,165,0.28) 0%, rgba(93,202,165,0.05) 65%, transparent 100%)',
+                      boxShadow:
+                        '0 0 0 1px rgba(93,202,165,0.22) inset, 0 1px 0 rgba(255,255,255,0.12) inset, 0 6px 14px -6px rgba(0,0,0,0.5)',
+                    }}
+                  >
+                    <img
+                      src={stat.icon}
+                      alt=""
+                      style={{
+                        width: 24,
+                        height: 24,
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 0 6px rgba(93,202,165,0.25))',
+                      }}
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col" style={{ gap: 4 }}>
+                  <div
+                    className="flex items-baseline leading-none"
+                    style={{
+                      gap: 5,
+                      fontFamily: 'var(--font-display)',
+                      fontWeight: 600,
+                      fontSize: 26,
+                      letterSpacing: '-0.01em',
+                      color: '#F7F9F9',
+                    }}
+                  >
+                    <span>{stat.value}</span>
+                    {stat.suffix && (
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-sans, -apple-system, sans-serif)',
+                          fontWeight: 600,
+                          fontSize: 16,
+                          background: 'linear-gradient(90deg, #7CE0C6, #5AADA7)',
+                          backgroundClip: 'text',
+                          WebkitBackgroundClip: 'text',
+                          color: 'transparent',
+                          WebkitTextFillColor: 'transparent',
+                        }}
+                      >
+                        {stat.suffix}
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 10.5,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      fontWeight: 600,
+                      color: 'rgba(255,255,255,0.45)',
+                    }}
+                  >
+                    {stat.label}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* ─── DESKTOP: original, 100% intacto (visível só >= md) ─────────── */}

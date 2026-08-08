@@ -108,7 +108,7 @@ export default function Benefits() {
         <div
           style={
             isMobile
-              ? { display: 'flex', flexDirection: 'column', gap: 16, paddingBottom: 8 }
+              ? { display: 'flex', flexDirection: 'column', gap: 18, paddingBottom: 8, position: 'relative' }
               : {
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -117,20 +117,42 @@ export default function Benefits() {
                 }
           }
         >
+          {isMobile && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: -60,
+                right: -60,
+                width: 240,
+                height: 240,
+                borderRadius: '50%',
+                filter: 'blur(60px)',
+                background: 'radial-gradient(circle, rgba(93,202,165,0.16) 0%, rgba(93,202,165,0) 70%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+          )}
           {BENEFITS.map(({ Icon, title, body }) => (
             <article
               key={title}
               style={
                 isMobile
                   ? {
-                      padding: '26px 22px',
-                      backgroundColor: '#ffffff',
-                      border: '1px solid rgba(90,173,167,0.14)',
-                      borderRadius: 20,
-                      boxShadow: '0 6px 18px rgba(20,40,50,0.06)',
+                      position: 'relative',
+                      zIndex: 1,
+                      padding: '26px 24px 28px 24px',
+                      borderRadius: 24,
+                      background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.72) 100%)',
+                      backdropFilter: 'blur(18px) saturate(160%)',
+                      WebkitBackdropFilter: 'blur(18px) saturate(160%)',
+                      border: '1px solid rgba(255,255,255,0.7)',
+                      boxShadow:
+                        '0 1px 1px rgba(255,255,255,0.7) inset, 0 22px 40px -18px rgba(14,28,42,0.14), 0 0 36px rgba(93,202,165,0.10)',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: 12,
+                      gap: 14,
                     }
                   : {
                       padding: '40px 32px',
@@ -141,42 +163,62 @@ export default function Benefits() {
                     }
               }
             >
+              {isMobile && (
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '16%',
+                    right: '16%',
+                    height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
+                  }}
+                />
+              )}
               <div
                 style={{
-                  width: isMobile ? 48 : 44,
-                  height: isMobile ? 48 : 44,
-                  borderRadius: '50%',
+                  position: 'relative',
+                  width: isMobile ? 54 : 44,
+                  height: isMobile ? 54 : 44,
+                  borderRadius: isMobile ? 16 : '50%',
                   background: isMobile
-                    ? 'linear-gradient(135deg, rgba(90,173,167,0.18), rgba(90,173,167,0.06))'
+                    ? 'radial-gradient(circle at 35% 30%, rgba(93,202,165,0.30) 0%, rgba(93,202,165,0.08) 65%, transparent 100%)'
                     : 'rgba(90,173,167,0.1)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--color-accent)',
-                  boxShadow: isMobile ? '0 2px 8px rgba(90,173,167,0.18)' : 'none',
+                  color: 'var(--color-accent-dark, #0E5C55)',
+                  boxShadow: isMobile
+                    ? '0 0 0 1px rgba(93,202,165,0.22) inset, 0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 16px -8px rgba(14,92,85,0.35)'
+                    : 'none',
                 }}
               >
-                <Icon size={isMobile ? 22 : 20} />
+                <Icon
+                  size={isMobile ? 24 : 20}
+                  style={isMobile ? { filter: 'drop-shadow(0 0 6px rgba(93,202,165,0.35))', color: 'var(--color-accent-dark, #0E5C55)' } : undefined}
+                />
               </div>
               <h3
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: isMobile ? 19 : 20,
+                  fontSize: isMobile ? 19.5 : 20,
                   fontWeight: isMobile ? 700 : 400,
+                  letterSpacing: isMobile ? '-0.01em' : 'normal',
                   margin: 0,
                   lineHeight: 1.25,
-                  color: 'var(--color-text)',
+                  color: isMobile ? '#111111' : 'var(--color-text)',
                 }}
               >
                 {title}
               </h3>
               <p
                 style={{
-                  fontSize: 14,
-                  lineHeight: 1.6,
+                  fontSize: isMobile ? 14.5 : 14,
+                  lineHeight: isMobile ? 1.65 : 1.6,
                   color: 'var(--color-muted)',
                   margin: 0,
-                  fontWeight: 300,
+                  fontWeight: isMobile ? 400 : 300,
                 }}
               >
                 {body}
@@ -205,123 +247,193 @@ export default function Benefits() {
           marginTop: isMobile ? '20px' : '60px',
           boxSizing: 'border-box'
         }}>
-          {/* Cartão Branco Flutuante Centralizado (Elementos Maiores) */}
+          {/* Glow decorativo (somente mobile, estilo Apple) */}
+          {isMobile && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '8%',
+                right: '8%',
+                width: 200,
+                height: 200,
+                borderRadius: '50%',
+                filter: 'blur(50px)',
+                background: 'radial-gradient(circle, rgba(93,202,165,0.30) 0%, rgba(93,202,165,0) 70%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+          )}
+          {isMobile && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                bottom: '6%',
+                left: '6%',
+                width: 160,
+                height: 160,
+                borderRadius: '50%',
+                filter: 'blur(46px)',
+                background: 'radial-gradient(circle, rgba(93,202,165,0.22) 0%, rgba(93,202,165,0) 70%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+          )}
+
+          {/* Cartão Central (vidro fosco no mobile, cartão branco padrão no desktop) */}
           <div style={{
-            backgroundColor: '#ffffff',
-            borderRadius: isMobile ? '18px' : '20px',
+            backgroundColor: isMobile ? 'rgba(255,255,255,0.78)' : '#ffffff',
+            backdropFilter: isMobile ? 'blur(16px) saturate(160%)' : undefined,
+            WebkitBackdropFilter: isMobile ? 'blur(16px) saturate(160%)' : undefined,
+            border: isMobile ? '1px solid rgba(255,255,255,0.6)' : 'none',
+            borderRadius: isMobile ? '28px' : '20px',
             maxWidth: '1050px',
             width: '100%',
-            padding: isMobile ? '24px 20px' : '55px 50px',
-            boxShadow: isMobile ? '0 10px 26px rgba(0,0,0,0.14)' : '0 20px 45px rgba(0,0,0,0.2)',
+            padding: isMobile ? '28px 22px 24px' : '55px 50px',
+            boxShadow: isMobile
+              ? '0 24px 48px -24px rgba(0,0,0,0.18), 0 0 32px rgba(93,202,165,0.12)'
+              : '0 20px 45px rgba(0,0,0,0.2)',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: isMobile ? '4px' : '35px',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            position: 'relative',
+            zIndex: 1,
           }}>
 
-            {/* Lado Esquerdo: Título e Ícones Maiores */}
+            {/* Lado Esquerdo: Título e Lista de Benefícios */}
             <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'center' : 'flex-start' }}>
               <h2 style={{
                 fontSize: isMobile ? 'clamp(26px, 8vw, 32px)' : 'clamp(42px, 5.5vw, 56px)',
                 fontFamily: 'Arial, sans-serif',
-                color: '#1a1a1a',
+                color: isMobile ? '#000000' : '#1a1a1a',
                 textAlign: isMobile ? 'center' : 'left',
                 lineHeight: isMobile ? '1.15' : '1.05',
-                marginBottom: isMobile ? '16px' : '40px',
+                marginBottom: isMobile ? '18px' : '40px',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px'
               }}>
-                <span style={{ fontWeight: '300' }}>ProNail</span><br />
-                <strong style={{ fontWeight: '800' }}>Complex</strong>
+                <span style={{ fontWeight: isMobile ? 400 : '300' }}>ProNail</span><br />
+                <strong style={{ fontWeight: isMobile ? 600 : '800' }}>Complex</strong>
               </h2>
 
-              {/* Grid 2x2 dos Benefícios com Check e Texto Maiores */}
+              {/* Lista de Benefícios: grid 2x2 no desktop, lista estilo iOS no mobile */}
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(180px, 1fr))',
-                justifyContent: isMobile ? 'center' : 'start',
-                gap: isMobile ? '11px' : '28px 20px',
+                display: isMobile ? 'flex' : 'grid',
+                flexDirection: isMobile ? 'column' : undefined,
+                width: isMobile ? '100%' : 'auto',
+                gridTemplateColumns: isMobile ? undefined : 'repeat(auto-fit, minmax(180px, 1fr))',
+                justifyContent: isMobile ? 'flex-start' : 'start',
+                gap: isMobile ? 0 : '28px 20px',
                 fontSize: isMobile ? '15px' : '20px',
                 color: '#222222',
                 fontFamily: 'Arial, sans-serif',
                 fontWeight: '600'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '14px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: isMobile ? '12px' : '14px',
+                  padding: isMobile ? '13px 2px' : 0,
+                  borderTop: isMobile ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                }}>
                   <div style={{
-                    backgroundColor: '#4caf50',
-                    borderRadius: isMobile ? '5px' : '6px',
-                    width: isMobile ? '22px' : '32px',
-                    height: isMobile ? '22px' : '32px',
+                    backgroundColor: isMobile ? 'rgb(93,202,165)' : '#4caf50',
+                    borderRadius: isMobile ? '50%' : '6px',
+                    width: isMobile ? '26px' : '32px',
+                    height: isMobile ? '26px' : '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#fff',
                     fontWeight: 'bold',
-                    fontSize: isMobile ? '13px' : '18px',
+                    fontSize: isMobile ? '14px' : '18px',
                     flexShrink: 0
                   }}>
                     ✓
                   </div>
-                  <span>Natural Formula</span>
+                  <span style={{ color: isMobile ? '#000000' : '#222222' }}>Natural Formula</span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '14px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: isMobile ? '12px' : '14px',
+                  padding: isMobile ? '13px 2px' : 0,
+                  borderTop: isMobile ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                }}>
                   <div style={{
-                    backgroundColor: '#4caf50',
-                    borderRadius: isMobile ? '5px' : '6px',
-                    width: isMobile ? '22px' : '32px',
-                    height: isMobile ? '22px' : '32px',
+                    backgroundColor: isMobile ? 'rgb(93,202,165)' : '#4caf50',
+                    borderRadius: isMobile ? '50%' : '6px',
+                    width: isMobile ? '26px' : '32px',
+                    height: isMobile ? '26px' : '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#fff',
                     fontWeight: 'bold',
-                    fontSize: isMobile ? '13px' : '18px',
+                    fontSize: isMobile ? '14px' : '18px',
                     flexShrink: 0
                   }}>
                     ✓
                   </div>
-                  <span>Easy To Use</span>
+                  <span style={{ color: isMobile ? '#000000' : '#222222' }}>Easy To Use</span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '14px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: isMobile ? '12px' : '14px',
+                  padding: isMobile ? '13px 2px' : 0,
+                  borderTop: isMobile ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                }}>
                   <div style={{
-                    backgroundColor: '#4caf50',
-                    borderRadius: isMobile ? '5px' : '6px',
-                    width: isMobile ? '22px' : '32px',
-                    height: isMobile ? '22px' : '32px',
+                    backgroundColor: isMobile ? 'rgb(93,202,165)' : '#4caf50',
+                    borderRadius: isMobile ? '50%' : '6px',
+                    width: isMobile ? '26px' : '32px',
+                    height: isMobile ? '26px' : '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#fff',
                     fontWeight: 'bold',
-                    fontSize: isMobile ? '13px' : '18px',
+                    fontSize: isMobile ? '14px' : '18px',
                     flexShrink: 0
                   }}>
                     ✓
                   </div>
-                  <span>No Stimulants</span>
+                  <span style={{ color: isMobile ? '#000000' : '#222222' }}>No Stimulants</span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '10px' : '14px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: isMobile ? '12px' : '14px',
+                  padding: isMobile ? '13px 2px' : 0,
+                  borderTop: isMobile ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                  borderBottom: isMobile ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                }}>
                   <div style={{
-                    backgroundColor: '#4caf50',
-                    borderRadius: isMobile ? '5px' : '6px',
-                    width: isMobile ? '22px' : '32px',
-                    height: isMobile ? '22px' : '32px',
+                    backgroundColor: isMobile ? 'rgb(93,202,165)' : '#4caf50',
+                    borderRadius: isMobile ? '50%' : '6px',
+                    width: isMobile ? '26px' : '32px',
+                    height: isMobile ? '26px' : '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#fff',
                     fontWeight: 'bold',
-                    fontSize: isMobile ? '13px' : '18px',
+                    fontSize: isMobile ? '14px' : '18px',
                     flexShrink: 0
                   }}>
                     ✓
                   </div>
-                  <span>Non-GMO</span>
+                  <span style={{ color: isMobile ? '#000000' : '#222222' }}>Non-GMO</span>
                 </div>
               </div>
             </div>
@@ -331,30 +443,43 @@ export default function Benefits() {
               <img
                 src={typeof imgGarrafas !== 'undefined' ? imgGarrafas : ''}
                 alt="ProNail Complex"
-                style={{ maxWidth: '100%', height: 'auto', maxHeight: isMobile ? '170px' : '380px', objectFit: 'contain', marginTop: isMobile ? 4 : 0 }}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  maxHeight: isMobile ? '170px' : '380px',
+                  objectFit: 'contain',
+                  marginTop: isMobile ? 4 : 0,
+                  filter: isMobile ? 'drop-shadow(0 18px 20px rgba(0,0,0,0.15))' : 'none',
+                }}
               />
             </div>
 
-      </div> {/* Fechamento do Cartão Branco */}
+      </div> {/* Fechamento do Cartão Central */}
       </div> {/* Fechamento da Imagem de Fundo (bgFolhas) */}
 
-      {/* TARJA DE CERTIFICADOS (ENCOSTADA NA SEÇÃO ESCURA) */}
+      {/* TARJA DE CERTIFICADOS (mantém a imagem original; no mobile ganha cartão próprio, limpo e integrado) */}
       <div
         id="selos-qualidade"
         style={{
-          backgroundColor: 'var(--color-ground)',
-          paddingTop: isMobile ? '18px' : '30px',
-          paddingBottom: isMobile ? '18px' : '30px',
-          marginBottom: '0px',
+          backgroundColor: isMobile ? '#ffffff' : 'var(--color-ground)',
+          paddingTop: isMobile ? '20px' : '30px',
+          paddingBottom: isMobile ? '20px' : '30px',
+          paddingLeft: isMobile ? '16px' : 0,
+          paddingRight: isMobile ? '16px' : 0,
+          marginTop: isMobile ? '18px' : 0,
+          marginBottom: isMobile ? '8px' : '0px',
+          borderRadius: isMobile ? '20px' : 0,
+          border: isMobile ? '0.5px solid rgba(0,0,0,0.06)' : 'none',
+          boxShadow: isMobile ? '0 10px 24px -14px rgba(0,0,0,0.12)' : 'none',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '100vw',
-          position: 'relative',
-          left: '50%',
-          right: '50%',
-          marginLeft: '-50vw',
-          marginRight: '-50vw',
+          width: isMobile ? 'auto' : '100vw',
+          position: isMobile ? 'static' : 'relative',
+          left: isMobile ? 'auto' : '50%',
+          right: isMobile ? 'auto' : '50%',
+          marginLeft: isMobile ? '16px' : '-50vw',
+          marginRight: isMobile ? '16px' : '-50vw',
           boxSizing: 'border-box'
         }}
       >
@@ -363,7 +488,7 @@ export default function Benefits() {
           alt="Selos de Qualidade FDA, GMP e 100% Natural"
           style={{
             width: '100%',
-            maxWidth: '900px',
+            maxWidth: isMobile ? '520px' : '900px',
             height: 'auto',
             objectFit: 'contain',
             display: 'block'
