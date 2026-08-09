@@ -1,7 +1,34 @@
 // ─── src/pages/LandingPage/FinalCTA.tsx ───────────────────────────────────────
 
-import { FiArrowUp } from 'react-icons/fi'
-import { scrollToPricing } from './utils'
+import bonus1 from '../../bonus1.png'
+import bonus2 from '../../bonus2.png'
+import bonus3 from '../../bonus3.png'
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const BONUSES = [
+  {
+    img: bonus1,
+    label: 'Bonus #1',
+    title: 'The Skin Fix Files: Tips and Tricks for Defeating Eczema, Psoriasis, and Other Skin Conditions',
+    retail: '$55',
+    desc: "Inside you'll discover how you can address common skin conditions like psoriasis or eczema, faster and easier than you ever thought possible.",
+  },
+  {
+    img: bonus2,
+    label: 'Bonus #2',
+    title: 'Clear Steps: The Lazy Protocol For Rapid Nail Growth and Healthy Feet After Fungus Recovery',
+    retail: '$54',
+    desc: "Inside this guide you'll get the most definitive and easy-to-follow plan for quick nail growth and skin regeneration.",
+  },
+  {
+    img: bonus3,
+    label: 'Bonus #3',
+    title: 'The Mouth-to-Gut Cleanse Plan: Science-Backed Detox for Your Entire System',
+    retail: '$54',
+    desc: 'Discover 3 simple at-home breathing exercises that can reduce inflammation in the digestive tract and rapidly improve overall mental and physical wellbeing.',
+  },
+]
 
 // ─── Final CTA ────────────────────────────────────────────────────────────────
 
@@ -28,73 +55,90 @@ export default function FinalCTA() {
       />
 
       <div className="inner" style={{ position: 'relative', maxWidth: '900px', margin: '0 auto' }}>
-        
-        <p style={{ 
-          fontFamily: 'var(--font-mono)', 
-          fontSize: 11, 
-          letterSpacing: '0.18em', 
-          textTransform: 'uppercase', 
-          color: 'var(--color-accent)', 
-          marginBottom: 20 
-        }}>
-          Risk-Free Purchase
-        </p>
 
-        <h2 style={{ 
-          fontSize: 'clamp(32px, 4.5vw, 52px)', 
-          fontFamily: 'serif', 
-          color: '#ffffff', 
-          lineHeight: '1.2', 
-          marginBottom: '20px',
-          fontWeight: '400'
+        <h2 style={{
+          fontFamily: 'serif',
+          fontSize: 'clamp(26px, 5vw, 36px)',
+          fontWeight: 700,
+          lineHeight: 1.25,
+          color: '#ffffff',
+          margin: '0 0 32px',
         }}>
-          Claim Your Discounted <br />
-          ProNail Complex Bottle <br />
-          Today
+          Order 6 Bottles and Get 3 FREE Bonuses!
         </h2>
 
-        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 35px auto', lineHeight: '1.6' }}>
-          Try it for 60 days with an ironclad 100% money-back guarantee. Zero risk, maximum results for your feet.
-        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 440, margin: '0 auto' }}>
+          {BONUSES.map(({ img, label, title, retail, desc }) => (
+            <article
+              key={label}
+              style={{
+                position: 'relative',
+                borderRadius: 24,
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 100%)',
+                boxShadow:
+                  '0 1px 1px rgba(255,255,255,0.6) inset, 0 24px 48px -18px rgba(0,0,0,0.45), 0 0 40px rgba(93,202,165,0.08)',
+                overflow: 'hidden',
+                textAlign: 'center',
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  left: 16,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#ffffff',
+                  background: 'rgba(0,0,0,0.55)',
+                  backdropFilter: 'blur(6px)',
+                  padding: '5px 10px',
+                  borderRadius: 100,
+                  zIndex: 2,
+                }}
+              >
+                {label}
+              </span>
 
-        <button
-          onClick={() => {
-            scrollToPricing();
-          }}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '12px',
-            backgroundColor: 'var(--color-accent)',
-            color: '#fff',
-            padding: '20px 48px',
-            borderRadius: 100,
-            fontSize: '19px',
-            fontWeight: 600,
-            letterSpacing: '0.03em',
-            border: 'none',
-            cursor: 'pointer',
-            boxShadow: '0 6px 20px rgba(90,173,167,0.4)',
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#427f77';
-            e.currentTarget.style.transform = 'translateY(-3px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'var(--color-accent)';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
-        >
-          Order ProNail Complex <FiArrowUp size={22} />
-        </button>
+              <img
+                src={img}
+                alt={title}
+                style={{
+                  width: '100%',
+                  height: 190,
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '25px', fontSize: '11px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-          <span>Free Shipping</span>
-          <span>•</span>
-          <span>60-Day Guarantee</span>
-          <span>•</span>
-          <span>Secure Checkout</span>
+              <div style={{ padding: '22px 22px 26px' }}>
+                <h4
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 700,
+                    letterSpacing: '-0.005em',
+                    color: '#111111',
+                    lineHeight: 1.35,
+                    margin: '0 0 18px',
+                  }}
+                >
+                  {title}
+                </h4>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#111111', marginBottom: 4 }}>
+                  <span style={{ textDecoration: 'line-through', color: '#9a9a9a', fontWeight: 500, marginRight: 6 }}>
+                    {retail}
+                  </span>
+                </div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--color-accent-dark, #0E5C55)', marginBottom: 14 }}>
+                  Today: FREE
+                </div>
+                <p style={{ fontSize: 14, lineHeight: 1.6, color: '#5b5f5e', fontWeight: 400, margin: 0 }}>
+                  {desc}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
 
       </div>

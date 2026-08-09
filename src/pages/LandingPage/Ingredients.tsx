@@ -242,52 +242,76 @@ export default function Ingredients() {
       }}
     >
       <div className="inner">
-        <div style={{ marginBottom: isMobile ? 24 : 48 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'var(--color-accent)',
-              marginBottom: isMobile ? 6 : 12,
-            }}
-          >
-            {isMobile ? 'The Complete Formula' : 'The Complete Formula'}
-          </p>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: isMobile ? 'clamp(24px, 6.5vw, 30px)' : 'clamp(28px, 3.5vw, 44px)',
-              fontWeight: 300,
-              lineHeight: 1.2,
-              color: '#fff',
-              margin: 0,
-              maxWidth: 520,
-            }}
-          >
-            Clinically Selected Botanicals & Active Minerals
-          </h2>
-
-          {/* Texto introdutório — exclusivo do mobile, não altera o desktop */}
-          {isMobile && (
+        <div style={{ marginBottom: isMobile ? 40 : 48 }}>
+          {isMobile ? (
+            /* Frase única em destaque no lugar do eyebrow + título + texto antigo */
             <p
               style={{
                 fontFamily: 'var(--font-display)',
-                fontWeight: 300,
-                fontSize: 'clamp(14px, 3.8vw, 16px)',
-                lineHeight: 1.65,
-                color: 'rgba(255,255,255,0.62)',
-                margin: '14px 0 0',
+                fontSize: 'clamp(24px, 7.2vw, 29px)',
+                fontWeight: 700,
+                letterSpacing: '-0.015em',
+                lineHeight: 1.32,
+                color: '#ffffff',
+                margin: 0,
                 maxWidth: 480,
               }}
             >
               Inside every drop of{' '}
-              <span style={{ color: '#9FE1CB' }}>ProNail Complex</span> you'll
-              find an optimally dosed proprietary blend of oils and vitamins,
-              carefully mixed to complement one another into a powerful
-              nail-strengthening formula.
+              <span
+                style={{
+                  background: 'linear-gradient(90deg, #5DCAA5, #9FE1CB)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                ProNail Complex
+              </span>{' '}
+              you'll find:
+              <span
+                style={{
+                  display: 'block',
+                  marginTop: 12,
+                  fontWeight: 400,
+                  fontSize: '0.72em',
+                  letterSpacing: '-0.005em',
+                  lineHeight: 1.55,
+                  color: 'rgba(255,255,255,0.62)',
+                }}
+              >
+                An optimally dosed proprietary blend of oils and vitamins, carefully mixed to complement one another into a powerful nail-strengthening formula.
+              </span>
             </p>
+          ) : (
+            <>
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 11,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-accent)',
+                  marginBottom: 12,
+                }}
+              >
+                The Complete Formula
+              </p>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(28px, 3.5vw, 44px)',
+                  fontWeight: 300,
+                  lineHeight: 1.2,
+                  color: '#fff',
+                  margin: 0,
+                  maxWidth: 520,
+                }}
+              >
+                Clinically Selected Botanicals & Active Minerals
+              </h2>
+            </>
           )}
         </div>
 
@@ -344,7 +368,22 @@ export default function Ingredients() {
             </div>
 
             <button
-              onClick={() => setIsExpanded((v) => !v)}
+              onClick={() => {
+  // 1. Inverte o estado (se estava aberto, fecha; se estava fechado, abre)
+  const novoEstado = !isExpanded;
+  setIsExpanded(novoEstado);
+
+  // 2. Se o usuário acabou de FECHAR (clicou em Show Less), a mágica acontece:
+  if (!novoEstado) {
+    // Dá um tempinho minúsculo para o componente encolher e a tela recalcular a altura
+    setTimeout(() => {
+      const elemento = document.getElementById('benefits');
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 50);
+  }
+}}
               aria-expanded={isExpanded}
               style={{
                 width: '100%',

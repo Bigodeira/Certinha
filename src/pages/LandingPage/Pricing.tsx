@@ -68,15 +68,11 @@ export default function Pricing() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Reordenação estratégica: no mobile, a oferta principal (highlight = 3+3 Bottles)
-  // aparece primeiro, seguida de "Most Popular" e depois "Basic".
-  // No desktop mantemos a ordem original (Basic | Best Value | Most Popular).
   const MOBILE_ORDER: Record<string, number> = { 'pack-6': 0, 'pack-3': 1, 'pack-2': 2 };
   const displayPackages = isMobile
     ? [...PRICING_PACKAGES].sort((a, b) => MOBILE_ORDER[a.id] - MOBILE_ORDER[b.id])
     : PRICING_PACKAGES;
 
-  // Cor do selo flutuante (pill) — exclusivo do mobile.
   const pillBackground = (pkg: typeof PRICING_PACKAGES[number]) =>
     pkg.highlight
       ? 'linear-gradient(180deg,#f4c430,#d49a00)'
@@ -88,8 +84,6 @@ export default function Pricing() {
     <>
     {/* FAIXA 1: FRETE GRÁTIS */}
         {isMobile ? (
-          // Mobile: mesmo padrão visual da seção de garantia — fundo escuro
-          // envolvendo um retângulo branco arredondado com o conteúdo dentro.
           <div style={{
             backgroundColor: 'var(--color-deep)',
             padding: '28px 16px 22px',
@@ -122,7 +116,6 @@ export default function Pricing() {
             </div>
           </div>
         ) : (
-          // Desktop: idêntico ao original.
           <div style={{
             backgroundColor: '#ffffff',
             padding: '60px 20px 30px 20px',
@@ -148,6 +141,40 @@ export default function Pricing() {
           </div>
         )}
 
+    {/* FAIXA NOVA: "Claim Your Discounted..." — EXCLUSIVA DO MOBILE, não afeta o desktop */}
+    {isMobile && (
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '0 16px', margin: '20px 0 26px' }}>
+        <div style={{
+          background: 'var(--color-deep)',
+          color: '#ffffff',
+          textAlign: 'center',
+          fontWeight: 800,
+          fontSize: 'clamp(15px, 4.6vw, 18px)',
+          lineHeight: 1.35,
+          padding: '18px 18px 16px',
+          maxWidth: '440px',
+          width: '100%',
+          position: 'relative',
+          fontFamily: 'Arial, sans-serif',
+        }}>
+          Claim Your Discounted<br />
+          ProNail Complex<br />
+          Below While Stocks Last!
+          <div style={{
+            position: 'absolute',
+            left: '50%',
+            bottom: '-16px',
+            transform: 'translateX(-50%)',
+            width: 0,
+            height: 0,
+            borderLeft: '16px solid transparent',
+            borderRight: '16px solid transparent',
+            borderTop: '16px solid var(--color-deep)',
+          }} />
+        </div>
+      </div>
+    )}
+
 
     <section id="pricing" style={{ padding: isMobile ? '32px 14px 14px 14px' : '100px 24px 24px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
       <div style={{
@@ -167,8 +194,6 @@ export default function Pricing() {
         style={
           isMobile
             ? {
-                // Wrapper mobile: só reserva espaço pro selo flutuante e
-                // define largura/flex — o visual real vive no cardInnerStyle.
                 width: '100%',
                 flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
                 maxWidth: '440px',
@@ -218,8 +243,6 @@ export default function Pricing() {
         }}
       >
 
-            {/* Selo flutuante (Best Value / Most Popular / Basic) — exclusivo do
-                mobile, vive FORA da área com overflow:hidden pra não ser cortado */}
             {isMobile && (
               <div style={{
                 position: 'absolute',
@@ -241,8 +264,6 @@ export default function Pricing() {
               </div>
             )}
 
-            {/* Card visual — no mobile carrega o visual "Apple style" completo;
-                no desktop fica praticamente vazio (o visual já está no wrapper acima) */}
             <div style={
               isMobile
                 ? {
@@ -260,9 +281,6 @@ export default function Pricing() {
                 : undefined
             }>
 
-            {/* Cabeçalho do card — barra colorida com o rótulo (Basic / Most Popular).
-                No mobile essa barra some (virou o selo flutuante acima); no highlight
-                mobile mantemos só a faixa de bônus, mais suave. */}
             {!isMobile && (
               pkg.highlight ? (
                 <div style={{
@@ -308,7 +326,6 @@ export default function Pricing() {
               </div>
             )}
 
-            {/* Corpo do card: no mobile usamos um grid de 2 colunas (imagem+título | preço+perks) */}
             <div style={{
               padding: isMobile ? (pkg.highlight ? '14px 18px 4px 18px' : '22px 18px 4px 18px') : (pkg.highlight ? '22px 32px 0 32px' : '20px 26px 0 26px'),
               display: isMobile ? 'grid' : 'block',
@@ -319,7 +336,6 @@ export default function Pricing() {
             }}>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'center' }}>
-                {/* Rótulo (apenas desktop — no mobile já está no selo flutuante) */}
                 {!isMobile && (
                   <p style={{
                     fontSize: '12px',
@@ -333,7 +349,6 @@ export default function Pricing() {
                   </p>
                 )}
 
-                {/* Títulos */}
                 <h3 style={{
                   fontSize: isMobile ? 'clamp(17px, 4.6vw, 20px)' : (pkg.highlight ? 'clamp(25px, 4.5vw, 30px)' : 'clamp(22px, 3.8vw, 27px)'),
                   color: 'var(--color-deep)',
@@ -347,7 +362,6 @@ export default function Pricing() {
                 </h3>
                 <p style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#666', fontWeight: isMobile ? 500 : undefined, margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>{pkg.subtitle}</p>
 
-                {/* Imagem do Produto */}
                 <img src={pkg.image} alt={pkg.title} style={{
                   height: isMobile ? 'clamp(90px, 24vw, 130px)' : (pkg.highlight ? 'clamp(170px, 24vw, 230px)' : 'clamp(160px, 20vw, 195px)'),
                   width: 'auto',
@@ -362,7 +376,6 @@ export default function Pricing() {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'stretch' : 'center' }}>
-                {/* Vantagens (Perks) */}
                 <div style={{ marginBottom: isMobile ? '8px' : '24px', flexGrow: isMobile ? 0 : 1, width: '100%' }}>
                   {pkg.perks.map((perk, i) => (
                     isMobile ? (
@@ -408,7 +421,6 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                {/* Preço Principal */}
                 <div style={{ color: 'var(--color-deep)', marginBottom: isMobile ? '4px' : '20px', display: 'flex', justifyContent: isMobile ? 'flex-start' : 'center', alignItems: 'baseline' }}>
                   <span style={{
                     fontSize: isMobile ? 'clamp(34px, 11vw, 46px)' : (pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)'),
@@ -427,9 +439,7 @@ export default function Pricing() {
             </div>
             </div>
 
-            {/* Rodapé do card: botão de compra + totais, ocupando a largura toda (fora do grid) */}
             <div style={{ padding: isMobile ? '6px 18px 20px 18px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
-              {/* Botão de Compra */}
               <button
                 id={`buy-button-${pkg.id}`}
                 onClick={() => {
@@ -469,7 +479,6 @@ export default function Pricing() {
                 BUY NOW
               </button>
 
-              {/* Totais e Frete */}
               <div style={{
                 fontSize: isMobile ? '12px' : '14px',
                 color: isMobile ? '#6b6b6e' : '#333',
@@ -495,7 +504,6 @@ export default function Pricing() {
         ))}
 
       </div>
-      {/* IMAGEM DOS CARTÕES: Centralizada abaixo das ofertas (apenas desktop — no mobile já aparece dentro de cada card) */}
         {!isMobile && (
           <div style={{
             width: '100%',
@@ -511,7 +519,6 @@ export default function Pricing() {
             />
           </div>
         )}
-      {/* AVALIAÇÕES DOS CLIENTES */}
       <div style={{
         width: '100%',
         display: 'flex',
@@ -546,10 +553,8 @@ export default function Pricing() {
 
     </section>
 
-    {/* SEÇÃO DE GARANTIA (Fundo Escuro com Caixa Branca) */}
         <div style={{ backgroundColor: 'var(--color-deep)', padding: isMobile ? '36px 16px' : '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
 
-          {/* Caixa Branca Central */}
           <div style={{
             backgroundColor: '#ffffff',
             borderRadius: '12px',
@@ -563,8 +568,6 @@ export default function Pricing() {
             flexWrap: 'wrap'
           }}>
 
-            {/* Lado Esquerdo: Imagem do Selo (foto real, sem alterações — só um leve
-                drop-shadow no mobile pra dar profundidade) */}
             <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: isMobile ? '110px' : '160px', margin: '0 auto' }}>
               <img
                 src={selo60dias}
@@ -573,7 +576,6 @@ export default function Pricing() {
               />
             </div>
 
-            {/* Lado Direito: Textos */}
             <div style={{ flex: 1, minWidth: '250px' }}>
               <h3 style={{ color: 'var(--color-deep)', fontSize: isMobile ? '19px' : '26px', margin: '0 0 10px 0', fontWeight: '800', fontFamily: 'Arial, sans-serif', lineHeight: 1.25 }}>
                 100% Satisfaction<br/>

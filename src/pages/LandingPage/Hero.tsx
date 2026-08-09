@@ -1,7 +1,8 @@
 // ─── src/pages/LandingPage/Hero.tsx ───────────────────────────────────────────
 import { useState, useEffect } from 'react'
-import { FiChevronDown, FiArrowRight, FiArrowDown } from 'react-icons/fi'
+import { FiChevronDown, FiArrowRight } from 'react-icons/fi'
 import { scrollToPricing } from './utils'
+import tarjaFda from '../../tarjafda.png'
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -75,7 +76,7 @@ export default function Hero() {
           </div>
         )}
 
-        {/* ═══════════════ MOBILE: Imagem → Texto → CTAs ═══════════════ */}
+        {/* ═══════════════ MOBILE: Imagem → Texto → Selos ═══════════════ */}
         {isMobile ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
             {/* 1º: Imagem do Produto */}
@@ -230,72 +231,18 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* 3º: CTA principal + link secundário */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center', width: '100%', maxWidth: 340, position: 'relative', zIndex: 1 }}>
-
-              <style>{`
-                .pronail-cta-btn {
-                  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-                  -webkit-tap-highlight-color: transparent;
-                }
-                .pronail-cta-btn:active {
-                  transform: scale(0.97);
-                  filter: brightness(0.92);
-                  box-shadow:
-                    0 1px 0 rgba(255,255,255,0.10) inset,
-                    0 -1px 0 rgba(0,0,0,0.5) inset,
-                    0 0 0 1px rgba(255,255,255,0.05) inset,
-                    0 6px 14px -6px rgba(0,0,0,0.45),
-                    0 2px 5px rgba(0,0,0,0.2);
-                }
-              `}</style>
-
-              <a 
-                href="#pricing"
-                className="pronail-cta-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToPricing();
-                }}
-                rel="nofollow sponsored"
+            {/* 3º: Selos de qualidade — no lugar do botão "Claim Your Discount" */}
+            <div style={{ width: '100%', maxWidth: 420, position: 'relative', zIndex: 1 }}>
+              <img
+                src={typeof tarjaFda !== 'undefined' ? tarjaFda : ''}
+                alt="Selos de Qualidade FDA, GMP e 100% Natural"
                 style={{
-                  position: 'relative',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 9,
+                  display: 'block',
                   width: '100%',
-                  padding: '18px 36px',
-                  borderRadius: 100,
-                  textDecoration: 'none',
-                  fontSize: 16.5,
-                  fontWeight: 600,
-                  letterSpacing: '0.01em',
-                  color: '#F5F7F7',
-                  background: 'linear-gradient(180deg, #1c1f22 0%, #0a0c0e 55%, #000000 100%)',
-                  boxShadow:
-                    '0 1px 0 rgba(255,255,255,0.16) inset, 0 -1px 0 rgba(0,0,0,0.5) inset, 0 0 0 1px rgba(255,255,255,0.06) inset, 0 14px 30px -8px rgba(0,0,0,0.45), 0 4px 10px rgba(0,0,0,0.25)',
+                  height: 'auto',
+                  objectFit: 'contain',
                 }}
-              >
-                <span
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    top: 1,
-                    left: '6%',
-                    right: '6%',
-                    height: '42%',
-                    borderRadius: '100px 100px 60px 60px / 100px 100px 30px 30px',
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 100%)',
-                    pointerEvents: 'none',
-                  }}
-                />
-                Claim Your Discount
-                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', transform: 'translateY(0.5px)' }}>
-                  <FiArrowDown size={16} />
-                </span>
-              </a>
-
+              />
             </div>
           </div>
         ) : (
