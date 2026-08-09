@@ -22,6 +22,10 @@ const FAQS = [
     a: 'Every order is backed by an ironclad 60-Day 100% Money-Back Guarantee. If you are not completely satisfied with the results, you can return any bottle (even empty ones) for a full refund.',
   },
   {
+    q: 'Is this a one-off purchase?',
+    a: 'Yes, your order is a one-off purchase with no hidden autoship, clauses or charges. The price you see on the checkout page is the only price you will have to pay.',
+  },
+  {
     q: '*Shipping policy',
     table: {
       headers: ['Delivery Address', 'Shipping Fee', 'Shipping Time'],

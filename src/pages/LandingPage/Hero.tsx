@@ -42,7 +42,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="inner" style={{ padding: isMobile ? '0px 20px 10px 20px' : '60px 24px' }}>
+      <div className="inner" style={{ padding: isMobile ? '0px 20px 24px 20px' : '60px 24px' }}>
         {/* Eyebrow — oculto no mobile, mantido no desktop */}
         {!isMobile && (
           <div
@@ -87,38 +87,38 @@ export default function Hero() {
                 display: 'block',
                 margin: '0 auto',
                 width: '100%',
-                maxWidth: 430,
+                maxWidth: 340,
                 height: 'auto',
                 objectFit: 'contain',
-                marginBottom: 12,
+                marginBottom: 4,
                 transform: 'translateX(-15px)',
               }}
             />
 
-            {/* 2º: Bloco de descrição — estilo "Apple glow" */}
+            {/* 2º: Bloco de descrição — estilo "Apple glow" premium */}
             <div
               style={{
                 position: 'relative',
                 width: '100%',
                 maxWidth: 440,
-                margin: '4px auto 24px auto',
+                margin: '4px auto 20px auto',
                 padding: '8px 0 0 0',
               }}
             >
-              {/* Auras de luz ambiente */}
+              {/* Auras de luz ambiente — paleta da marca, mais sutis e profissionais */}
               <div
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
                   zIndex: 0,
-                  width: 220,
-                  height: 220,
-                  top: -60,
-                  left: -30,
+                  width: 260,
+                  height: 260,
+                  top: -90,
+                  left: -60,
                   borderRadius: '50%',
-                  filter: 'blur(38px)',
+                  filter: 'blur(50px)',
                   pointerEvents: 'none',
-                  background: 'radial-gradient(circle, rgba(93,202,165,0.55) 0%, rgba(93,202,165,0) 70%)',
+                  background: 'radial-gradient(circle, rgba(23,135,125,0.32) 0%, rgba(23,135,125,0) 72%)',
                 }}
               />
               <div
@@ -126,14 +126,14 @@ export default function Hero() {
                 style={{
                   position: 'absolute',
                   zIndex: 0,
-                  width: 200,
-                  height: 200,
-                  bottom: -50,
-                  right: -30,
+                  width: 240,
+                  height: 240,
+                  bottom: -80,
+                  right: -60,
                   borderRadius: '50%',
-                  filter: 'blur(38px)',
+                  filter: 'blur(50px)',
                   pointerEvents: 'none',
-                  background: 'radial-gradient(circle, rgba(120,170,255,0.40) 0%, rgba(120,170,255,0) 70%)',
+                  background: 'radial-gradient(circle, rgba(14,92,85,0.22) 0%, rgba(14,92,85,0) 72%)',
                 }}
               />
               <div
@@ -141,32 +141,32 @@ export default function Hero() {
                 style={{
                   position: 'absolute',
                   zIndex: 0,
-                  width: 160,
-                  height: 160,
-                  top: '30%',
+                  width: 180,
+                  height: 90,
+                  top: '42%',
                   left: '50%',
-                  transform: 'translateX(-50%)',
+                  transform: 'translate(-50%, -50%)',
                   borderRadius: '50%',
-                  filter: 'blur(38px)',
+                  filter: 'blur(36px)',
                   pointerEvents: 'none',
-                  opacity: 0.6,
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)',
+                  opacity: 0.5,
+                  background: 'radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 72%)',
                 }}
               />
 
-              {/* Card de vidro (glassmorphism) */}
+              {/* Card de vidro (glassmorphism) — sombras em camadas para profundidade real */}
               <div
                 style={{
                   position: 'relative',
                   zIndex: 1,
                   padding: '26px 24px 28px 24px',
-                  borderRadius: 26,
-                  background: 'linear-gradient(180deg, rgba(255,255,255,0.68) 0%, rgba(255,255,255,0.42) 100%)',
-                  backdropFilter: 'blur(18px) saturate(160%)',
-                  WebkitBackdropFilter: 'blur(18px) saturate(160%)',
-                  border: '1px solid rgba(255,255,255,0.55)',
+                  borderRadius: 28,
+                  background: 'linear-gradient(165deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.38) 100%)',
+                  backdropFilter: 'blur(22px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(22px) saturate(180%)',
+                  border: '1px solid rgba(255,255,255,0.65)',
                   boxShadow:
-                    '0 1px 1px rgba(255,255,255,0.6) inset, 0 24px 48px -12px rgba(14,28,42,0.18), 0 0 60px rgba(93,202,165,0.22)',
+                    '0 1px 0 rgba(255,255,255,0.85) inset, 0 -1px 0 rgba(14,92,85,0.06) inset, 0 18px 30px -14px rgba(14,28,42,0.16), 0 40px 60px -20px rgba(14,28,42,0.22), 0 0 50px -6px rgba(23,135,125,0.28)',
                 }}
               >
                 {/* Linha de luz fininha no topo (specular highlight) */}
@@ -175,10 +175,10 @@ export default function Hero() {
                   style={{
                     position: 'absolute',
                     top: 0,
-                    left: '14%',
-                    right: '14%',
+                    left: '10%',
+                    right: '10%',
                     height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)',
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
                   }}
                 />
 
@@ -187,12 +187,15 @@ export default function Hero() {
                     display: 'block',
                     textAlign: 'center',
                     fontSize: 11,
-                    letterSpacing: '0.14em',
+                    letterSpacing: '0.16em',
                     textTransform: 'uppercase',
-                    fontWeight: 600,
-                    color: 'var(--color-accent-dark, #0E5C55)',
-                    opacity: 0.75,
+                    fontWeight: 700,
                     marginBottom: 10,
+                    background: 'linear-gradient(90deg, #0B4A44, #12796F, #2FBFA0)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                    WebkitTextFillColor: 'transparent',
                   }}
                 >
                   Pronail Complex
@@ -200,11 +203,11 @@ export default function Hero() {
 
                 <p
                   style={{
-                    fontSize: 18.5,
+                    fontSize: 17,
                     lineHeight: 1.55,
-                    letterSpacing: '-0.01em',
-                    color: '#111111',
-                    fontWeight: 400,
+                    letterSpacing: '-0.008em',
+                    color: '#14201d',
+                    fontWeight: 700,
                     textAlign: 'center',
                     margin: 0,
                   }}
@@ -213,16 +216,16 @@ export default function Hero() {
                   <strong
                     style={{
                       display: 'block',
-                      marginTop: 10,
-                      fontSize: 19.5,
+                      marginTop: 11,
+                      fontSize: 18.5,
                       letterSpacing: '-0.015em',
-                      fontWeight: 700,
-                      background: 'linear-gradient(90deg, #0E5C55, #17877D)',
+                      fontWeight: 800,
+                      background: 'linear-gradient(90deg, #0B4A44, #12796F, #2FBFA0)',
                       backgroundClip: 'text',
                       WebkitBackgroundClip: 'text',
                       color: 'transparent',
                       WebkitTextFillColor: 'transparent',
-                      textShadow: '0 0 30px rgba(23,135,125,0.25)',
+                      textShadow: '0 0 24px rgba(23,135,125,0.2)',
                     }}
                   >
                     The uniquely formulated mist spray that supports healthy toenails.
@@ -354,36 +357,39 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Trust Badges */}
-        <div
-          className="anim-3"
-          style={{
-            display: 'flex',
-            rowGap: isMobile ? 4 : 24,
-            columnGap: isMobile ? 14 : 24,
-            flexWrap: 'wrap',
-            justifyContent: isMobile ? 'center' : 'flex-start',
-            marginTop: isMobile ? 28 : 48,
-            paddingTop: isMobile ? 20 : 24,
-            borderTop: '1px solid var(--color-border)',
-          }}
-        >
-          {['Specialist Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
-            <span
-              key={badge}
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: isMobile ? 10 : 11,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'var(--color-muted)',
-                textAlign: isMobile ? 'center' : 'left',
-              }}
-            >
-              {badge}
-            </span>
-          ))}
-        </div>
+        {/* Trust Badges — texto removido no mobile (redundante com os selos em imagem
+            acima); segue exibido normalmente no desktop */}
+        {!isMobile && (
+          <div
+            className="anim-3"
+            style={{
+              display: 'flex',
+              rowGap: 24,
+              columnGap: 24,
+              flexWrap: 'wrap',
+              justifyContent: 'flex-start',
+              marginTop: 48,
+              paddingTop: 24,
+              borderTop: '1px solid var(--color-border)',
+            }}
+          >
+            {['Specialist Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
+              <span
+                key={badge}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 11,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-muted)',
+                  textAlign: 'left',
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 // ─── src/pages/LandingPage/Ingredients.tsx ────────────────────────────────────
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ingredient1 from '../../ingredient1.png'
 import ingredient2 from '../../ingredient2.png'
 import ingredient3 from '../../ingredient3.png'
@@ -217,6 +217,7 @@ function IngredientCard({ name, fn, tag, icon, isMobile }: {
 export default function Ingredients() {
   const [isMobile, setIsMobile] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const toggleBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768)
@@ -235,9 +236,8 @@ export default function Ingredients() {
       style={{
         backgroundColor: 'var(--color-deep)',
         // Sobrescreve o padding vertical padrão da classe apenas no mobile.
-        // paddingTop aumentado para dar respiro em relação à faixa de selos
-        // da seção anterior, que ficava colada no topo.
-        paddingTop: isMobile ? 64 : undefined,
+        // paddingTop reduzido ao mínimo para o título ficar rente ao topo da seção.
+        paddingTop: isMobile ? 20 : undefined,
         paddingBottom: isMobile ? 36 : undefined,
       }}
     >
@@ -368,22 +368,21 @@ export default function Ingredients() {
             </div>
 
             <button
+              ref={toggleBtnRef}
               onClick={() => {
-  // 1. Inverte o estado (se estava aberto, fecha; se estava fechado, abre)
-  const novoEstado = !isExpanded;
-  setIsExpanded(novoEstado);
+                // 1. Inverte o estado (se estava aberto, fecha; se estava fechado, abre)
+                const novoEstado = !isExpanded;
+                setIsExpanded(novoEstado);
 
-  // 2. Se o usuário acabou de FECHAR (clicou em Show Less), a mágica acontece:
-  if (!novoEstado) {
-    // Dá um tempinho minúsculo para o componente encolher e a tela recalcular a altura
-    setTimeout(() => {
-      const elemento = document.getElementById('benefits');
-      if (elemento) {
-        elemento.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }, 50);
-  }
-}}
+                // 2. Se o usuário acabou de FECHAR (clicou em Show Less), recentraliza
+                // a tela no próprio botão, só depois que a animação de recolhimento
+                // (0.55s) termina — assim a pessoa não perde o lugar nem pula pra outra seção.
+                if (!novoEstado) {
+                  setTimeout(() => {
+                    toggleBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }, 560);
+                }
+              }}
               aria-expanded={isExpanded}
               style={{
                 width: '100%',

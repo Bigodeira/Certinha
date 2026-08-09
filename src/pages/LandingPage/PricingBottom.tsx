@@ -87,68 +87,82 @@ export default function PricingBottom() {
 
   return (
     <>
-    {/* FAIXA 1: FRETE GRÁTIS (versão mobile) */}
+    {/* FAIXA 1: FRETE GRÁTIS + CLAIM BANNER (versão mobile, bloco único sem gap) */}
     <div style={{
       backgroundColor: 'var(--color-deep)',
-      padding: '28px 16px 22px',
+      padding: '30px 16px 6px',
       display: 'flex',
-      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
       width: '100%'
     }}>
       <div style={{
         backgroundColor: '#ffffff',
         borderRadius: '22px',
-        padding: '26px 20px',
+        padding: '24px 20px 22px',
         textAlign: 'center',
         width: '100%',
-        boxShadow: '0 20px 40px -20px rgba(0,0,0,0.4)'
+        boxShadow: '0 16px 30px -18px rgba(0,0,0,0.4)'
       }}>
         <img
           src={imgSeal}
           alt="Fast and Free Shipping"
           style={{ width: '110px', height: 'auto', margin: '0 auto 12px auto', display: 'block', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.15))' }}
         />
-        <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 2px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: 'Arial, sans-serif' }}>
+        <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 2px 0', fontWeight: '600', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
           Every 6 Bottles Order
         </h2>
-        <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 8px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: 'Arial, sans-serif' }}>
+        <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 8px 0', fontWeight: '600', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
           Gets FREE Shipping Too!
         </h2>
         <p style={{ color: '#8a8a8e', fontSize: '13px', margin: '8px 0 0', fontWeight: '500', lineHeight: 1.4, fontFamily: 'Arial, sans-serif' }}>
           *97% Of Customers Order 6 Bottles (Our Recommended Option)
         </p>
       </div>
-    </div>
 
-    {/* FAIXA NOVA: "Claim Your Discounted..." */}
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '0 16px', margin: '20px 0 26px' }}>
+      {/* Claim banner — segue direto no mesmo fundo, sem margem/caixa separada */}
       <div style={{
-        background: 'var(--color-deep)',
-        color: '#ffffff',
+        padding: '26px 24px 8px',
         textAlign: 'center',
-        fontWeight: 800,
-        fontSize: 'clamp(15px, 4.6vw, 18px)',
-        lineHeight: 1.35,
-        padding: '18px 18px 16px',
-        maxWidth: '440px',
         width: '100%',
-        position: 'relative',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif',
       }}>
-        Claim Your Discounted<br />
-        ProNail Complex<br />
-        Below While Stocks Last!
         <div style={{
-          position: 'absolute',
-          left: '50%',
-          bottom: '-16px',
-          transform: 'translateX(-50%)',
-          width: 0,
-          height: 0,
-          borderLeft: '16px solid transparent',
-          borderRight: '16px solid transparent',
-          borderTop: '16px solid var(--color-deep)',
-        }} />
+          fontSize: '11px',
+          fontWeight: 600,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.45)',
+          marginBottom: '8px',
+        }}>
+          Limited Availability
+        </div>
+        <h3 style={{
+          fontSize: 'clamp(19px, 5.2vw, 22px)',
+          fontWeight: 600,
+          letterSpacing: '-0.015em',
+          lineHeight: 1.3,
+          color: '#ffffff',
+          margin: 0,
+        }}>
+          Claim your discounted<br />
+          <span style={{ fontWeight: 400, color: 'rgba(255,255,255,0.6)' }}>ProNail Complex</span>
+        </h3>
+        <div style={{
+          marginTop: '8px',
+          fontSize: '13.5px',
+          fontWeight: 400,
+          color: 'rgba(255,255,255,0.5)',
+          letterSpacing: '-0.005em',
+        }}>
+          While stocks last
+        </div>
+        <svg
+          style={{ marginTop: '16px', width: '22px', height: '22px', opacity: 0.5, display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+          viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
     </div>
 
