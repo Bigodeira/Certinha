@@ -4,6 +4,21 @@ import { FiChevronDown, FiArrowRight } from 'react-icons/fi'
 import { scrollToPricing } from './utils'
 import tarjaFda from '../../tarjafda.png'
 
+// ─── Paleta / identidade visual (extraída do site original do Pronail) ────────
+// Fundo teal profundo com leve gradiente vertical, textos brancos em peso alto,
+// mesma família tipográfica bold/geométrica usada no produto original.
+const PN = {
+  tealDark: '#3E8FA0',
+  teal: '#4FA3B0',
+  tealLight: '#6BB8C2',
+  ink: '#0E1C1A',
+  white: '#FFFFFF',
+  whiteSoft: 'rgba(255,255,255,0.86)',
+  fontDisplay:
+    "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
+  fontBody: "'Inter', Arial, sans-serif",
+}
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export default function Hero() {
@@ -21,8 +36,9 @@ export default function Hero() {
       aria-label="Hero"
       style={{
         minHeight: isMobile ? 'auto' : '88vh',
-        background:
-          'radial-gradient(ellipse 80% 60% at 85% 90%, rgba(90,173,167,0.06) 0%, transparent 65%), var(--color-ground)',
+        background: isMobile
+          ? `linear-gradient(180deg, ${PN.teal} 0%, ${PN.tealDark} 100%)`
+          : `linear-gradient(160deg, ${PN.teal} 0%, ${PN.tealDark} 75%)`,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -30,19 +46,49 @@ export default function Hero() {
         position: 'relative',
       }}
     >
+      {/* Bolhas de luz ambiente, como no site original */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 3,
-          background: 'linear-gradient(90deg, var(--color-accent), var(--color-nude))',
+          top: '10%',
+          left: '8%',
+          width: 90,
+          height: 90,
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.10)',
+          filter: 'blur(2px)',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '28%',
+          right: '12%',
+          width: 46,
+          height: 46,
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.14)',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          bottom: '18%',
+          left: '18%',
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.08)',
+          pointerEvents: 'none',
         }}
       />
 
-      <div className="inner" style={{ padding: isMobile ? '0px 20px 24px 20px' : '60px 24px' }}>
+      <div className="inner" style={{ padding: isMobile ? '0px 20px 24px 20px' : '60px 24px', position: 'relative', zIndex: 1 }}>
         {/* Eyebrow — oculto no mobile, mantido no desktop */}
         {!isMobile && (
           <div
@@ -59,16 +105,17 @@ export default function Hero() {
                 display: 'inline-block',
                 width: 32,
                 height: 1,
-                backgroundColor: 'var(--color-accent)',
+                backgroundColor: PN.whiteSoft,
               }}
             />
             <span
               style={{
-                fontFamily: 'var(--font-mono)',
+                fontFamily: PN.fontBody,
                 fontSize: 11,
                 letterSpacing: '0.18em',
                 textTransform: 'uppercase',
-                color: 'var(--color-accent)',
+                color: PN.whiteSoft,
+                fontWeight: 600,
               }}
             >
               Advanced Nail Formula
@@ -76,10 +123,10 @@ export default function Hero() {
           </div>
         )}
 
-        {/* ═══════════════ MOBILE: Imagem → Texto → Selos ═══════════════ */}
+        {/* ═══════════════ MOBILE: Imagem → Título → Texto → Selos ═══════════════ */}
         {isMobile ? (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-            {/* 1º: Imagem do Produto */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'left', width: '100%' }}>
+            {/* 1º: Imagem do Produto — maior, centralizada, como no original */}
             <img
               src="/pronail1.png.png"
               alt="Produto Pronail"
@@ -87,155 +134,48 @@ export default function Hero() {
                 display: 'block',
                 margin: '0 auto',
                 width: '100%',
-                maxWidth: 340,
+                maxWidth: 400,
                 height: 'auto',
                 objectFit: 'contain',
-                marginBottom: 4,
-                transform: 'translateX(-15px)',
+                marginBottom: 12,
               }}
             />
 
-            {/* 2º: Bloco de descrição — estilo "Apple glow" premium */}
-            <div
+            {/* 2º: Título grande, esquerda, direto sobre o fundo teal (sem card) */}
+            <h1
               style={{
-                position: 'relative',
+                fontFamily: PN.fontDisplay,
+                fontSize: 'clamp(32px, 10.5vw, 42px)',
+                fontWeight: 700,
+                lineHeight: 1.1,
+                letterSpacing: '-0.005em',
+                color: PN.white,
+                margin: '8px 0 22px 0',
                 width: '100%',
-                maxWidth: 440,
-                margin: '4px auto 20px auto',
-                padding: '8px 0 0 0',
+                textAlign: 'left',
               }}
             >
-              {/* Auras de luz ambiente — paleta da marca, mais sutis e profissionais */}
-              <div
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  zIndex: 0,
-                  width: 260,
-                  height: 260,
-                  top: -90,
-                  left: -60,
-                  borderRadius: '50%',
-                  filter: 'blur(50px)',
-                  pointerEvents: 'none',
-                  background: 'radial-gradient(circle, rgba(23,135,125,0.32) 0%, rgba(23,135,125,0) 72%)',
-                }}
-              />
-              <div
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  zIndex: 0,
-                  width: 240,
-                  height: 240,
-                  bottom: -80,
-                  right: -60,
-                  borderRadius: '50%',
-                  filter: 'blur(50px)',
-                  pointerEvents: 'none',
-                  background: 'radial-gradient(circle, rgba(14,92,85,0.22) 0%, rgba(14,92,85,0) 72%)',
-                }}
-              />
-              <div
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  zIndex: 0,
-                  width: 180,
-                  height: 90,
-                  top: '42%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  borderRadius: '50%',
-                  filter: 'blur(36px)',
-                  pointerEvents: 'none',
-                  opacity: 0.5,
-                  background: 'radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 72%)',
-                }}
-              />
+              The Uniquely Formulated Mist Spray That Supports Healthy Toenails
+            </h1>
 
-              {/* Card de vidro (glassmorphism) — sombras em camadas para profundidade real */}
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  padding: '26px 24px 28px 24px',
-                  borderRadius: 28,
-                  background: 'linear-gradient(165deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.38) 100%)',
-                  backdropFilter: 'blur(22px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(22px) saturate(180%)',
-                  border: '1px solid rgba(255,255,255,0.65)',
-                  boxShadow:
-                    '0 1px 0 rgba(255,255,255,0.85) inset, 0 -1px 0 rgba(14,92,85,0.06) inset, 0 18px 30px -14px rgba(14,28,42,0.16), 0 40px 60px -20px rgba(14,28,42,0.22), 0 0 50px -6px rgba(23,135,125,0.28)',
-                }}
-              >
-                {/* Linha de luz fininha no topo (specular highlight) */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: '10%',
-                    right: '10%',
-                    height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)',
-                  }}
-                />
+            {/* 3º: Parágrafo descritivo — esquerda, largura total */}
+            <p
+              style={{
+                fontFamily: PN.fontBody,
+                fontSize: 26,
+                lineHeight: 1.5,
+                color: PN.whiteSoft,
+                fontWeight: 400,
+                margin: '0 0 28px 0',
+                width: '100%',
+                textAlign: 'left',
+              }}
+            >
+              ProNail Complex is a meticulously-crafted natural formula which combines extremely potent oils and skin-repairing vitamins. This doctor-formulated mist spray releases the ingredients in the form of micro particles so they can reach deep under your skin and nails.
+            </p>
 
-                <span
-                  style={{
-                    display: 'block',
-                    textAlign: 'center',
-                    fontSize: 11,
-                    letterSpacing: '0.16em',
-                    textTransform: 'uppercase',
-                    fontWeight: 700,
-                    marginBottom: 10,
-                    background: 'linear-gradient(90deg, #0B4A44, #12796F, #2FBFA0)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  Pronail Complex
-                </span>
-
-                <p
-                  style={{
-                    fontSize: 17,
-                    lineHeight: 1.55,
-                    letterSpacing: '-0.008em',
-                    color: '#14201d',
-                    fontWeight: 700,
-                    textAlign: 'center',
-                    margin: 0,
-                  }}
-                >
-                  A clinically backed, Specialist Formulated micro particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
-                  <strong
-                    style={{
-                      display: 'block',
-                      marginTop: 11,
-                      fontSize: 18.5,
-                      letterSpacing: '-0.015em',
-                      fontWeight: 800,
-                      background: 'linear-gradient(90deg, #0B4A44, #12796F, #2FBFA0)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      color: 'transparent',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '0 0 24px rgba(23,135,125,0.2)',
-                    }}
-                  >
-                    The uniquely formulated mist spray that supports healthy toenails.
-                  </strong>
-                </p>
-              </div>
-            </div>
-
-            {/* 3º: Selos de qualidade — no lugar do botão "Claim Your Discount" */}
-            <div style={{ width: '100%', maxWidth: 420, position: 'relative', zIndex: 1 }}>
+            {/* 4º: Selos de qualidade */}
+            <div style={{ width: '100%', maxWidth: 420, position: 'relative', zIndex: 1, alignSelf: 'center' }}>
               <img
                 src={typeof tarjaFda !== 'undefined' ? tarjaFda : ''}
                 alt="Selos de Qualidade FDA, GMP e 100% Natural"
@@ -249,7 +189,7 @@ export default function Hero() {
             </div>
           </div>
         ) : (
-          /* ═══════════════ DESKTOP: layout original, intocado ═══════════════ */
+          /* ═══════════════ DESKTOP ═══════════════ */
           <div
             style={{
               display: 'flex',
@@ -262,41 +202,43 @@ export default function Hero() {
             <div style={{ flex: 1.5, minWidth: '320px' }}>
               {/* Title */}
               <h1
-                className="anim-1 gradient-headline"
+                className="anim-1"
                 aria-label="ProNail Complex"
                 style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(52px, 10vw, 120px)',
-                  fontWeight: 300,
-                  letterSpacing: '0.08em',
-                  lineHeight: 1.0,
+                  fontFamily: PN.fontDisplay,
+                  fontSize: 'clamp(40px, 6vw, 64px)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.1,
                   margin: '0 0 28px',
                   paddingRight: '20px',
+                  color: PN.white,
                 }}
               >
-                PRONAIL <br className="hidden md:inline" /> COMPLEX
+                The Uniquely Formulated Mist Spray That Supports Healthy Toenails
               </h1>
 
               {/* Description + CTAs */}
               <div className="anim-2" style={{ maxWidth: 580 }}>
                 <p
                   style={{
-                    fontSize: 'clamp(16px, 1.5vw, 19px)',
+                    fontFamily: PN.fontBody,
+                    fontSize: 'clamp(16px, 1.5vw, 18px)',
                     lineHeight: 1.6,
-                    color: 'var(--color-muted)',
+                    color: PN.whiteSoft,
                     marginBottom: 36,
-                    fontWeight: 300,
+                    fontWeight: 400,
                   }}
                 >
-                  A clinically backed, Specialist Formulated micro particle mist spray designed to target tough fungus, nourish nail beds, and repair dry skin. Powered by premium botanical oils and active nutrients.{' '}
-                  <strong style={{ color: 'var(--color-text)', fontWeight: 500 }}>
-                    The uniquely formulated mist spray that supports healthy toenails.
+                  ProNail Complex is a meticulously-crafted natural formula which combines extremely potent oils and skin-repairing vitamins.{' '}
+                  <strong style={{ color: PN.white, fontWeight: 700 }}>
+                    This doctor-formulated mist spray releases the ingredients in the form of micro particles so they can reach deep under your skin and nails.
                   </strong>
                 </p>
 
                 <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-                  
-                  <a 
+
+                  <a
                     href="#pricing"
                     onClick={(e) => {
                       e.preventDefault();
@@ -307,32 +249,32 @@ export default function Hero() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 8,
-                      backgroundColor: 'var(--color-text)',
-                      color: '#fff',
+                      backgroundColor: PN.white,
+                      color: PN.ink,
                       padding: '16px 36px',
                       borderRadius: 100,
                       fontSize: 14,
-                      fontWeight: 500,
+                      fontWeight: 700,
                       letterSpacing: '0.04em',
                       textDecoration: 'none',
-                      boxShadow: '0 4px 14px rgba(14,28,42,0.15)',
-                      transition: 'background-color 0.2s',
+                      boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
+                      transition: 'transform 0.2s',
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-text)')}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
                   >
                     Claim Your Discount <FiArrowRight size={15} />
                   </a>
-                    
-                  <a 
+
+                  <a
                     href="#benefits"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 6,
-                      color: 'var(--color-accent)',
+                      color: PN.whiteSoft,
                       fontSize: 14,
-                      fontWeight: 400,
+                      fontWeight: 500,
                       textDecoration: 'none',
                     }}
                   >
@@ -357,8 +299,8 @@ export default function Hero() {
           </div>
         )}
 
-        {/* Trust Badges — texto removido no mobile (redundante com os selos em imagem
-            acima); segue exibido normalmente no desktop */}
+        {/* Trust Badges — texto, no lugar dos ícones em imagem no mobile;
+            segue exibido normalmente no desktop */}
         {!isMobile && (
           <div
             className="anim-3"
@@ -370,18 +312,19 @@ export default function Hero() {
               justifyContent: 'flex-start',
               marginTop: 48,
               paddingTop: 24,
-              borderTop: '1px solid var(--color-border)',
+              borderTop: '1px solid rgba(255,255,255,0.18)',
             }}
           >
             {['Specialist Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
               <span
                 key={badge}
                 style={{
-                  fontFamily: 'var(--font-mono)',
+                  fontFamily: PN.fontBody,
                   fontSize: 11,
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-muted)',
+                  color: PN.whiteSoft,
+                  fontWeight: 600,
                   textAlign: 'left',
                 }}
               >

@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import {
-  FiShield, FiZap, FiDroplet, FiAward,
+  FiShield, FiZap, FiDroplet, FiAward, FiCheck,
 } from 'react-icons/fi'
 import bgFolhas from '../../6frascosfundo.png';
 import imgGarrafas from '../../pronailfundo.png';
 import tarjaFda from '../../tarjafda.png';
+import pronailDuplo from '../../pronailduplo.png';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -33,7 +34,13 @@ const BENEFITS = [
   },
 ]
 
-const CHECKLIST = ['Natural Formula', 'Easy To Use', 'No Stimulants', 'Non-GMO']
+// Checklist — texto preto, como no site original.
+const CHECKLIST = [
+  { label: 'Natural Formula' },
+  { label: 'Easy To Use' },
+  { label: 'No Stimulants' },
+  { label: 'Non-GMO' },
+]
 
 // ─── Benefits ─────────────────────────────────────────────────────────────────
 
@@ -47,7 +54,7 @@ export default function Benefits() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // ─── MOBILE: somente o cartão ProNail Complex, com a imagem preenchendo a seção ───
+  // ─── MOBILE: card branco sólido igual ao site original, seção grande ───
   if (isMobile) {
     return (
       <section
@@ -55,13 +62,13 @@ export default function Benefits() {
         style={{
           backgroundImage: `url(${bgFolhas})`,
           backgroundColor: '#eaeaea',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 40%',
+          backgroundSize: '100% 100%',
+          backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '48px 16px',
+          padding: '64px 20px',
         }}
       >
         <div id="benefits" style={{ position: 'relative', top: '-20px', visibility: 'hidden' }} />
@@ -69,15 +76,12 @@ export default function Benefits() {
         <div
           style={{
             position: 'relative',
-            backgroundColor: 'rgba(255,255,255,0.78)',
-            backdropFilter: 'blur(16px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(16px) saturate(160%)',
-            border: '1px solid rgba(255,255,255,0.6)',
-            borderRadius: 28,
-            maxWidth: 380,
+            backgroundColor: '#ffffff',
+            borderRadius: 24,
+            maxWidth: 400,
             width: '100%',
-            padding: '32px 24px 28px',
-            boxShadow: '0 24px 48px -24px rgba(0,0,0,0.18), 0 0 32px rgba(93,202,165,0.12)',
+            padding: '44px 30px 40px',
+            boxShadow: '0 24px 50px -18px rgba(0,0,0,0.28)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -86,17 +90,17 @@ export default function Benefits() {
         >
           <h2
             style={{
-              fontSize: 'clamp(28px, 9vw, 34px)',
-              fontFamily: 'Arial, sans-serif',
-              color: '#000000',
-              lineHeight: 1.15,
-              marginBottom: 18,
+              fontSize: 'clamp(38px, 12vw, 52px)',
+              fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
+              color: '#111111',
+              lineHeight: 1.1,
+              marginBottom: 32,
               textTransform: 'uppercase',
-              letterSpacing: '0.5px',
+              letterSpacing: '0.02em',
             }}
           >
-            <span style={{ fontWeight: 600 }}>ProNail</span><br />
-            <strong style={{ fontWeight: 900 }}>Complex</strong>
+            <span style={{ fontWeight: 300 }}>ProNail</span><br />
+            <strong style={{ fontWeight: 800 }}>Complex</strong>
           </h2>
 
           <div
@@ -104,58 +108,57 @@ export default function Benefits() {
               display: 'flex',
               flexDirection: 'column',
               width: '100%',
-              fontSize: 17,
-              color: '#222222',
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: 800,
-              marginBottom: 8,
+              gap: 24,
+              marginBottom: 24,
             }}
           >
-            {CHECKLIST.map((label, i) => (
+            {CHECKLIST.map(({ label }) => (
               <div
                 key={label}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 12,
-                  padding: '13px 2px',
-                  borderTop: '0.5px solid rgba(0,0,0,0.08)',
-                  borderBottom: i === CHECKLIST.length - 1 ? '0.5px solid rgba(0,0,0,0.08)' : 'none',
+                  gap: 16,
                 }}
               >
                 <div
                   style={{
-                    backgroundColor: 'rgb(93,202,165)',
-                    borderRadius: '50%',
-                    width: 26,
-                    height: 26,
+                    backgroundColor: '#3FA34D',
+                    borderRadius: 8,
+                    width: 30,
+                    height: 30,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#fff',
-                    fontWeight: 'bold',
-                    fontSize: 14,
                     flexShrink: 0,
                   }}
                 >
-                  ✓
+                  <FiCheck size={18} strokeWidth={3} />
                 </div>
-                <span style={{ color: '#000000' }}>{label}</span>
+                <span
+                  style={{
+                    fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
+                    fontSize: 21,
+                    fontWeight: 600,
+                    color: '#111111',
+                  }}
+                >
+                  {label}
+                </span>
               </div>
             ))}
           </div>
 
           <img
-            src={typeof imgGarrafas !== 'undefined' ? imgGarrafas : ''}
+            src={typeof pronailDuplo !== 'undefined' ? pronailDuplo : ''}
             alt="ProNail Complex"
             style={{
               maxWidth: '100%',
-              width: 200,
+              width: 280,
               height: 'auto',
-              maxHeight: 170,
               objectFit: 'contain',
               marginTop: 8,
-              filter: 'drop-shadow(0 18px 20px rgba(0,0,0,0.15))',
             }}
           />
         </div>
@@ -330,7 +333,7 @@ export default function Benefits() {
                 fontFamily: 'Arial, sans-serif',
                 fontWeight: '600'
               }}>
-                {CHECKLIST.map(label => (
+                {CHECKLIST.map(({ label }) => (
                   <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{
                       backgroundColor: '#4caf50',

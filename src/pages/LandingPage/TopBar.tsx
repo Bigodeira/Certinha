@@ -37,19 +37,18 @@ export default function TopBar() {
         borderBottom: '1px solid var(--color-border)',
       }}
     >
-      {/* BARRA DE CONFIANÇA CLICKBANK
-          py-1 px-4 no mobile (mais fina) / md:py-3 md:px-5 igual ao original no desktop */}
+      {/* BARRA DE CONFIANÇA CLICKBANK — MOBILE: bem mais fina/discreta */}
       <div
-        className="py-1 px-4 md:py-3 md:px-5"
+        className="flex md:hidden"
         style={{
           backgroundColor: '#ffffff',
           width: '100%',
-          display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           borderBottom: '1px solid #eaeaea',
           fontFamily: 'Arial, sans-serif',
           position: 'relative',
+          padding: '6px 12px',
         }}
       >
         <button
@@ -59,7 +58,7 @@ export default function TopBar() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '4px',
             transition: 'transform 0.2s ease-in-out',
             cursor: 'pointer',
             background: 'none',
@@ -67,24 +66,22 @@ export default function TopBar() {
             padding: 0,
             font: 'inherit',
           }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <strong style={{ color: '#1a1a24', fontSize: '18px', fontWeight: '900', letterSpacing: '-0.5px' }}>
-            CLICKBANK<sup style={{ fontSize: '10px', fontWeight: 'bold' }}>®</sup>
+          <strong style={{ color: '#1a1a24', fontSize: '12px', fontWeight: '900', letterSpacing: '-0.3px' }}>
+            CLICKBANK<sup style={{ fontSize: '7px', fontWeight: 'bold' }}>®</sup>
           </strong>
 
-          <span style={{ color: '#d1d1d1', margin: '0 4px', fontSize: '18px' }}>|</span>
+          <span style={{ color: '#d1d1d1', margin: '0 2px', fontSize: '12px' }}>|</span>
 
-          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+          <span style={{ color: '#888', fontSize: '10px', fontWeight: '400', letterSpacing: '0.3px' }}>
             TRUSTED
           </span>
 
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#888" style={{ marginTop: '-2px' }}>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#888" style={{ marginTop: '-1px' }}>
             <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
           </svg>
 
-          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+          <span style={{ color: '#888', fontSize: '10px', fontWeight: '400', letterSpacing: '0.3px' }}>
             SECURE
           </span>
         </button>
@@ -92,7 +89,6 @@ export default function TopBar() {
         {/* Caixa de informação ClickBank — MOBILE: estilo Apple (glassmorphism) */}
         {showClickbankInfo && (
           <div
-            className="md:hidden"
             role="dialog"
             aria-label="ClickBank trust information"
             style={{
@@ -161,11 +157,61 @@ export default function TopBar() {
             </p>
           </div>
         )}
+      </div>
+
+      {/* BARRA DE CONFIANÇA CLICKBANK — DESKTOP: igual ao original, sem alteração */}
+      <div
+        className="hidden md:flex py-3 px-5"
+        style={{
+          backgroundColor: '#ffffff',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderBottom: '1px solid #eaeaea',
+          fontFamily: 'Arial, sans-serif',
+          position: 'relative',
+        }}
+      >
+        <button
+          onClick={() => setShowClickbankInfo(v => !v)}
+          aria-expanded={showClickbankInfo}
+          aria-label="ClickBank trust information"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            transition: 'transform 0.2s ease-in-out',
+            cursor: 'pointer',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            font: 'inherit',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          <strong style={{ color: '#1a1a24', fontSize: '18px', fontWeight: '900', letterSpacing: '-0.5px' }}>
+            CLICKBANK<sup style={{ fontSize: '10px', fontWeight: 'bold' }}>®</sup>
+          </strong>
+
+          <span style={{ color: '#d1d1d1', margin: '0 4px', fontSize: '18px' }}>|</span>
+
+          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+            TRUSTED
+          </span>
+
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#888" style={{ marginTop: '-2px' }}>
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+          </svg>
+
+          <span style={{ color: '#888', fontSize: '14px', fontWeight: '400', letterSpacing: '0.5px' }}>
+            SECURE
+          </span>
+        </button>
 
         {/* Caixa de informação ClickBank — DESKTOP: igual ao original, sem alteração */}
         {showClickbankInfo && (
           <div
-            className="hidden md:block"
             role="dialog"
             aria-label="ClickBank trust information"
             style={{
@@ -222,12 +268,41 @@ export default function TopBar() {
         )}
       </div>
 
+      {/* HEADER — MOBILE: fundo preto, logo empilhado em branco, como no original */}
       <div
-        className="py-2 px-4 md:py-6 md:px-6"
+        className="flex md:hidden"
+        style={{
+          backgroundColor: '#2A2A2E',
+          padding: '16px 20px',
+          alignItems: 'center',
+        }}
+      >
+        <a href="/"
+          aria-label="ProNail Complex — back to homepage"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 21,
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            lineHeight: 1.15,
+            color: '#ffffff',
+            textDecoration: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            textTransform: 'uppercase',
+          }}
+        >
+          <span>Pronail</span>
+          <span>Complex</span>
+        </a>
+      </div>
+
+      {/* HEADER — DESKTOP: igual ao original, sem alteração */}
+      <div
+        className="hidden md:flex py-6 px-6"
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 24,
@@ -235,30 +310,8 @@ export default function TopBar() {
           position: 'relative',
         }}
       >
-        {/* LOGO — MOBILE: efeito degradê Apple, mesmas cores do original */}
         <a href="/"
           aria-label="ProNail Complex — back to homepage"
-          className="md:hidden"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 300,
-            letterSpacing: '0.15em',
-            textDecoration: 'none',
-            background: 'linear-gradient(100deg, var(--color-text) 0%, var(--color-text) 45%, var(--color-accent) 100%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            color: 'transparent',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          PRONAIL COMPLEX
-        </a>
-
-        {/* LOGO — DESKTOP: igual ao original, sem alteração */}
-        <a href="/"
-          aria-label="ProNail Complex — back to homepage"
-          className="hidden md:inline"
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 22,
@@ -271,12 +324,9 @@ export default function TopBar() {
           PRONAIL <span style={{ color: 'var(--color-accent)', fontWeight: 300 }}>COMPLEX</span>
         </a>
 
-        {/* Links de navegação — visíveis apenas no desktop.
-            IMPORTANTE: o "display" NÃO pode ir no style inline, pois inline
-            sempre vence a classe Tailwind "hidden" — é por isso que os links
-            continuavam aparecendo no mobile. O display fica só na className. */}
+        {/* Links de navegação — visíveis apenas no desktop. */}
         <ul
-          className="hidden md:flex"
+          className="flex"
           style={{ listStyle: 'none', margin: 0, padding: 0, gap: 32 }}
         >
           {['Benefits', 'Ingredients', 'FAQ'].map(label => (
@@ -320,7 +370,7 @@ export default function TopBar() {
           width: 46,
           height: 46,
           padding: 0,
-          background: 'linear-gradient(180deg, #22262a 0%, #0b0d0f 55%, #000000 100%)',
+          background: 'linear-gradient(180deg, #3a3a3e 0%, #2a2a2e 55%, #202023 100%)',
           border: 'none',
           borderRadius: '50%',
           cursor: 'pointer',

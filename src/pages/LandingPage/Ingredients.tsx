@@ -1,6 +1,6 @@
 // ─── src/pages/LandingPage/Ingredients.tsx ────────────────────────────────────
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import ingredient1 from '../../ingredient1.png'
 import ingredient2 from '../../ingredient2.png'
 import ingredient3 from '../../ingredient3.png'
@@ -119,59 +119,38 @@ const INGREDIENTS = [
   },
 ]
 
-// Quantidade visível por padrão no mobile antes de expandir.
-const MOBILE_VISIBLE_COUNT = 6
+// ─── Ingredient Card (desktop — inalterado) ────────────────────────────────────
 
-// ─── Ingredient Card (evita duplicar o JSX entre lista fixa e lista expansível) ─
-
-function IngredientCard({ name, fn, tag, icon, isMobile }: {
+function IngredientCard({ name, fn, tag, icon }: {
   name: string
   fn: string
   tag: string
   icon: string
-  isMobile: boolean
 }) {
   return (
     <div
-      style={
-        isMobile
-          ? {
-              padding: '20px',
-              backgroundColor: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              borderRadius: 22,
-              boxShadow: '0 20px 36px -22px rgba(0,0,0,0.5)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 10,
-            }
-          : {
-              padding: '32px',
-              backgroundColor: 'var(--color-deep)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 20,
-            }
-      }
+      style={{
+        padding: '32px',
+        backgroundColor: 'var(--color-deep)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        gap: 20,
+      }}
     >
       <div>
         <span
           style={{
             display: 'inline-block',
             fontFamily: 'var(--font-mono)',
-            fontSize: isMobile ? 10 : 9,
+            fontSize: 9,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: isMobile ? '#9FE1CB' : 'var(--color-accent)',
-            backgroundColor: isMobile ? 'rgba(93,202,165,0.14)' : 'transparent',
-            border: isMobile ? '1px solid rgba(93,202,165,0.28)' : '1px solid rgba(90,173,167,0.3)',
+            color: 'var(--color-accent)',
+            border: '1px solid rgba(90,173,167,0.3)',
             padding: '3px 8px',
             borderRadius: 100,
-            marginBottom: isMobile ? 12 : 16,
+            marginBottom: 16,
           }}
         >
           {tag}
@@ -179,18 +158,18 @@ function IngredientCard({ name, fn, tag, icon, isMobile }: {
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: isMobile ? 19 : 22,
-            fontWeight: isMobile ? 500 : 400,
+            fontSize: 22,
+            fontWeight: 400,
             color: '#fff',
-            marginBottom: isMobile ? 4 : 8,
+            marginBottom: 8,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {icon && (
               <img
                 src={icon}
                 alt="Ícone"
-                style={{ height: isMobile ? '44px' : '32px', width: 'auto', objectFit: 'contain' }}
+                style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
               />
             )}
             <span>{name}</span>
@@ -198,9 +177,9 @@ function IngredientCard({ name, fn, tag, icon, isMobile }: {
         </div>
         <p
           style={{
-            fontSize: isMobile ? 13 : 13,
+            fontSize: 13,
             color: 'rgba(255,255,255,0.6)',
-            lineHeight: isMobile ? 1.55 : 1.6,
+            lineHeight: 1.6,
             margin: 0,
             fontWeight: 300,
           }}
@@ -216,8 +195,6 @@ function IngredientCard({ name, fn, tag, icon, isMobile }: {
 
 export default function Ingredients() {
   const [isMobile, setIsMobile] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const toggleBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768)
@@ -226,66 +203,100 @@ export default function Ingredients() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const visibleIngredients = isMobile ? INGREDIENTS.slice(0, MOBILE_VISIBLE_COUNT) : INGREDIENTS
-  const hiddenIngredients = isMobile ? INGREDIENTS.slice(MOBILE_VISIBLE_COUNT) : []
-
   return (
     <section
       id="ingredients"
       className="section-pad"
       style={{
-        backgroundColor: 'var(--color-deep)',
-        // Sobrescreve o padding vertical padrão da classe apenas no mobile.
-        // paddingTop reduzido ao mínimo para o título ficar rente ao topo da seção.
-        paddingTop: isMobile ? 20 : undefined,
-        paddingBottom: isMobile ? 36 : undefined,
+        backgroundColor: isMobile ? '#ffffff' : 'var(--color-deep)',
+        paddingTop: isMobile ? 40 : undefined,
+        paddingBottom: isMobile ? 48 : undefined,
       }}
     >
       <div className="inner">
-        <div style={{ marginBottom: isMobile ? 40 : 48 }}>
-          {isMobile ? (
-            /* Frase única em destaque no lugar do eyebrow + título + texto antigo */
-            <p
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(24px, 7.2vw, 29px)',
-                fontWeight: 700,
-                letterSpacing: '-0.015em',
-                lineHeight: 1.32,
-                color: '#ffffff',
-                margin: 0,
-                maxWidth: 480,
-              }}
-            >
-              Inside every drop of{' '}
-              <span
+        {isMobile ? (
+          /* ═══════════════ MOBILE: layout igual ao site original ═══════════════ */
+          <>
+            {/* Título + parágrafo — centralizados, preto sobre fundo branco */}
+            <div style={{ textAlign: 'center', marginBottom: 44 }}>
+              <p
                 style={{
-                  background: 'linear-gradient(90deg, #5DCAA5, #9FE1CB)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                  WebkitTextFillColor: 'transparent',
+                  fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
+                  fontSize: 'clamp(32px, 10vw, 40px)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.2,
+                  color: '#111111',
+                  margin: '0 auto 22px auto',
+                  maxWidth: 420,
                 }}
               >
-                ProNail Complex
-              </span>{' '}
-              you'll find:
-              <span
+                Inside every drop of "ProNail Complex" you'll find:
+              </p>
+              <p
                 style={{
-                  display: 'block',
-                  marginTop: 12,
-                  fontWeight: 400,
-                  fontSize: '0.72em',
-                  letterSpacing: '-0.005em',
+                  fontFamily: "'Inter', Arial, sans-serif",
+                  fontSize: 20,
                   lineHeight: 1.55,
-                  color: 'rgba(255,255,255,0.62)',
+                  color: '#3a3a3a',
+                  fontWeight: 400,
+                  margin: '0 auto',
+                  maxWidth: 400,
                 }}
               >
-                An optimally dosed proprietary blend of oils and vitamins, carefully mixed to complement one another into a powerful nail-strengthening formula.
-              </span>
-            </p>
-          ) : (
-            <>
+                An optimally dosed proprietary blend of <strong>oils and vitamins</strong>, carefully mixed to complement one another into a <strong>powerful nail-strengthening formula</strong>.
+              </p>
+            </div>
+
+            {/* Lista de ingredientes — foto grande circular + nome em pílula escura,
+                todos empilhados, sem botão de "ver mais" */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40 }}>
+              {INGREDIENTS.map((item) => (
+                <div
+                  key={item.name}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18 }}
+                >
+                  <div
+                    style={{
+                      width: 209,
+                      height: 209,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      backgroundColor: '#ffffff',
+                      border: '6px solid #ffffff',
+                      boxShadow: '0 14px 32px -10px rgba(0,0,0,0.22)',
+                    }}
+                  >
+                    <img
+                      src={item.icon}
+                      alt={item.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: '#1a1a1a',
+                      color: '#ffffff',
+                      fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
+                      fontWeight: 700,
+                      fontSize: 22,
+                      padding: '15px 20px',
+                      borderRadius: 12,
+                      textAlign: 'center',
+                      width: '100%',
+                      maxWidth: 340,
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          /* ═══════════════ DESKTOP: layout original, intocado ═══════════════ */
+          <>
+            <div style={{ marginBottom: 48 }}>
               <p
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -311,118 +322,20 @@ export default function Ingredients() {
               >
                 Clinically Selected Botanicals & Active Minerals
               </h2>
-            </>
-          )}
-        </div>
+            </div>
 
-        {/* Ingredient Table */}
-        <div
-          style={
-            isMobile
-              ? {
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 14,
-                }
-              : {
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                  gap: 1,
-                  backgroundColor: 'rgba(255,255,255,0.06)',
-                }
-          }
-        >
-          {visibleIngredients.map((item) => (
-            <IngredientCard key={item.name} {...item} isMobile={isMobile} />
-          ))}
-        </div>
-
-        {/* Expansível — somente mobile. No desktop os 16 itens já aparecem
-            todos acima, então este bloco nunca renderiza fora do mobile. */}
-        {isMobile && hiddenIngredients.length > 0 && (
-          <>
             <div
               style={{
                 display: 'grid',
-                gridTemplateRows: isExpanded ? '1fr' : '0fr',
-                transition: 'grid-template-rows 0.55s cubic-bezier(0.4, 0, 0.2, 1)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 1,
+                backgroundColor: 'rgba(255,255,255,0.06)',
               }}
             >
-              <div style={{ overflow: 'hidden' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 14,
-                    paddingTop: 14,
-                    opacity: isExpanded ? 1 : 0,
-                    transform: isExpanded ? 'translateY(0)' : 'translateY(-6px)',
-                    transition: 'opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s',
-                  }}
-                >
-                  {hiddenIngredients.map((item) => (
-                    <IngredientCard key={item.name} {...item} isMobile={isMobile} />
-                  ))}
-                </div>
-              </div>
+              {INGREDIENTS.map((item) => (
+                <IngredientCard key={item.name} {...item} />
+              ))}
             </div>
-
-            <button
-              ref={toggleBtnRef}
-              onClick={() => {
-                // 1. Inverte o estado (se estava aberto, fecha; se estava fechado, abre)
-                const novoEstado = !isExpanded;
-                setIsExpanded(novoEstado);
-
-                // 2. Se o usuário acabou de FECHAR (clicou em Show Less), recentraliza
-                // a tela no próprio botão, só depois que a animação de recolhimento
-                // (0.55s) termina — assim a pessoa não perde o lugar nem pula pra outra seção.
-                if (!novoEstado) {
-                  setTimeout(() => {
-                    toggleBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 560);
-                }
-              }}
-              aria-expanded={isExpanded}
-              style={{
-                width: '100%',
-                marginTop: 22,
-                padding: '14px 20px',
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.16)',
-                borderRadius: 100,
-                color: '#9FE1CB',
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                cursor: 'pointer',
-              }}
-            >
-              <span>{isExpanded ? 'Show less' : 'See all ingredients'}</span>
-              <svg
-                width="10"
-                height="6"
-                viewBox="0 0 10 6"
-                fill="none"
-                style={{
-                  transform: isExpanded ? 'rotate(180deg)' : 'none',
-                  transition: 'transform 0.35s ease',
-                }}
-              >
-                <path
-                  d="M1 1L5 5L9 1"
-                  stroke="#9FE1CB"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
           </>
         )}
       </div>
