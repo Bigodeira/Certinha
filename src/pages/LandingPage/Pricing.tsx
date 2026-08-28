@@ -8,6 +8,16 @@ import img3Bottles from '../../3frascos.png'; // O pacote de 2+1
 import imgSeal from '../../entregagratis.png';
 import selo60dias from '../../60dias.png';
 import imgEstrelas from '../../estrelas.png';
+import imgLivrosBonus from '../../livrosbonus.png'; // Imagem dos 3 e-books bônus (pacote Best Value)
+
+// ─── Paleta (mobile) — cores extraídas do site original ──────────────────────
+
+const TEAL_DARK = '#3C97AB';   // header "BEST VALUE!" / faixa "Claim Your Discounted"
+const TEAL_LIGHT = '#99C7D1';  // headers "Most popular" e "Basic"
+const CARD_BG_HIGHLIGHT = '#F9F8DA';
+const PERK_YELLOW = '#FFFF8F';
+const CHECK_GREEN = '#5AC150';
+const DARK_BANNER_BG = '#272727';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -73,92 +83,85 @@ export default function Pricing() {
     ? [...PRICING_PACKAGES].sort((a, b) => MOBILE_ORDER[a.id] - MOBILE_ORDER[b.id])
     : PRICING_PACKAGES;
 
-  const pillBackground = (pkg: typeof PRICING_PACKAGES[number]) =>
-    pkg.highlight
-      ? 'linear-gradient(180deg,#f4c430,#d49a00)'
-      : pkg.badgeLabel === 'Most Popular'
-        ? 'linear-gradient(180deg,#4fc3ac,#2f9484)'
-        : 'linear-gradient(180deg,#8b8b90,#6a6a6f)';
+  // Rótulo do header do card (mobile), igual ao site original
+  const mobileHeaderLabel = (pkg: typeof PRICING_PACKAGES[number]) =>
+    pkg.highlight ? 'BEST VALUE!' : pkg.badgeLabel === 'Most Popular' ? 'Most popular' : pkg.badgeLabel;
 
   return (
     <>
+    <style>{`
+      @keyframes pronailBuyPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55); }
+        50% { transform: scale(1.025); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 14px 26px -8px rgba(200,150,0,0.75); }
+      }
+      @keyframes pronailCursorTap {
+        0%, 100% { transform: translateY(0) rotate(-6deg); }
+        45% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
+        55% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
+      }
+    `}</style>
     {/* FAIXA 1: FRETE GRÁTIS + CLAIM BANNER (mobile: bloco único, mesma cor, sem gap) */}
         {isMobile ? (
-          <div style={{
-            backgroundColor: 'var(--color-deep)',
-            padding: '30px 16px 6px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%'
-          }}>
-            <div style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '22px',
-              padding: '24px 20px 22px',
-              textAlign: 'center',
-              width: '100%',
-              boxShadow: '0 16px 30px -18px rgba(0,0,0,0.4)'
-            }}>
+          <div style={{ backgroundColor: DARK_BANNER_BG, width: '100%', paddingTop: '34px' }}>
+            <div style={{ padding: '0 20px', textAlign: 'center' }}>
               <img
                 src={imgSeal}
                 alt="Fast and Free Shipping"
-                style={{ width: '110px', height: 'auto', margin: '0 auto 12px auto', display: 'block', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.15))' }}
+                style={{ width: '220px', height: 'auto', margin: '0 auto 18px auto', display: 'block' }}
               />
-              <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 2px 0', fontWeight: '600', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
+              <h2 style={{ color: '#ffffff', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 6px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.3, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
                 Every 6 Bottles Order
               </h2>
-              <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 8px 0', fontWeight: '600', letterSpacing: '-0.01em', lineHeight: 1.25, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
+              <h2 style={{ color: '#ffe14d', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 14px 0', fontWeight: '700', textDecoration: 'underline', letterSpacing: '-0.01em', lineHeight: 1.3, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
                 Gets FREE Shipping Too!
               </h2>
-              <p style={{ color: '#8a8a8e', fontSize: '13px', margin: '8px 0 0', fontWeight: '500', lineHeight: 1.4, fontFamily: 'Arial, sans-serif' }}>
+              <p style={{ color: '#b7b7b7', fontSize: '13px', margin: '0 0 26px', fontWeight: '500', lineHeight: 1.4, fontFamily: 'Arial, sans-serif' }}>
                 *97% Of Customers Order 6 Bottles (Our Recommended Option)
               </p>
             </div>
 
-            {/* Claim banner — segue direto no mesmo fundo, sem margem/caixa separada */}
+            {/* Faixa teal com o CTA de reforço, terminando em ponta (bookmark), igual ao site original */}
             <div style={{
-              padding: '26px 24px 8px',
-              textAlign: 'center',
+              background: TEAL_DARK,
               width: '100%',
+              padding: '22px 24px 34px',
+              textAlign: 'center',
+              position: 'relative',
               fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif',
             }}>
-              <div style={{
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.45)',
-                marginBottom: '8px',
-              }}>
-                Limited Availability
-              </div>
               <h3 style={{
                 fontSize: 'clamp(19px, 5.2vw, 22px)',
-                fontWeight: 600,
-                letterSpacing: '-0.015em',
+                fontWeight: 700,
+                letterSpacing: '-0.005em',
                 lineHeight: 1.3,
                 color: '#ffffff',
                 margin: 0,
               }}>
-                Claim your discounted<br />
-                <span style={{ fontWeight: 400, color: 'rgba(255,255,255,0.6)' }}>ProNail Complex</span>
+                Claim Your Discounted ProNail Complex
               </h3>
               <div style={{
-                marginTop: '8px',
-                fontSize: '13.5px',
-                fontWeight: 400,
-                color: 'rgba(255,255,255,0.5)',
-                letterSpacing: '-0.005em',
+                marginTop: '4px',
+                fontSize: 'clamp(19px, 5.2vw, 22px)',
+                fontWeight: 700,
+                lineHeight: 1.3,
+                color: '#ffffff',
               }}>
-                While stocks last
+                Below While Stocks Last!
               </div>
-              <svg
-                style={{ marginTop: '16px', width: '22px', height: '22px', opacity: 0.5, display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
-                viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  bottom: '-14px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0,
+                  height: 0,
+                  borderLeft: '15px solid transparent',
+                  borderRight: '15px solid transparent',
+                  borderTop: `14px solid ${TEAL_DARK}`,
+                }}
+              />
             </div>
           </div>
         ) : (
@@ -211,7 +214,6 @@ export default function Pricing() {
                 margin: '0',
                 padding: 0,
                 position: 'relative',
-                paddingTop: '13px',
                 zIndex: pkg.highlight ? 2 : 1,
               }
             : {
@@ -254,36 +256,15 @@ export default function Pricing() {
         }}
       >
 
-            {isMobile && (
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                padding: '6px 16px',
-                borderRadius: '100px',
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.03em',
-                color: '#fff',
-                whiteSpace: 'nowrap',
-                zIndex: 3,
-                boxShadow: '0 6px 14px -4px rgba(0,0,0,0.35)',
-                background: pillBackground(pkg),
-              }}>
-                {pkg.badgeLabel}
-              </div>
-            )}
-
             <div style={
               isMobile
                 ? {
-                    background: pkg.highlight ? 'linear-gradient(180deg, #fffdf2, #fffaf0)' : '#ffffff',
-                    border: pkg.highlight ? '1px solid rgba(212,166,0,0.22)' : '1px solid rgba(0,0,0,0.06)',
-                    borderRadius: '26px',
+                    background: pkg.highlight ? CARD_BG_HIGHLIGHT : '#ffffff',
+                    border: pkg.highlight ? `2px solid ${TEAL_DARK}` : `1px solid ${TEAL_LIGHT}`,
+                    borderRadius: '22px',
                     boxShadow: pkg.highlight
-                      ? '0 1px 0 rgba(255,255,255,0.7) inset, 0 26px 46px -24px rgba(180,140,0,0.28)'
-                      : '0 1px 0 rgba(255,255,255,0.6) inset, 0 24px 40px -26px rgba(0,0,0,0.22)',
+                      ? '0 20px 40px -22px rgba(60,151,171,0.45)'
+                      : '0 14px 28px -20px rgba(0,0,0,0.18)',
                     overflow: 'hidden',
                     textAlign: 'center',
                     display: 'flex',
@@ -291,6 +272,24 @@ export default function Pricing() {
                   }
                 : undefined
             }>
+
+            {/* Header full-width de cor sólida (mobile), igual ao site original */}
+            {isMobile && (
+              <div style={{
+                background: pkg.highlight ? TEAL_DARK : TEAL_LIGHT,
+                padding: '14px 16px',
+                textAlign: 'center',
+              }}>
+                <span style={{
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: 'clamp(16px, 5vw, 19px)',
+                  letterSpacing: '0.01em',
+                }}>
+                  {mobileHeaderLabel(pkg)}
+                </span>
+              </div>
+            )}
 
             {!isMobile && (
               pkg.highlight ? (
@@ -322,27 +321,12 @@ export default function Pricing() {
               )
             )}
 
-            {isMobile && pkg.highlight && (
-              <div style={{
-                background: 'linear-gradient(180deg,#ff6961,#ef4136)',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: '12px',
-                letterSpacing: '0.02em',
-                textTransform: 'uppercase',
-                padding: '16px 16px 8px',
-                textAlign: 'center',
-              }}>
-                $163 E-Book Bonus
-              </div>
-            )}
-
             <div style={{
               padding: isMobile ? (pkg.highlight ? '14px 18px 4px 18px' : '22px 18px 4px 18px') : (pkg.highlight ? '22px 32px 0 32px' : '20px 26px 0 26px'),
               display: isMobile ? 'grid' : 'block',
               gridTemplateColumns: isMobile ? '1fr 1fr' : undefined,
               gap: isMobile ? '10px' : undefined,
-              alignItems: isMobile ? 'center' : undefined,
+              alignItems: isMobile ? 'start' : undefined,
               textAlign: isMobile ? 'left' : 'center',
             }}>
 
@@ -362,28 +346,46 @@ export default function Pricing() {
 
                 <h3 style={{
                   fontSize: isMobile ? 'clamp(17px, 4.6vw, 20px)' : (pkg.highlight ? 'clamp(25px, 4.5vw, 30px)' : 'clamp(22px, 3.8vw, 27px)'),
-                  color: 'var(--color-deep)',
+                  color: isMobile ? (pkg.highlight ? TEAL_DARK : TEAL_LIGHT) : 'var(--color-deep)',
                   margin: '0 0 2px 0',
-                  textTransform: isMobile ? 'none' : 'uppercase',
+                  textTransform: isMobile ? (pkg.highlight ? 'uppercase' : 'none') : 'uppercase',
                   letterSpacing: isMobile ? '-0.01em' : '0.5px',
                   fontWeight: isMobile ? 700 : 800,
                   lineHeight: 1.15,
                 }}>
-                  {isMobile ? pkg.title.charAt(0) + pkg.title.slice(1).toLowerCase().replace('bottles', 'Bottles') : pkg.title}
+                  {isMobile
+                    ? (pkg.highlight ? pkg.title : pkg.title.charAt(0) + pkg.title.slice(1).toLowerCase().replace('bottles', 'Bottles'))
+                    : pkg.title}
                 </h3>
                 <p style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#666', fontWeight: isMobile ? 500 : undefined, margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>{pkg.subtitle}</p>
 
-                <img src={pkg.image} alt={pkg.title} style={{
-                  height: isMobile ? 'clamp(90px, 24vw, 130px)' : (pkg.highlight ? 'clamp(170px, 24vw, 230px)' : 'clamp(160px, 20vw, 195px)'),
-                  width: 'auto',
-                  maxWidth: '100%',
-                  objectFit: 'contain',
-                  borderRadius: isMobile ? '14px' : '14px',
-                  boxShadow: isMobile ? '0 10px 18px -8px rgba(0,0,0,0.25)' : '10px 8px 20px rgba(0,0,0,0.2)',
-                  marginBottom: isMobile ? '0' : '20px',
-                  display: 'block',
-                  alignSelf: isMobile ? 'flex-start' : 'center',
-                }} />
+                <div style={{ position: 'relative', width: isMobile ? '100%' : 'auto', alignSelf: isMobile ? 'flex-start' : 'center' }}>
+                  <img src={pkg.image} alt={pkg.title} style={{
+                    height: isMobile ? (pkg.highlight ? 'clamp(100px, 26vw, 140px)' : 'clamp(85px, 22vw, 115px)') : (pkg.highlight ? 'clamp(170px, 24vw, 230px)' : 'clamp(160px, 20vw, 195px)'),
+                    width: 'auto',
+                    maxWidth: '100%',
+                    objectFit: 'contain',
+                    borderRadius: isMobile ? '0' : '14px',
+                    boxShadow: isMobile ? 'none' : '10px 8px 20px rgba(0,0,0,0.2)',
+                    marginBottom: isMobile ? '0' : '20px',
+                    display: 'block',
+                  }} />
+                </div>
+
+                {isMobile && pkg.highlight && (
+                  <img
+                    src={imgLivrosBonus}
+                    alt="3 Free eBooks"
+                    style={{
+                      width: '100%',
+                      maxWidth: '235px',
+                      height: 'auto',
+                      marginTop: '6px',
+                      display: 'block',
+                      borderRadius: '4px',
+                    }}
+                  />
+                )}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'stretch' : 'center' }}>
@@ -394,22 +396,25 @@ export default function Pricing() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
-                        background: pkg.highlight ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.03)',
+                        background: (i === 0 && pkg.highlight) ? PERK_YELLOW : 'transparent',
+                        border: (i === 0 && pkg.highlight) ? 'none' : '1.5px dashed #b9b9b9',
                         borderRadius: '10px',
                         padding: '7px 9px',
                         marginBottom: '6px',
                         fontSize: '10.5px',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         color: '#3a3a3c',
                         lineHeight: 1.2,
                       }}>
                         <span style={{
-                          width: '14px', height: '14px', borderRadius: '50%',
-                          backgroundColor: 'var(--color-accent)',
+                          width: '15px', height: '15px', borderRadius: '5px',
+                          transform: 'rotate(45deg)',
+                          backgroundColor: CHECK_GREEN,
+                          boxShadow: '0 2px 4px -1px rgba(0,0,0,0.35)',
                           display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                           flexShrink: 0,
                         }}>
-                          <svg width="8" height="8" viewBox="0 0 10 8" fill="none">
+                          <svg width="8" height="8" viewBox="0 0 10 8" fill="none" style={{ transform: 'rotate(-45deg)' }}>
                             <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </span>
@@ -432,7 +437,7 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                <div style={{ color: 'var(--color-deep)', marginBottom: isMobile ? '4px' : '20px', display: 'flex', justifyContent: isMobile ? 'flex-start' : 'center', alignItems: 'baseline' }}>
+                <div style={{ color: isMobile ? (pkg.highlight ? TEAL_DARK : TEAL_LIGHT) : 'var(--color-deep)', marginBottom: isMobile ? '4px' : '20px', display: 'flex', justifyContent: isMobile ? 'flex-start' : 'center', alignItems: 'baseline' }}>
                   <span style={{
                     fontSize: isMobile ? 'clamp(34px, 11vw, 46px)' : (pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)'),
                     fontWeight: isMobile ? 800 : 'bold',
@@ -446,69 +451,21 @@ export default function Pricing() {
                     marginLeft: '4px'
                   }}>/ Bottle</span>
                 </div>
+
+                {/* No mobile, para os cards SEM destaque, o botão/total/pagamento ficam
+                    dentro desta coluna direita (mais estreita), igual ao site original.
+                    Para o card "Best Value" essa parte fica fora da grid, em largura total. */}
+                {isMobile && !pkg.highlight && (
+                  <BuyBlock pkg={pkg} isMobile={isMobile} />
+                )}
               </div>
             </div>
-            </div>
 
-            <div style={{ padding: isMobile ? '6px 18px 20px 18px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
-              <button
-                id={`buy-button-${pkg.id}`}
-                onClick={() => {
-                  if ((window as any).clarity) {
-                    (window as any).clarity('set', 'offer', pkg.title);
-                    (window as any).clarity('event', 'clickbank_cta_click');
-                  }
-                  (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;
-                }}
-                style={{
-                  backgroundColor: isMobile ? undefined : '#ffd700',
-                  background: isMobile ? 'linear-gradient(180deg,#ffdf5c,#f0b400)' : 'linear-gradient(to bottom, #ffe800, #ffb300)',
-                  color: isMobile ? '#1a1400' : '#000',
-                  border: isMobile ? 'none' : '1px solid #d49a00',
-                  borderRadius: isMobile ? '16px' : '9px',
-                  padding: isMobile ? '15px' : '15px',
-                  fontSize: isMobile ? 'clamp(15px, 4.5vw, 17px)' : 'clamp(18px, 3.5vw, 22px)',
-                  fontWeight: isMobile ? 700 : '900',
-                  letterSpacing: isMobile ? '-0.01em' : undefined,
-                  cursor: 'pointer',
-                  marginBottom: isMobile ? '12px' : '14px',
-                  boxShadow: isMobile ? '0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55)' : '0 6px 10px rgba(0,0,0,0.22)',
-                  width: '100%',
-                  transition: 'all 0.2s ease-in-out',
-                }}
-                onMouseEnter={(e) => {
-                  if (isMobile) return;
-                  e.currentTarget.style.transform = 'scale(1.03)';
-                  e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
-                }}
-                onMouseLeave={(e) => {
-                  if (isMobile) return;
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
-                }}
-              >
-                BUY NOW
-              </button>
-
-              <div style={{
-                fontSize: isMobile ? '12px' : '14px',
-                color: isMobile ? '#6b6b6e' : '#333',
-                marginBottom: isMobile ? '8px' : '10px',
-                textAlign: isMobile ? 'center' : undefined,
-              }}>
-                TOTAL: <del style={{ color: isMobile ? '#b0b0b3' : '#888', marginRight: '6px' }}>{pkg.oldTotal}</del>
-                <span style={{ fontWeight: isMobile ? 800 : 'bold', fontSize: isMobile ? '15px' : '18px', color: isMobile ? 'var(--color-deep)' : undefined }}>{pkg.newTotal}</span>
+            {(!isMobile || pkg.highlight) && (
+              <div style={{ padding: isMobile ? '10px 18px 20px 18px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
+                <BuyBlock pkg={pkg} isMobile={isMobile} />
               </div>
-
-              <img
-                src={imgCreditCards}
-                alt="Cartões Aceitos"
-                style={{ width: isMobile ? '150px' : '0', maxWidth: '100%', height: 'auto', display: isMobile ? 'block' : 'none', margin: isMobile ? '0 auto 6px auto' : undefined, opacity: isMobile ? 0.9 : undefined }}
-              />
-
-              <div style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#555', textAlign: isMobile ? 'center' : undefined, fontWeight: isMobile ? 500 : undefined }}>
-                {pkg.shipping}
-              </div>
+            )}
             </div>
 
           </div>
@@ -564,30 +521,31 @@ export default function Pricing() {
 
     </section>
 
-        <div style={{ backgroundColor: 'var(--color-deep)', padding: isMobile ? '36px 16px' : '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ backgroundColor: isMobile ? '#519AAA' : 'var(--color-deep)', padding: isMobile ? '36px 16px' : '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
 
           <div style={{
             backgroundColor: '#ffffff',
             borderRadius: '12px',
-            padding: isMobile ? '24px 20px' : '40px',
+            padding: isMobile ? '30px 24px 28px' : '40px',
             maxWidth: '850px',
             width: '100%',
             display: 'flex',
-            alignItems: 'center',
-            gap: isMobile ? '20px' : '40px',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'stretch' : 'center',
+            gap: isMobile ? '18px' : '40px',
             boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-            flexWrap: 'wrap'
+            flexWrap: isMobile ? 'nowrap' : 'wrap'
           }}>
 
-            <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: isMobile ? '110px' : '160px', margin: '0 auto' }}>
+            <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: isMobile ? '230px' : '160px', margin: '0 auto' }}>
               <img
                 src={selo60dias}
                 alt="60-Day Money Back Guarantee"
-                style={{ width: '100%', height: 'auto', filter: isMobile ? 'drop-shadow(0 10px 16px rgba(0,0,0,0.18))' : undefined }}
+                style={{ width: '100%', height: 'auto', filter: isMobile ? 'drop-shadow(0 12px 18px rgba(0,0,0,0.2))' : undefined }}
               />
             </div>
 
-            <div style={{ flex: 1, minWidth: '250px' }}>
+            <div style={{ flex: 1, minWidth: isMobile ? undefined : '250px', textAlign: isMobile ? 'left' : undefined }}>
               <h3 style={{ color: 'var(--color-deep)', fontSize: isMobile ? '19px' : '26px', margin: '0 0 10px 0', fontWeight: '800', fontFamily: 'Arial, sans-serif', lineHeight: 1.25 }}>
                 100% Satisfaction<br/>
                 60-Day Money Back Guarantee
@@ -600,5 +558,104 @@ export default function Pricing() {
           </div>
         </div>
     </>
+  );
+}
+
+// ─── BuyBlock ─────────────────────────────────────────────────────────────────
+// Botão "BUY NOW" + total + cartões + frete. Extraído para reaproveitar tanto
+// dentro da coluna direita (cards sem destaque, mobile) quanto em largura
+// total abaixo da grid (card "Best Value" e desktop), igual ao site original.
+
+function BuyBlock({ pkg, isMobile }: { pkg: typeof PRICING_PACKAGES[number]; isMobile: boolean }) {
+  return (
+    <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative' }}>
+        <button
+          id={`buy-button-${pkg.id}`}
+          onClick={() => {
+            if ((window as any).clarity) {
+              (window as any).clarity('set', 'offer', pkg.title);
+              (window as any).clarity('event', 'clickbank_cta_click');
+            }
+            (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;
+          }}
+          style={{
+            backgroundColor: isMobile ? undefined : '#ffd700',
+            background: isMobile ? 'linear-gradient(180deg,#ffdf5c,#f0b400)' : 'linear-gradient(to bottom, #ffe800, #ffb300)',
+            color: isMobile ? '#1a1400' : '#000',
+            border: isMobile ? 'none' : '1px solid #d49a00',
+            borderRadius: isMobile ? '16px' : '9px',
+            padding: isMobile ? '15px' : '15px',
+            fontSize: isMobile ? 'clamp(15px, 4.5vw, 17px)' : 'clamp(18px, 3.5vw, 22px)',
+            fontWeight: isMobile ? 700 : '900',
+            letterSpacing: isMobile ? '-0.01em' : undefined,
+            cursor: 'pointer',
+            marginBottom: isMobile ? '12px' : '14px',
+            boxShadow: isMobile ? '0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55)' : '0 6px 10px rgba(0,0,0,0.22)',
+            width: '100%',
+            transition: 'all 0.2s ease-in-out',
+            animation: isMobile && pkg.highlight ? 'pronailBuyPulse 1.7s ease-in-out infinite' : undefined,
+          }}
+          onMouseEnter={(e) => {
+            if (isMobile) return;
+            e.currentTarget.style.transform = 'scale(1.03)';
+            e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
+          }}
+          onMouseLeave={(e) => {
+            if (isMobile) return;
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
+          }}
+        >
+          BUY NOW
+        </button>
+
+        {isMobile && pkg.highlight && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              bottom: '-8px',
+              right: '2px',
+              width: '38px',
+              height: '38px',
+              pointerEvents: 'none',
+              animation: 'pronailCursorTap 1.7s ease-in-out infinite',
+              filter: 'drop-shadow(0 3px 4px rgba(0,0,0,0.35))',
+            }}
+          >
+            <svg viewBox="0 0 24 24" width="38" height="38">
+              <path
+                d="M5.5 2.5L5.5 17.2L9.1 13.6L11.6 19.3L14.1 18.2L11.6 12.5L16.3 12.5L5.5 2.5Z"
+                fill="#ffffff"
+                stroke="#1a1400"
+                strokeWidth="1.3"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      <div style={{
+        fontSize: isMobile ? '12px' : '14px',
+        color: isMobile ? (pkg.highlight ? '#c9880f' : '#6b6b6e') : '#333',
+        marginBottom: isMobile ? '8px' : '10px',
+        textAlign: isMobile ? 'center' : undefined,
+      }}>
+        TOTAL: <del style={{ color: isMobile ? '#b0b0b3' : '#888', marginRight: '6px' }}>{pkg.oldTotal}</del>
+        <span style={{ fontWeight: isMobile ? 800 : 'bold', fontSize: isMobile ? '15px' : '18px', color: isMobile ? (pkg.highlight ? '#c9880f' : 'var(--color-deep)') : undefined }}>{pkg.newTotal}</span>
+      </div>
+
+      <img
+        src={imgCreditCards}
+        alt="Cartões Aceitos"
+        style={{ width: isMobile ? (pkg.highlight ? '150px' : '120px') : '0', maxWidth: '100%', height: 'auto', display: isMobile ? 'block' : 'none', margin: isMobile ? '0 auto 6px auto' : undefined, opacity: isMobile ? 0.9 : undefined }}
+      />
+
+      <div style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? (pkg.highlight ? TEAL_DARK : '#9a9a9e') : '#555', textAlign: isMobile ? 'center' : undefined, fontWeight: isMobile ? (pkg.highlight ? 700 : 500) : undefined }}>
+        {pkg.shipping}
+      </div>
+    </div>
   );
 }
