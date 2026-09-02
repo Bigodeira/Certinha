@@ -1,72 +1,21 @@
 // ─── src/pages/LandingPage/Pricing.tsx ────────────────────────────────────────
+// Componente único que reúne as DUAS seções de banner de venda do site:
+//   1) Seção "Pricing" principal (logo após o Hero/Ingredients) — desktop + mobile.
+//   2) Seção "Pricing Bottom" (duplicata, exclusiva do MOBILE, renderizada
+//      abaixo da FAQ). No desktop essa segunda seção não renderiza nada.
+//
+// Antes dividido em três arquivos (Pricing.tsx, PricingBottom.tsx e
+// PricingCard.tsx). Agora tudo vive aqui: os cards de preço (mobile e
+// desktop) viraram componentes internos deste mesmo arquivo.
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import imgCreditCards from '../../creditcards.png';
-import img2Bottles from '../../2frascos.png';
-import img6Bottles from '../../6frascos.png'; // O pacote de 3+3
-import img3Bottles from '../../3frascos.png'; // O pacote de 2+1
 import imgSeal from '../../entregagratis.png';
 import selo60dias from '../../60dias.png';
 import imgEstrelas from '../../estrelas.png';
-import imgLivrosBonus from '../../livrosbonus.png'; // Imagem dos 3 e-books bônus (pacote Best Value)
-
-// ─── Paleta (mobile) — cores extraídas do site original ──────────────────────
-
-const TEAL_DARK = '#3C97AB';   // header "BEST VALUE!" / faixa "Claim Your Discounted"
-const TEAL_LIGHT = '#99C7D1';  // headers "Most popular" e "Basic"
-const CARD_BG_HIGHLIGHT = '#F9F8DA';
-const PERK_YELLOW = '#FFFF8F';
-const CHECK_GREEN = '#5AC150';
-const DARK_BANNER_BG = '#272727';
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const PRICING_PACKAGES = [
-  {
-    id: 'pack-2',
-    badgeLabel: 'Basic',
-    title: '2 BOTTLES',
-    subtitle: '· 60 Day Supply ·',
-    image: img2Bottles,
-    price: '79',
-    perks: ['YOU SAVE $200!', '60 DAYS GUARANTEE'],
-    oldTotal: '$358',
-    newTotal: '$158',
-    shipping: '+ 9.99 Shipping',
-    highlight: false,
-    link: 'https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55359&cbitems=305&corid=903290d8-5857-47af-925d-50d99149fc37&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0002&time=1784875152&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA1OzE1ODtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55359%26cbitems%3D305%26cbskin%26exitoffer%3D2%26template%3D0002',
-  },
-  {
-    id: 'pack-6',
-    badgeLabel: 'Best Value',
-    title: '3 + 3 BOTTLES',
-    subtitle: '· 180 Day Supply ·',
-    image: img6Bottles,
-    price: '49',
-    perks: ['YOU SAVE $780!', 'BIGGEST DISCOUNT', '60 DAYS GUARANTEE', '3 FREE EBOOKS!'],
-    oldTotal: '$1074',
-    newTotal: '$294',
-    shipping: '+ FREE Shipping',
-    highlight: true,
-    link: ' https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55361&cbitems=306&corid=7e25eb8a-a9bb-4725-a209-6f75f9d9c5d3&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0006&time=1784875153&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzA2OzI5NDtmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55361%26cbitems%3D306%26cbskin%26exitoffer%3D2%26template%3D0006',
-  },
-  {
-    id: 'pack-3',
-    badgeLabel: 'Most Popular',
-    title: '2 + 1 BOTTLES',
-    subtitle: '· 90 Day Supply ·',
-    image: img3Bottles,
-    price: '69',
-    perks: ['YOU SAVE $330!', '60 DAYS GUARANTEE'],
-    oldTotal: '$537',
-    newTotal: '$207',
-    shipping: '+ FREE Shipping',
-    highlight: false,
-    link: ' https://orders.clickbank.net/?_ga=337406059.1784875026&_gl=1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw&affi=matjetshop&cbfid=55360&cbitems=302&corid=565476e0-4fb9-4480-b219-3346c27d80d4&exitoffer=2&hopId=b5142376-74fc-4729-ad60-6e664a5ed823&oaref=01.145E5D3EF095A940160CA3E2826717AB34F1184EAF9D888819FCA5621E2C9516ECE05926&template=0003&time=1784875155&vvvv=pronailcom&vvar=_b%3DNDk1Nzk4O3Byb25haWxjb21wbGV4LmNvbS9zdGFydC9pbmRleC5waHA7dW5kZWZpbmVkO3RleHQ7MzAyOzIwNztmZTt1bmRlZmluZWQ%3D%26_ga%3D337406059.1784875026%26_gl%3D1*1xqs0m8*_ga*MzM3NDA2MDU5LjE3ODQ4NzUwMjY.*_ga_9KZM1E116M*czE3ODQ4NzUwMjUkbzEkZzEkdDE3ODQ4NzUwNzQkajExJGwwJGgw%26cbfid%3D55360%26cbitems%3D302%26cbskin%26exitoffer%3D2%26template%3D0003',
-  }
-  ];
-
-// ─── Pricing ──────────────────────────────────────────────────────────────────
+import imgLivrosBonus from '../../livrosbonus.png'; // 3 e-books bônus (só no pacote "Best Value")
+import { PRICING_PACKAGES, getMobileOrderedPackages, mobileHeaderLabel, mobileTitle, trackBuyClick } from './pricingData';
+import type { PricingPackage } from './pricingData';
 
 export default function Pricing() {
   const [isMobile, setIsMobile] = useState(false);
@@ -78,553 +27,402 @@ export default function Pricing() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const MOBILE_ORDER: Record<string, number> = { 'pack-6': 0, 'pack-3': 1, 'pack-2': 2 };
-  const displayPackages = isMobile
-    ? [...PRICING_PACKAGES].sort((a, b) => MOBILE_ORDER[a.id] - MOBILE_ORDER[b.id])
-    : PRICING_PACKAGES;
-
-  // Rótulo do header do card (mobile), igual ao site original
-  const mobileHeaderLabel = (pkg: typeof PRICING_PACKAGES[number]) =>
-    pkg.highlight ? 'BEST VALUE!' : pkg.badgeLabel === 'Most Popular' ? 'Most popular' : pkg.badgeLabel;
+  const displayPackages = isMobile ? getMobileOrderedPackages() : PRICING_PACKAGES;
+  const bottomDisplayPackages = getMobileOrderedPackages();
 
   return (
     <>
-    <style>{`
-      @keyframes pronailBuyPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55); }
-        50% { transform: scale(1.025); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 14px 26px -8px rgba(200,150,0,0.75); }
-      }
-      @keyframes pronailCursorTap {
-        0%, 100% { transform: translateY(0) rotate(-6deg); }
-        45% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
-        55% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
-      }
-    `}</style>
-    {/* FAIXA 1: FRETE GRÁTIS + CLAIM BANNER (mobile: bloco único, mesma cor, sem gap) */}
-        {isMobile ? (
-          <div style={{ backgroundColor: DARK_BANNER_BG, width: '100%', paddingTop: '34px' }}>
-            <div style={{ padding: '0 20px', textAlign: 'center' }}>
-              <img
-                src={imgSeal}
-                alt="Fast and Free Shipping"
-                style={{ width: '220px', height: 'auto', margin: '0 auto 18px auto', display: 'block' }}
-              />
-              <h2 style={{ color: '#ffffff', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 6px 0', fontWeight: '700', letterSpacing: '-0.01em', lineHeight: 1.3, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
+      <style>{`
+        @keyframes pronailBuyPulse {
+          0%, 100% { transform: scale(1); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55); }
+          50% { transform: scale(1.025); box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 14px 26px -8px rgba(200,150,0,0.75); }
+        }
+        @keyframes pronailCursorTap {
+          0%, 100% { transform: translateY(0) rotate(-6deg); }
+          45% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
+          55% { transform: translateY(3px) rotate(-6deg) scale(0.9); }
+        }
+      `}</style>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          SEÇÃO 1 — Pricing principal (desktop + mobile)
+      ════════════════════════════════════════════════════════════════════ */}
+
+      {/* FAIXA 1: FRETE GRÁTIS + CLAIM BANNER */}
+      {isMobile ? (
+        <div className="w-full pt-[34px] bg-[#272727]">
+          <div className="px-5 text-center">
+            <img src={imgSeal} alt="Fast and Free Shipping" className="w-[220px] h-auto mx-auto mb-[18px] block" />
+            <h2 className="text-white text-[clamp(19px,5.5vw,22px)] m-0 mb-1.5 font-bold tracking-[-0.01em] leading-[1.3] font-sans">
+              Every 6 Bottles Order
+            </h2>
+            <h2 className="text-[#ffe14d] text-[clamp(19px,5.5vw,22px)] m-0 mb-3.5 font-bold underline tracking-[-0.01em] leading-[1.3] font-sans">
+              Gets FREE Shipping Too!
+            </h2>
+            <p className="text-[#b7b7b7] text-[13px] m-0 mb-[26px] font-medium leading-[1.4] font-sans">
+              *97% Of Customers Order 6 Bottles (Our Recommended Option)
+            </p>
+          </div>
+
+          <div className="relative w-full text-center px-6 pt-[22px] pb-[34px] bg-[#3C97AB] font-sans">
+            <h3 className="text-[clamp(19px,5.2vw,22px)] font-bold tracking-[-0.005em] leading-[1.3] text-white m-0">
+              Claim Your Discounted ProNail Complex
+            </h3>
+            <div className="mt-1 text-[clamp(19px,5.2vw,22px)] font-bold leading-[1.3] text-white">
+              Below While Stocks Last!
+            </div>
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[14px] border-t-[#3C97AB]"
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="w-full flex justify-center items-center flex-wrap gap-[30px] px-5 bg-white pt-[60px] pb-[30px]">
+          <img src={imgSeal} alt="Fast and Free Shipping" className="w-[140px] h-auto" />
+          <div className="text-center font-sans">
+            <h2 className="text-[var(--color-deep)] text-[clamp(19px,5.5vw,32px)] m-0 mb-1 font-extrabold leading-[1.2]">
+              Every 6 Bottles Order
+            </h2>
+            <h2 className="text-[var(--color-accent)] text-[clamp(19px,5.5vw,32px)] m-0 mb-2 font-extrabold underline leading-[1.2]">
+              Gets FREE Shipping Too!
+            </h2>
+            <p className="text-[#666666] text-[clamp(13px,3.2vw,18px)] m-0 font-medium">
+              *97% Of Customers Order 6 Bottles (Our Recommended Option)
+            </p>
+          </div>
+        </div>
+      )}
+
+      <section
+        id="pricing"
+        className={`bg-[#f9f9f9] text-[#333] ${isMobile ? 'px-3.5 pt-8 pb-3.5' : 'px-6 pt-[100px] pb-6'}`}
+      >
+        <div className="max-w-[1000px] mx-auto flex flex-wrap justify-center items-stretch gap-5">
+          {isMobile
+            ? displayPackages.map((pkg) => <PricingCard key={pkg.id} pkg={pkg} />)
+            : displayPackages.map((pkg) => <DesktopPricingCard key={pkg.id} pkg={pkg} />)}
+        </div>
+
+        {!isMobile && (
+          <div className="w-full flex justify-center mt-[60px] pb-2.5">
+            <img src={imgCreditCards} alt="Cartões Aceitos" className="w-full max-w-[320px] h-auto" />
+          </div>
+        )}
+
+        <div
+          className={`w-full flex flex-col items-center pb-0 ${isMobile ? 'mt-7' : 'mt-[30px]'}`}
+          style={{ fontFamily: "'Montserrat', Arial, sans-serif" }}
+        >
+          <p className={`text-[#1a1a1a] m-0 ${isMobile ? 'text-lg -mb-4' : 'text-2xl -mb-6'}`}>Our customers say</p>
+
+          <img
+            src={imgEstrelas}
+            alt="4.5 de 5 estrelas"
+            className={`relative z-[2] w-full h-auto ${
+              isMobile ? 'max-w-[170px] -mt-[38px] -mb-[34px]' : 'max-w-[220px] -mt-[60px] -mb-[53px]'
+            }`}
+          />
+
+          <p className={`text-[#1a1a1a] m-0 ${isMobile ? 'text-[15px] -mt-4' : 'text-xl -mt-6'}`}>
+            based on <strong className="font-black">14,369 reviews!</strong>
+          </p>
+        </div>
+      </section>
+
+      <div
+        className={`w-full flex justify-center ${isMobile ? 'px-4 py-9 bg-[#519AAA]' : 'px-5 py-[60px] bg-[var(--color-deep)]'}`}
+      >
+        <div
+          className={`bg-white rounded-xl max-w-[850px] w-full flex shadow-[0_10px_30px_rgba(0,0,0,0.2)] ${
+            isMobile ? 'flex-col items-stretch gap-[18px] px-6 pt-[30px] pb-7 flex-nowrap' : 'flex-row items-center gap-10 p-10 flex-wrap'
+          }`}
+        >
+          <div className={`shrink-0 text-center w-full mx-auto ${isMobile ? 'max-w-[230px]' : 'max-w-[160px]'}`}>
+            <img
+              src={selo60dias}
+              alt="60-Day Money Back Guarantee"
+              className={`w-full h-auto ${isMobile ? 'drop-shadow-[0_12px_18px_rgba(0,0,0,0.2)]' : ''}`}
+            />
+          </div>
+
+          <div className={`flex-1 ${isMobile ? 'text-left' : 'min-w-[250px]'}`}>
+            <h3
+              className={`text-[var(--color-deep)] m-0 mb-2.5 font-extrabold leading-[1.25] font-sans ${
+                isMobile ? 'text-[19px]' : 'text-[26px]'
+              }`}
+            >
+              100% Satisfaction
+              <br />
+              60-Day Money Back Guarantee
+            </h3>
+            <p className={`text-[#444444] leading-[1.6] m-0 font-sans ${isMobile ? 'text-sm' : 'text-base'}`}>
+              Your order today is covered by our iron-clad <strong>60-day 100% money-back guarantee</strong>. If you
+              are not impressed with the results, then just write to us and we'll refund every single cent.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          SEÇÃO 2 — Pricing Bottom (duplicata, EXCLUSIVA do mobile).
+          No desktop essa seção não renderiza nada, preservando o layout
+          desktop original intacto.
+      ════════════════════════════════════════════════════════════════════ */}
+      {isMobile && (
+        <>
+          <div className="w-full pt-[34px] bg-[#272727]">
+            <div className="px-5 text-center">
+              <img src={imgSeal} alt="Fast and Free Shipping" className="w-[220px] h-auto mx-auto mb-[18px] block" />
+              <h2 className="text-white text-[clamp(19px,5.5vw,22px)] m-0 mb-1.5 font-bold tracking-[-0.01em] leading-[1.3] font-sans">
                 Every 6 Bottles Order
               </h2>
-              <h2 style={{ color: '#ffe14d', fontSize: 'clamp(19px, 5.5vw, 22px)', margin: '0 0 14px 0', fontWeight: '700', textDecoration: 'underline', letterSpacing: '-0.01em', lineHeight: 1.3, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif' }}>
+              <h2 className="text-[#ffe14d] text-[clamp(19px,5.5vw,22px)] m-0 mb-3.5 font-bold underline tracking-[-0.01em] leading-[1.3] font-sans">
                 Gets FREE Shipping Too!
               </h2>
-              <p style={{ color: '#b7b7b7', fontSize: '13px', margin: '0 0 26px', fontWeight: '500', lineHeight: 1.4, fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-[#b7b7b7] text-[13px] m-0 mb-[26px] font-medium leading-[1.4] font-sans">
                 *97% Of Customers Order 6 Bottles (Our Recommended Option)
               </p>
             </div>
 
-            {/* Faixa teal com o CTA de reforço, terminando em ponta (bookmark), igual ao site original */}
-            <div style={{
-              background: TEAL_DARK,
-              width: '100%',
-              padding: '22px 24px 34px',
-              textAlign: 'center',
-              position: 'relative',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif',
-            }}>
-              <h3 style={{
-                fontSize: 'clamp(19px, 5.2vw, 22px)',
-                fontWeight: 700,
-                letterSpacing: '-0.005em',
-                lineHeight: 1.3,
-                color: '#ffffff',
-                margin: 0,
-              }}>
+            <div className="relative w-full text-center px-6 pt-[22px] pb-[34px] bg-[#3C97AB] font-sans">
+              <h3 className="text-[clamp(19px,5.2vw,22px)] font-bold tracking-[-0.005em] leading-[1.3] text-white m-0">
                 Claim Your Discounted ProNail Complex
               </h3>
-              <div style={{
-                marginTop: '4px',
-                fontSize: 'clamp(19px, 5.2vw, 22px)',
-                fontWeight: 700,
-                lineHeight: 1.3,
-                color: '#ffffff',
-              }}>
+              <div className="mt-1 text-[clamp(19px,5.2vw,22px)] font-bold leading-[1.3] text-white">
                 Below While Stocks Last!
               </div>
               <div
                 aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  bottom: '-14px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 0,
-                  height: 0,
-                  borderLeft: '15px solid transparent',
-                  borderRight: '15px solid transparent',
-                  borderTop: `14px solid ${TEAL_DARK}`,
-                }}
+                className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[14px] border-t-[#3C97AB]"
               />
             </div>
           </div>
-        ) : (
-          <div style={{
-            backgroundColor: '#ffffff',
-            padding: '60px 20px 30px 20px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '30px',
-            width: '100%'
-          }}>
-            <img src={imgSeal} alt="Fast and Free Shipping" style={{ width: '140px', height: 'auto' }} />
-            <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
-              <h2 style={{ color: 'var(--color-deep)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 4px 0', fontWeight: '800', lineHeight: 1.2 }}>
-                Every 6 Bottles Order
-              </h2>
-              <h2 style={{ color: 'var(--color-accent)', fontSize: 'clamp(19px, 5.5vw, 32px)', margin: '0 0 8px 0', fontWeight: '800', textDecoration: 'underline', lineHeight: 1.2 }}>
-                Gets FREE Shipping Too!
-              </h2>
-              <p style={{ color: '#666666', fontSize: 'clamp(13px, 3.2vw, 18px)', margin: 0, fontWeight: '500' }}>
-                *97% Of Customers Order 6 Bottles (Our Recommended Option)
-              </p>
-            </div>
-          </div>
-        )}
 
-    <section id="pricing" style={{ padding: isMobile ? '32px 14px 14px 14px' : '100px 24px 24px 24px', backgroundColor: '#f9f9f9', color: '#333' }}>
-      <div style={{
-        maxWidth: '1000px',
-        margin: '0 auto',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        gap: isMobile ? '20px' : '20px'
-      }}>
-
-        {displayPackages.map((pkg) => (
-          <div
-        key={pkg.id}
-        id={pkg.highlight ? 'pricing-highlight' : undefined}
-        style={
-          isMobile
-            ? {
-                width: '100%',
-                flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
-                maxWidth: '440px',
-                margin: '0',
-                padding: 0,
-                position: 'relative',
-                zIndex: pkg.highlight ? 2 : 1,
-              }
-            : {
-                width: '100%',
-                flex: pkg.highlight ? '1 1 340px' : '1 1 280px',
-                maxWidth: pkg.highlight ? '400px' : '320px',
-                margin: pkg.highlight ? '0 24px' : '0',
-                backgroundColor: pkg.highlight ? '#fdf8ce' : '#ffffff',
-                border: pkg.highlight ? '4px solid var(--color-deep)' : '1px solid #e0e0e0',
-                borderRadius: '10px',
-                padding: 0,
-                overflow: 'hidden',
-                textAlign: 'center',
-                boxShadow: pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                transform: pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'none',
-                transition: 'all 0.3s ease',
-                zIndex: pkg.highlight ? 2 : 1
-              }
-        }
-        onMouseEnter={(e) => {
-          if (isMobile) return;
-          if (pkg.highlight) {
-            e.currentTarget.style.transform = 'scale(1.14) translateY(-10px)';
-            e.currentTarget.style.boxShadow = '0 26px 48px rgba(0,0,0,0.3)';
-            e.currentTarget.style.zIndex = '10';
-          } else {
-            e.currentTarget.style.transform = 'scale(1.02)';
-            e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.12)';
-            e.currentTarget.style.zIndex = '5';
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (isMobile) return;
-          e.currentTarget.style.transform = pkg.highlight ? 'scale(1.1) translateY(-10px)' : 'scale(1)';
-          e.currentTarget.style.boxShadow = pkg.highlight ? '0 16px 34px rgba(0,0,0,0.2)' : '0 6px 14px rgba(0,0,0,0.08)';
-          e.currentTarget.style.zIndex = pkg.highlight ? '2' : '1';
-        }}
-      >
-
-            <div style={
-              isMobile
-                ? {
-                    background: pkg.highlight ? CARD_BG_HIGHLIGHT : '#ffffff',
-                    border: pkg.highlight ? `2px solid ${TEAL_DARK}` : `1px solid ${TEAL_LIGHT}`,
-                    borderRadius: '22px',
-                    boxShadow: pkg.highlight
-                      ? '0 20px 40px -22px rgba(60,151,171,0.45)'
-                      : '0 14px 28px -20px rgba(0,0,0,0.18)',
-                    overflow: 'hidden',
-                    textAlign: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }
-                : undefined
-            }>
-
-            {/* Header full-width de cor sólida (mobile), igual ao site original */}
-            {isMobile && (
-              <div style={{
-                background: pkg.highlight ? TEAL_DARK : TEAL_LIGHT,
-                padding: '14px 16px',
-                textAlign: 'center',
-              }}>
-                <span style={{
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: 'clamp(16px, 5vw, 19px)',
-                  letterSpacing: '0.01em',
-                }}>
-                  {mobileHeaderLabel(pkg)}
-                </span>
-              </div>
-            )}
-
-            {!isMobile && (
-              pkg.highlight ? (
-                <div style={{
-                  backgroundColor: '#ff4d4d',
-                  color: '#fff',
-                  fontWeight: 800,
-                  fontSize: 'clamp(13px, 2vw, 15px)',
-                  letterSpacing: '0.5px',
-                  textTransform: 'uppercase',
-                  padding: '11px 14px',
-                  textAlign: 'center',
-                }}>
-                  $163 E-Book Bonus
-                </div>
-              ) : (
-                <div style={{
-                  backgroundColor: 'var(--color-accent)',
-                  color: '#fff',
-                  fontWeight: 800,
-                  fontSize: '13px',
-                  letterSpacing: '0.5px',
-                  textTransform: 'uppercase',
-                  padding: '9px 14px',
-                  textAlign: 'center',
-                }}>
-                  {pkg.badgeLabel}
-                </div>
-              )
-            )}
-
-            <div style={{
-              padding: isMobile ? (pkg.highlight ? '14px 18px 4px 18px' : '22px 18px 4px 18px') : (pkg.highlight ? '22px 32px 0 32px' : '20px 26px 0 26px'),
-              display: isMobile ? 'grid' : 'block',
-              gridTemplateColumns: isMobile ? '1fr 1fr' : undefined,
-              gap: isMobile ? '10px' : undefined,
-              alignItems: isMobile ? 'start' : undefined,
-              textAlign: isMobile ? 'left' : 'center',
-            }}>
-
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'flex-start' : 'center' }}>
-                {!isMobile && (
-                  <p style={{
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    color: pkg.highlight ? '#b8860b' : 'var(--color-accent)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    margin: '0 0 8px 0'
-                  }}>
-                    {pkg.badgeLabel}
-                  </p>
-                )}
-
-                <h3 style={{
-                  fontSize: isMobile ? 'clamp(17px, 4.6vw, 20px)' : (pkg.highlight ? 'clamp(25px, 4.5vw, 30px)' : 'clamp(22px, 3.8vw, 27px)'),
-                  color: isMobile ? (pkg.highlight ? TEAL_DARK : TEAL_LIGHT) : 'var(--color-deep)',
-                  margin: '0 0 2px 0',
-                  textTransform: isMobile ? (pkg.highlight ? 'uppercase' : 'none') : 'uppercase',
-                  letterSpacing: isMobile ? '-0.01em' : '0.5px',
-                  fontWeight: isMobile ? 700 : 800,
-                  lineHeight: 1.15,
-                }}>
-                  {isMobile
-                    ? (pkg.highlight ? pkg.title : pkg.title.charAt(0) + pkg.title.slice(1).toLowerCase().replace('bottles', 'Bottles'))
-                    : pkg.title}
-                </h3>
-                <p style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? '#9a9a9e' : '#666', fontWeight: isMobile ? 500 : undefined, margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>{pkg.subtitle}</p>
-
-                <div style={{ position: 'relative', width: isMobile ? '100%' : 'auto', alignSelf: isMobile ? 'flex-start' : 'center' }}>
-                  <img src={pkg.image} alt={pkg.title} style={{
-                    height: isMobile ? (pkg.highlight ? 'clamp(100px, 26vw, 140px)' : 'clamp(85px, 22vw, 115px)') : (pkg.highlight ? 'clamp(170px, 24vw, 230px)' : 'clamp(160px, 20vw, 195px)'),
-                    width: 'auto',
-                    maxWidth: '100%',
-                    objectFit: 'contain',
-                    borderRadius: isMobile ? '0' : '14px',
-                    boxShadow: isMobile ? 'none' : '10px 8px 20px rgba(0,0,0,0.2)',
-                    marginBottom: isMobile ? '0' : '20px',
-                    display: 'block',
-                  }} />
-                </div>
-
-                {isMobile && pkg.highlight && (
-                  <img
-                    src={imgLivrosBonus}
-                    alt="3 Free eBooks"
-                    style={{
-                      width: '100%',
-                      maxWidth: '235px',
-                      height: 'auto',
-                      marginTop: '6px',
-                      display: 'block',
-                      borderRadius: '4px',
-                    }}
-                  />
-                )}
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: isMobile ? 'stretch' : 'center' }}>
-                <div style={{ marginBottom: isMobile ? '8px' : '24px', flexGrow: isMobile ? 0 : 1, width: '100%' }}>
-                  {pkg.perks.map((perk, i) => (
-                    isMobile ? (
-                      <div key={i} style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        background: (i === 0 && pkg.highlight) ? PERK_YELLOW : 'transparent',
-                        border: (i === 0 && pkg.highlight) ? 'none' : '1.5px dashed #b9b9b9',
-                        borderRadius: '10px',
-                        padding: '7px 9px',
-                        marginBottom: '6px',
-                        fontSize: '10.5px',
-                        fontWeight: 700,
-                        color: '#3a3a3c',
-                        lineHeight: 1.2,
-                      }}>
-                        <span style={{
-                          width: '15px', height: '15px', borderRadius: '5px',
-                          transform: 'rotate(45deg)',
-                          backgroundColor: CHECK_GREEN,
-                          boxShadow: '0 2px 4px -1px rgba(0,0,0,0.35)',
-                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                          flexShrink: 0,
-                        }}>
-                          <svg width="8" height="8" viewBox="0 0 10 8" fill="none" style={{ transform: 'rotate(-45deg)' }}>
-                            <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        {perk}
-                      </div>
-                    ) : (
-                      <div key={i} style={{
-                        border: '1.5px dashed #aaa',
-                        borderRadius: '6px',
-                        padding: pkg.highlight ? '11px' : '9px',
-                        marginBottom: '8px',
-                        fontSize: pkg.highlight ? '14px' : '13px',
-                        fontWeight: 'bold',
-                        lineHeight: 1.25,
-                        backgroundColor: pkg.highlight ? '#fcf49a' : '#fff'
-                      }}>
-                        <span style={{ color: '#4caf50', marginRight: '4px' }}>✔</span> {perk}
-                      </div>
-                    )
-                  ))}
-                </div>
-
-                <div style={{ color: isMobile ? (pkg.highlight ? TEAL_DARK : TEAL_LIGHT) : 'var(--color-deep)', marginBottom: isMobile ? '4px' : '20px', display: 'flex', justifyContent: isMobile ? 'flex-start' : 'center', alignItems: 'baseline' }}>
-                  <span style={{
-                    fontSize: isMobile ? 'clamp(34px, 11vw, 46px)' : (pkg.highlight ? 'clamp(52px, 10vw, 68px)' : 'clamp(44px, 8.5vw, 57px)'),
-                    fontWeight: isMobile ? 800 : 'bold',
-                    letterSpacing: isMobile ? '-0.02em' : undefined,
-                    lineHeight: '1'
-                  }}>${pkg.price}</span>
-                  <span style={{
-                    fontSize: isMobile ? '13px' : (pkg.highlight ? '17px' : '15px'),
-                    fontWeight: isMobile ? 600 : undefined,
-                    color: isMobile ? '#8a8a8e' : undefined,
-                    marginLeft: '4px'
-                  }}>/ Bottle</span>
-                </div>
-
-                {/* No mobile, para os cards SEM destaque, o botão/total/pagamento ficam
-                    dentro desta coluna direita (mais estreita), igual ao site original.
-                    Para o card "Best Value" essa parte fica fora da grid, em largura total. */}
-                {isMobile && !pkg.highlight && (
-                  <BuyBlock pkg={pkg} isMobile={isMobile} />
-                )}
-              </div>
+          <section id="pricing-bottom" className="px-3.5 pt-8 pb-3.5 bg-[#f9f9f9] text-[#333]">
+            <div className="max-w-[1000px] mx-auto flex flex-wrap justify-center items-stretch gap-5">
+              {bottomDisplayPackages.map((pkg) => (
+                <PricingCard key={pkg.id} pkg={pkg} idSuffix="-bottom" />
+              ))}
             </div>
 
-            {(!isMobile || pkg.highlight) && (
-              <div style={{ padding: isMobile ? '10px 18px 20px 18px' : (pkg.highlight ? '0 32px 44px 32px' : '0 26px 38px 26px') }}>
-                <BuyBlock pkg={pkg} isMobile={isMobile} />
-              </div>
-            )}
-            </div>
+            <div className="w-full flex flex-col items-center mt-7 pb-0" style={{ fontFamily: "'Montserrat', Arial, sans-serif" }}>
+              <p className="text-[#1a1a1a] text-lg m-0 -mb-4">Our customers say</p>
 
-          </div>
-        ))}
-
-      </div>
-        {!isMobile && (
-          <div style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '60px',
-            paddingBottom: '10px'
-          }}>
-            <img
-              src={imgCreditCards}
-              alt="Cartões Aceitos"
-              style={{ width: '100%', maxWidth: '320px', height: 'auto' }}
-            />
-          </div>
-        )}
-      <div style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: isMobile ? '28px' : '30px',
-        paddingBottom: '0px',
-        fontFamily: "'Montserrat', Arial, sans-serif"
-      }}>
-        <p style={{ fontSize: isMobile ? '18px' : '24px', color: '#1a1a1a', margin: '0', marginBottom: isMobile ? '-16px' : '-25px' }}>
-          Our customers say
-        </p>
-
-        <img
-          src={imgEstrelas}
-          alt="4.5 de 5 estrelas"
-          style={{
-            width: '100%',
-            maxWidth: isMobile ? '170px' : '220px',
-            height: 'auto',
-            marginTop: isMobile ? '-38px' : '-60px',
-            marginBottom: isMobile ? '-34px' : '-53px',
-            position: 'relative',
-            zIndex: 2
-          }}
-        />
-
-        <p style={{ fontSize: isMobile ? '15px' : '20px', color: '#1a1a1a', margin: '0', marginTop: isMobile ? '-16px' : '-25px' }}>
-          based on <strong style={{ fontWeight: '900' }}>14,369 reviews!</strong>
-        </p>
-      </div>
-
-    </section>
-
-        <div style={{ backgroundColor: isMobile ? '#519AAA' : 'var(--color-deep)', padding: isMobile ? '36px 16px' : '60px 20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
-
-          <div style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '12px',
-            padding: isMobile ? '30px 24px 28px' : '40px',
-            maxWidth: '850px',
-            width: '100%',
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            alignItems: isMobile ? 'stretch' : 'center',
-            gap: isMobile ? '18px' : '40px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-            flexWrap: isMobile ? 'nowrap' : 'wrap'
-          }}>
-
-            <div style={{ flexShrink: 0, textAlign: 'center', width: '100%', maxWidth: isMobile ? '230px' : '160px', margin: '0 auto' }}>
               <img
-                src={selo60dias}
-                alt="60-Day Money Back Guarantee"
-                style={{ width: '100%', height: 'auto', filter: isMobile ? 'drop-shadow(0 12px 18px rgba(0,0,0,0.2))' : undefined }}
+                src={imgEstrelas}
+                alt="4.5 de 5 estrelas"
+                className="w-full max-w-[170px] h-auto -mt-[38px] -mb-[34px] relative z-[2]"
               />
-            </div>
 
-            <div style={{ flex: 1, minWidth: isMobile ? undefined : '250px', textAlign: isMobile ? 'left' : undefined }}>
-              <h3 style={{ color: 'var(--color-deep)', fontSize: isMobile ? '19px' : '26px', margin: '0 0 10px 0', fontWeight: '800', fontFamily: 'Arial, sans-serif', lineHeight: 1.25 }}>
-                100% Satisfaction<br/>
-                60-Day Money Back Guarantee
-              </h3>
-              <p style={{ color: '#444444', fontSize: isMobile ? '14px' : '16px', lineHeight: '1.6', margin: 0, fontFamily: 'Arial, sans-serif' }}>
-                Your order today is covered by our iron-clad <strong>60-day 100% money-back guarantee</strong>. If you are not impressed with the results, then just write to us and we'll refund every single cent.
+              <p className="text-[#1a1a1a] text-[15px] m-0 -mt-4">
+                based on <strong className="font-black">14,369 reviews!</strong>
               </p>
             </div>
+          </section>
 
+          <div className="w-full flex justify-center px-4 py-9 bg-[#519AAA]">
+            <div className="bg-white rounded-xl max-w-[850px] w-full flex flex-col items-stretch gap-[18px] px-6 pt-[30px] pb-7 shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+              <div className="shrink-0 text-center w-full max-w-[230px] mx-auto">
+                <img
+                  src={selo60dias}
+                  alt="60-Day Money Back Guarantee"
+                  className="w-full h-auto drop-shadow-[0_12px_18px_rgba(0,0,0,0.2)]"
+                />
+              </div>
+
+              <div className="flex-1 text-left">
+                <h3 className="text-[var(--color-deep)] text-[19px] m-0 mb-2.5 font-extrabold leading-[1.25] font-sans">
+                  100% Satisfaction
+                  <br />
+                  60-Day Money Back Guarantee
+                </h3>
+                <p className="text-[#444444] text-sm leading-[1.6] m-0 font-sans">
+                  Your order today is covered by our iron-clad <strong>60-day 100% money-back guarantee</strong>. If
+                  you are not impressed with the results, then just write to us and we'll refund every single cent.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
+      )}
     </>
   );
 }
 
-// ─── BuyBlock ─────────────────────────────────────────────────────────────────
-// Botão "BUY NOW" + total + cartões + frete. Extraído para reaproveitar tanto
-// dentro da coluna direita (cards sem destaque, mobile) quanto em largura
-// total abaixo da grid (card "Best Value" e desktop), igual ao site original.
+// ─── PricingCard (versão MOBILE) ───────────────────────────────────────────────
+// Usado nas duas seções (topo e rodapé). idSuffix evita colisão de ids quando
+// o mesmo pacote aparece duas vezes na página.
 
-function BuyBlock({ pkg, isMobile }: { pkg: typeof PRICING_PACKAGES[number]; isMobile: boolean }) {
+function PricingCard({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: string }) {
   return (
-    <div style={{ position: 'relative' }}>
-      <div style={{ position: 'relative' }}>
+    <div
+      id={pkg.highlight ? `pricing-highlight${idSuffix}` : undefined}
+      className={`w-full m-0 relative ${
+        pkg.highlight ? 'max-w-[470px] flex-[1_1_360px] z-[2]' : 'max-w-[440px] flex-[1_1_280px] z-[1]'
+      }`}
+    >
+      <div
+        className={`flex flex-col text-center overflow-hidden rounded-[22px] ${
+          pkg.highlight
+            ? 'bg-[#F9F8DA] border-2 border-[#3C97AB] shadow-[0_20px_40px_-22px_rgba(60,151,171,0.45)]'
+            : 'bg-white border border-[#e6e8ea] shadow-[0_14px_28px_-20px_rgba(0,0,0,0.18)]'
+        }`}
+      >
+        {/* Header full-width de cor sólida */}
+        <div className={`text-center px-4 py-3.5 ${pkg.highlight ? 'bg-[#3C97AB]' : 'bg-[#99C7D1]'}`}>
+          <span className="text-white font-bold text-[clamp(16px,5vw,19px)] tracking-[0.01em]">
+            {mobileHeaderLabel(pkg)}
+          </span>
+        </div>
+
+        {pkg.highlight ? (
+          // ── Card "Best Value": título/subtítulo centralizados no topo,
+          // ocupando toda a largura. Coluna esquerda: só as duas fotos
+          // (produto + e-books), bem maiores. Coluna direita: benefícios,
+          // preço, botão de compra, total, cartões e frete — igual ao
+          // padrão dos cards "Most popular"/"Basic". ──
+          <div className="px-5 pt-5 pb-6">
+            <h3 className="text-[clamp(18px,4.8vw,21px)] text-[#3C97AB] uppercase m-0 mb-0.5 tracking-[-0.01em] font-bold leading-[1.15]">
+              {mobileTitle(pkg)}
+            </h3>
+            <p className="text-[11.5px] text-[#9a9a9e] font-medium m-0 mb-3.5">{pkg.subtitle}</p>
+
+            <div className="grid grid-cols-2 gap-x-3.5 items-start text-left">
+              {/* Coluna esquerda: só as duas fotos, centralizadas e ampliadas */}
+              <div className="flex flex-col items-center">
+                <img
+                  src={pkg.image}
+                  alt={pkg.title}
+                  className="w-auto max-w-full h-[clamp(112px,30vw,152px)] object-contain block"
+                />
+                <img
+                  src={imgLivrosBonus}
+                  alt="3 Free eBooks"
+                  className="w-full max-w-[210px] h-auto mt-3 block rounded"
+                />
+              </div>
+
+              {/* Coluna direita: benefícios, preço e compra completa */}
+              <div className="flex flex-col items-stretch">
+                <div className="w-full mb-2">
+                  {pkg.perks.map((perk, i) => (
+                    <div
+                      key={i}
+                      className={`flex items-center gap-[7px] rounded-[7px] px-2.5 py-[7px] mb-1 text-[10.5px] font-bold text-[#3a3a3c] leading-[1.2] ${
+                        i === 0 ? 'bg-[#FFFF8F]' : 'border-[1.5px] border-dashed border-[#c7c8cc]'
+                      }`}
+                    >
+                      <span className="w-[14px] h-[14px] rounded-[4px] rotate-45 bg-[#5AC150] shadow-[0_2px_4px_-1px_rgba(0,0,0,0.35)] inline-flex items-center justify-center shrink-0">
+                        <svg width="7" height="7" viewBox="0 0 10 8" fill="none" className="-rotate-45">
+                          <path
+                            d="M1 4L3.5 6.5L9 1"
+                            stroke="#fff"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                      {perk}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex justify-start items-baseline mb-2 text-[#3C97AB]">
+                  <span className="text-[clamp(34px,11vw,46px)] font-extrabold tracking-[-0.02em] leading-none">
+                    ${pkg.price}
+                  </span>
+                  <span className="text-[13px] font-semibold text-[#8a8a8e] ml-1">/ Bottle</span>
+                </div>
+
+                <BuyBlock pkg={pkg} idSuffix={idSuffix} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          // ── Demais cards: título/subtítulo no topo da coluna esquerda,
+          // foto do produto centralizada abaixo. Benefícios, preço e compra
+          // na coluna direita. ──
+          <div className="grid grid-cols-2 gap-x-3 items-start text-left px-[18px] pt-[18px] pb-1.5">
+            <div className="flex flex-col items-start">
+              <h3 className="text-[clamp(17px,4.6vw,20px)] text-[#99C7D1] uppercase m-0 mb-0.5 tracking-[-0.01em] font-bold leading-[1.15]">
+                {mobileTitle(pkg)}
+              </h3>
+              <p className="text-[11px] text-[#9a9a9e] font-medium m-0 mb-2.5">{pkg.subtitle}</p>
+
+              <div className="w-full mt-1.5">
+                <img
+                  src={pkg.image}
+                  alt={pkg.title}
+                  className="w-auto max-w-full h-[clamp(82px,22vw,112px)] object-contain block"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col items-stretch">
+              <div className="w-full mb-2.5">
+                {pkg.perks.map((perk, i) => (
+                  <div
+                    key={i}
+                    className="w-full flex items-center gap-[7px] rounded-[7px] px-2.5 py-[7px] mb-1 text-[10.5px] font-bold text-[#3a3a3c] leading-[1.2] border-[1.5px] border-dashed border-[#c7c8cc]"
+                  >
+                    <span className="w-[14px] h-[14px] rounded-[4px] rotate-45 bg-[#5AC150] shadow-[0_2px_4px_-1px_rgba(0,0,0,0.35)] inline-flex items-center justify-center shrink-0">
+                      <svg width="7" height="7" viewBox="0 0 10 8" fill="none" className="-rotate-45">
+                        <path
+                          d="M1 4L3.5 6.5L9 1"
+                          stroke="#fff"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    {perk}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-start items-baseline mb-2 text-[#99C7D1]">
+                <span className="text-[clamp(34px,11vw,46px)] font-extrabold tracking-[-0.02em] leading-none">
+                  ${pkg.price}
+                </span>
+                <span className="text-[13px] font-semibold text-[#8a8a8e] ml-1">/ Bottle</span>
+              </div>
+
+              <BuyBlock pkg={pkg} idSuffix={idSuffix} />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── BuyBlock ─────────────────────────────────────────────────────────────────
+// Botão "BUY NOW" + total + cartões + frete (versão mobile).
+
+function BuyBlock({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: string }) {
+  return (
+    <div className="w-full">
+      <div className="relative w-full">
         <button
-          id={`buy-button-${pkg.id}`}
-          onClick={() => {
-            if ((window as any).clarity) {
-              (window as any).clarity('set', 'offer', pkg.title);
-              (window as any).clarity('event', 'clickbank_cta_click');
-            }
-            (window as any).gtag_report_conversion ? (window as any).gtag_report_conversion(pkg.link) : window.location.href = pkg.link;
-          }}
-          style={{
-            backgroundColor: isMobile ? undefined : '#ffd700',
-            background: isMobile ? 'linear-gradient(180deg,#ffdf5c,#f0b400)' : 'linear-gradient(to bottom, #ffe800, #ffb300)',
-            color: isMobile ? '#1a1400' : '#000',
-            border: isMobile ? 'none' : '1px solid #d49a00',
-            borderRadius: isMobile ? '16px' : '9px',
-            padding: isMobile ? '15px' : '15px',
-            fontSize: isMobile ? 'clamp(15px, 4.5vw, 17px)' : 'clamp(18px, 3.5vw, 22px)',
-            fontWeight: isMobile ? 700 : '900',
-            letterSpacing: isMobile ? '-0.01em' : undefined,
-            cursor: 'pointer',
-            marginBottom: isMobile ? '12px' : '14px',
-            boxShadow: isMobile ? '0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 20px -8px rgba(200,150,0,0.55)' : '0 6px 10px rgba(0,0,0,0.22)',
-            width: '100%',
-            transition: 'all 0.2s ease-in-out',
-            animation: isMobile && pkg.highlight ? 'pronailBuyPulse 1.7s ease-in-out infinite' : undefined,
-          }}
-          onMouseEnter={(e) => {
-            if (isMobile) return;
-            e.currentTarget.style.transform = 'scale(1.03)';
-            e.currentTarget.style.boxShadow = '0 12px 18px rgba(0,0,0,0.42)';
-          }}
-          onMouseLeave={(e) => {
-            if (isMobile) return;
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 6px 10px rgba(0,0,0,0.22)';
-          }}
+          id={`buy-button-${pkg.id}${idSuffix}`}
+          onClick={() => trackBuyClick(pkg)}
+          className={`block w-full rounded-[14px] border border-[#d99a00] px-4 py-3.5 mb-3 text-[clamp(15px,4.4vw,17px)] font-extrabold tracking-[-0.01em] cursor-pointer text-[#231a00]
+            bg-[linear-gradient(180deg,_#ffe27a_0%,_#f8c400_55%,_#f0a500_100%)]
+            shadow-[0_1px_0_rgba(255,255,255,0.65)_inset,0_-2px_0_rgba(180,120,0,0.25)_inset,0_8px_16px_-6px_rgba(200,140,0,0.55)]
+            ${pkg.highlight ? 'animate-[pronailBuyPulse_1.7s_ease-in-out_infinite]' : ''}`}
         >
           BUY NOW
         </button>
 
-        {isMobile && pkg.highlight && (
+        {pkg.highlight && (
           <div
             aria-hidden="true"
-            style={{
-              position: 'absolute',
-              bottom: '-8px',
-              right: '2px',
-              width: '38px',
-              height: '38px',
-              pointerEvents: 'none',
-              animation: 'pronailCursorTap 1.7s ease-in-out infinite',
-              filter: 'drop-shadow(0 3px 4px rgba(0,0,0,0.35))',
-            }}
+            className="absolute -bottom-2 right-1.5 w-[34px] h-[34px] pointer-events-none animate-[pronailCursorTap_1.7s_ease-in-out_infinite] drop-shadow-[0_3px_4px_rgba(0,0,0,0.35)]"
           >
-            <svg viewBox="0 0 24 24" width="38" height="38">
+            <svg viewBox="0 0 24 24" width="34" height="34">
               <path
                 d="M5.5 2.5L5.5 17.2L9.1 13.6L11.6 19.3L14.1 18.2L11.6 12.5L16.3 12.5L5.5 2.5Z"
                 fill="#ffffff"
@@ -637,25 +435,131 @@ function BuyBlock({ pkg, isMobile }: { pkg: typeof PRICING_PACKAGES[number]; isM
         )}
       </div>
 
-      <div style={{
-        fontSize: isMobile ? '12px' : '14px',
-        color: isMobile ? (pkg.highlight ? '#c9880f' : '#6b6b6e') : '#333',
-        marginBottom: isMobile ? '8px' : '10px',
-        textAlign: isMobile ? 'center' : undefined,
-      }}>
-        TOTAL: <del style={{ color: isMobile ? '#b0b0b3' : '#888', marginRight: '6px' }}>{pkg.oldTotal}</del>
-        <span style={{ fontWeight: isMobile ? 800 : 'bold', fontSize: isMobile ? '15px' : '18px', color: isMobile ? (pkg.highlight ? '#c9880f' : 'var(--color-deep)') : undefined }}>{pkg.newTotal}</span>
+      <div className="flex flex-col items-center gap-1.5">
+        <div className="text-xs text-[#c9880f]">
+          TOTAL:{' '}
+          <del className="text-[#c9880f] opacity-70 mr-1.5">{pkg.oldTotal}</del>
+          <span className="font-extrabold text-[15px] text-[#222222]">{pkg.newTotal}</span>
+        </div>
+
+        <img
+          src={imgCreditCards}
+          alt="Cartões Aceitos"
+          className={`max-w-full h-auto opacity-90 ${pkg.highlight ? 'w-[150px]' : 'w-[120px]'}`}
+        />
+
+        <div className="text-[11px] text-[#4CAF50] font-bold">{pkg.shipping}</div>
+      </div>
+    </div>
+  );
+}
+
+// ─── DesktopPricingCard / DesktopBuyBlock ──────────────────────────────────────
+// Layout de desktop (hover, escala, badge separado) — inalterado.
+
+function DesktopPricingCard({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
+  return (
+    <div
+      id={pkg.highlight ? 'pricing-highlight' : undefined}
+      className={`group w-full overflow-hidden text-center relative flex flex-col rounded-[10px] transition-all duration-300 ${
+        pkg.highlight
+          ? 'flex-[1_1_340px] max-w-[400px] mx-6 bg-[#fdf8ce] border-4 border-[var(--color-deep)] shadow-[0_16px_34px_rgba(0,0,0,0.2)] scale-110 -translate-y-2.5 hover:scale-[1.14] hover:-translate-y-2.5 hover:shadow-[0_26px_48px_rgba(0,0,0,0.3)] hover:z-10 z-[2]'
+          : 'flex-[1_1_280px] max-w-[320px] bg-white border border-[#e0e0e0] shadow-[0_6px_14px_rgba(0,0,0,0.08)] hover:scale-[1.02] hover:shadow-[0_12px_24px_rgba(0,0,0,0.12)] hover:z-[5] z-[1]'
+      }`}
+    >
+      {pkg.highlight ? (
+        <div className="bg-[#ff4d4d] text-white font-extrabold text-[clamp(13px,2vw,15px)] tracking-[0.5px] uppercase px-3.5 py-[11px] text-center">
+          $163 E-Book Bonus
+        </div>
+      ) : (
+        <div className="bg-[var(--color-accent)] text-white font-extrabold text-[13px] tracking-[0.5px] uppercase px-3.5 py-[9px] text-center">
+          {pkg.badgeLabel}
+        </div>
+      )}
+
+      <div className={pkg.highlight ? 'px-8 pt-[22px]' : 'px-[26px] pt-5'}>
+        <p
+          className={`text-xs font-extrabold uppercase tracking-[1px] m-0 mb-2 ${
+            pkg.highlight ? 'text-[#b8860b]' : 'text-[var(--color-accent)]'
+          }`}
+        >
+          {pkg.badgeLabel}
+        </p>
+
+        <h3
+          className={`text-[var(--color-deep)] m-0 mb-0.5 uppercase tracking-[0.5px] font-extrabold leading-[1.15] ${
+            pkg.highlight ? 'text-[clamp(25px,4.5vw,30px)]' : 'text-[clamp(22px,3.8vw,27px)]'
+          }`}
+        >
+          {pkg.title}
+        </h3>
+        <p className="text-[13px] text-[#666] m-0 mb-5">{pkg.subtitle}</p>
+
+        <img
+          src={pkg.image}
+          alt={pkg.title}
+          className={`w-auto max-w-full object-contain rounded-[14px] shadow-[10px_8px_20px_rgba(0,0,0,0.2)] mb-5 block mx-auto ${
+            pkg.highlight ? 'h-[clamp(170px,24vw,230px)]' : 'h-[clamp(160px,20vw,195px)]'
+          }`}
+        />
+
+        <div className="mb-6">
+          {pkg.perks.map((perk, i) => (
+            <div
+              key={i}
+              className={`border-[1.5px] border-dashed border-[#aaa] rounded-md mb-2 font-bold leading-[1.25] ${
+                pkg.highlight ? 'p-[11px] text-sm bg-[#fcf49a]' : 'p-2.5 text-[13px] bg-white'
+              }`}
+            >
+              <span className="text-[#4caf50] mr-1">✔</span> {perk}
+            </div>
+          ))}
+        </div>
+
+        <div className="text-[var(--color-deep)] mb-5 flex justify-center items-baseline">
+          <span
+            className={`font-bold leading-none ${
+              pkg.highlight ? 'text-[clamp(52px,10vw,68px)]' : 'text-[clamp(44px,8.5vw,57px)]'
+            }`}
+          >
+            ${pkg.price}
+          </span>
+          <span className={`ml-1 ${pkg.highlight ? 'text-[17px]' : 'text-[15px]'}`}>/ Bottle</span>
+        </div>
       </div>
 
-      <img
-        src={imgCreditCards}
-        alt="Cartões Aceitos"
-        style={{ width: isMobile ? (pkg.highlight ? '150px' : '120px') : '0', maxWidth: '100%', height: 'auto', display: isMobile ? 'block' : 'none', margin: isMobile ? '0 auto 6px auto' : undefined, opacity: isMobile ? 0.9 : undefined }}
-      />
-
-      <div style={{ fontSize: isMobile ? '11px' : '13px', color: isMobile ? (pkg.highlight ? TEAL_DARK : '#9a9a9e') : '#555', textAlign: isMobile ? 'center' : undefined, fontWeight: isMobile ? (pkg.highlight ? 700 : 500) : undefined }}>
-        {pkg.shipping}
+      <div className={pkg.highlight ? 'px-8 pb-11' : 'px-[26px] pb-[38px]'}>
+        <DesktopBuyBlock pkg={pkg} />
       </div>
+    </div>
+  );
+}
+
+function DesktopBuyBlock({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
+  return (
+    <div>
+      <button
+        id={`buy-button-${pkg.id}`}
+        onClick={() => {
+          if ((window as any).clarity) {
+            (window as any).clarity('set', 'offer', pkg.title);
+            (window as any).clarity('event', 'clickbank_cta_click');
+          }
+          (window as any).gtag_report_conversion
+            ? (window as any).gtag_report_conversion(pkg.link)
+            : (window.location.href = pkg.link);
+        }}
+        className="w-full bg-[linear-gradient(to_bottom,_#ffe800,_#ffb300)] text-black border border-[#d49a00] rounded-[9px] p-[15px] text-[clamp(18px,3.5vw,22px)] font-black cursor-pointer mb-3.5 shadow-[0_6px_10px_rgba(0,0,0,0.22)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_12px_18px_rgba(0,0,0,0.42)]"
+      >
+        BUY NOW
+      </button>
+
+      <div className="text-sm text-[#333] mb-2.5">
+        TOTAL: <del className="text-[#888] mr-1.5">{pkg.oldTotal}</del>
+        <span className="font-bold text-lg">{pkg.newTotal}</span>
+      </div>
+
+      <div className="text-[13px] text-[#555]">{pkg.shipping}</div>
     </div>
   );
 }

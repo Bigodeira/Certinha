@@ -5,7 +5,6 @@ import Stats from './Stats'
 import Benefits from './Benefits'
 import Ingredients from './Ingredients'
 import Pricing from './Pricing'
-import PricingBottom from './PricingBottom'
 import FAQSection from './FAQSection'
 import FinalCTA from './FinalCTA'
 import FloatingCTA from './FloatingCTA'
@@ -25,7 +24,6 @@ export default function LandingPage() {
         <FinalCTA />
         <Pricing />
         <FAQSection />
-        <PricingBottom />
         <ScientificReferences />
       </main>
       <Footer />
