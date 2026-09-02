@@ -17,6 +17,22 @@ import ingredient13 from '../../ingredient13.png'
 import ingredient14 from '../../ingredient14.png'
 import ingredient15 from '../../ingredient15.png'
 import ingredient16 from '../../ingredient16.png'
+import ingredient1Small from '../../ingredient1-400.png'
+import ingredient2Small from '../../ingredient2-400.png'
+import ingredient3Small from '../../ingredient3-400.png'
+import ingredient4Small from '../../ingredient4-400.png'
+import ingredient5Small from '../../ingredient5-400.png'
+import ingredient6Small from '../../ingredient6-400.png'
+import ingredient7Small from '../../ingredient7-400.png'
+import ingredient8Small from '../../ingredient8-400.png'
+import ingredient9Small from '../../ingredient9-400.png'
+import ingredient10Small from '../../ingredient10-400.png'
+import ingredient11Small from '../../ingredient11-400.png'
+import ingredient12Small from '../../ingredient12-400.png'
+import ingredient13Small from '../../ingredient13-400.png'
+import ingredient14Small from '../../ingredient14-400.png'
+import ingredient15Small from '../../ingredient15-400.png'
+import ingredient16Small from '../../ingredient16-400.png'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -24,96 +40,112 @@ const INGREDIENTS = [
   {
     name: 'Mineral Oil',
     icon: ingredient1,
+    smallIcon: ingredient1Small,
     fn: 'Locks in moisture and forms a protective barrier for nail and skin.',
     tag: 'Protect',
   },
   {
     name: 'Sweet Almond Oil',
     icon: ingredient2,
+    smallIcon: ingredient2Small,
     fn: 'Rich in vitamins that soften cuticles and nourish the nail bed.',
     tag: 'Nourish',
   },
   {
     name: 'Organic Flaxseed Oil',
     icon: ingredient3,
+    smallIcon: ingredient3Small,
     fn: 'Omega-rich oil that supports nail flexibility and strength.',
     tag: 'Strengthen',
   },
   {
     name: 'Tea Tree Oil',
     icon: ingredient4,
+    smallIcon: ingredient4Small,
     fn: 'Antiseptic powerhouse that stops fungal growth and purifies the nail.',
     tag: 'Antifungal',
   },
   {
     name: 'Aloe Vera',
     icon: ingredient5,
+    smallIcon: ingredient5Small,
     fn: 'Soothes irritated skin, relieves itching, and accelerates cell repair.',
     tag: 'Soothe',
   },
   {
     name: 'Canola Oil',
     icon: ingredient6,
+    smallIcon: ingredient6Small,
     fn: 'Light, fast-absorbing oil that conditions skin around the nail.',
     tag: 'Condition',
   },
   {
     name: 'Vitamin E',
     icon: ingredient7,
+    smallIcon: ingredient7Small,
     fn: 'Antioxidant skin-repair vitamin that promotes healthy nail regrowth.',
     tag: 'Regenerate',
   },
   {
     name: 'Walnut Oil',
     icon: ingredient8,
+    smallIcon: ingredient8Small,
     fn: 'Deeply moisturizes and helps restore a smooth, healthy nail surface.',
     tag: 'Moisturize',
   },
   {
     name: 'Camphor Oil',
     icon: ingredient9,
+    smallIcon: ingredient9Small,
     fn: 'Cooling agent that eases discomfort and refreshes tired feet.',
     tag: 'Refresh',
   },
   {
     name: 'Clove Bud Oil',
     icon: ingredient10,
+    smallIcon: ingredient10Small,
     fn: 'Natural purifying oil known for its cleansing properties.',
     tag: 'Purify',
   },
   {
     name: 'Jojoba Oil',
     icon: ingredient11,
+    smallIcon: ingredient11Small,
     fn: 'Mimics natural oils to balance and hydrate the nail bed.',
     tag: 'Balance',
   },
   {
     name: 'Chia Oil',
     icon: ingredient12,
+    smallIcon: ingredient12Small,
     fn: 'Packed with fatty acids that support nail resilience over time.',
     tag: 'Resilience',
   },
   {
     name: 'Lemongrass Oil',
     icon: ingredient13,
+    smallIcon: ingredient13Small,
     fn: 'Refreshing botanical extract that helps maintain a clean, healthy feel.',
     tag: 'Cleanse',
   },
   {
     name: 'Lavender Oil',
     icon: ingredient14,
+    smallIcon: ingredient14Small,
     fn: 'Calming aromatic oil that soothes skin and promotes relaxation.',
     tag: 'Calm',
   },
   {
     name: 'Menthol',
     icon: ingredient15,
+    smallIcon: ingredient15Small,
     fn: 'Cooling sensation that revitalizes and refreshes tired, stressed feet.',
     tag: 'Cooling',
   },
   {
     name: 'Undecylenic Acid',
     icon: ingredient16,
+    smallIcon: ingredient16Small,
     fn: 'An organic compound that disrupts and eliminates fungal cells.',
     tag: 'Defense',
   },
@@ -271,6 +303,8 @@ export default function Ingredients() {
                   >
                     <img
                       src={item.icon}
+                      srcSet={`${item.smallIcon} 400w, ${item.icon} 746w`}
+                      sizes="197px"
                       width={746}
                       height={746}
                       loading="lazy"
