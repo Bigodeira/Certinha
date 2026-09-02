@@ -14,8 +14,8 @@ import imgSeal from '../../entregagratis.png';
 import selo60dias from '../../60dias.png';
 import imgEstrelas from '../../estrelas.png';
 import imgLivrosBonus from '../../livrosbonus.png'; // 3 e-books bônus (só no pacote "Best Value")
-import { PRICING_PACKAGES, getMobileOrderedPackages, mobileHeaderLabel, mobileTitle, trackBuyClick } from './pricingData';
-import type { PricingPackage } from './pricingData';
+import { PRICING_PACKAGES, getMobileOrderedPackages, mobileHeaderLabel, mobileTitle, trackBuyClick } from './PricingData';
+import type { PricingPackage } from './PricingData';
 
 export default function Pricing() {
   const [isMobile, setIsMobile] = useState(false);
