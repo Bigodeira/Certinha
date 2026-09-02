@@ -185,7 +185,7 @@ export default function Hero() {
                 alt="Selos de Qualidade FDA, GMP e 100% Natural"
                 width={1757}
                 height={292}
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 style={{
                   display: 'block',
