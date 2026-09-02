@@ -132,6 +132,8 @@ export default function Hero() {
             {/* 1º: Imagem do Produto — maior, centralizada, como no original */}
             <img
               src="/pronail1.png.png"
+              srcSet="/pronail1-640.png 640w, /pronail1-800.png 800w"
+              sizes="(max-width: 440px) calc(100vw - 40px), 400px"
               alt="Produto Pronail"
               width={1138}
               height={1419}
