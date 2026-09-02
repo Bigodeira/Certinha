@@ -260,17 +260,15 @@ export default function Ingredients() {
                     style={{
                       width: 209,
                       height: 209,
-                      borderRadius: '50%',
-                      overflow: 'hidden',
-                      backgroundColor: '#ffffff',
-                      border: '6px solid #ffffff',
-                      boxShadow: '0 14px 32px -10px rgba(0,0,0,0.22)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     <img
                       src={item.icon}
                       alt={item.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ width: 197, height: 197, objectFit: 'cover' }}
                     />
                   </div>
                   <div

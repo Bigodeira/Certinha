@@ -73,10 +73,255 @@ body {
   width: 100%;
 }
 
-/* FAQ transition */
-.faq-body {
+/* ProNail FAQ — isolated from generic element and utility styles. */
+.pronail-faq-badges-strip {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 170px;
+  padding: 45px 13px;
+  overflow-x: hidden;
+  border: 0;
+  border-radius: 0;
+  background: #252525;
+}
+
+.pronail-faq-badges-image {
+  display: block;
+  width: 90%;
+  max-width: 390px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.pronail-faq {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 60px 13px 80px;
+  background: #ffffff;
+}
+
+.pronail-faq .pronail-faq-inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pronail-faq .pronail-faq-title {
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto 62px;
+  color: #000000;
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.pronail-faq .pronail-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pronail-faq .pronail-faq-item {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.pronail-faq .pronail-faq-button {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 80px;
+  margin: 0;
+  padding: 14px 15px;
+  border: 0;
+  border-radius: 12px;
+  outline: 0;
+  background: #eeeeee;
+  color: #000000;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pronail-faq .pronail-faq-button:hover,
+.pronail-faq .pronail-faq-button:active {
+  border: 0;
+  background: #e8e8e8;
+}
+
+.pronail-faq .pronail-faq-button:focus {
+  border: 0;
+  outline: 0;
+}
+
+.pronail-faq .pronail-faq-button:focus-visible {
+  border: 0;
+  outline: 2px solid #3c97ab;
+  outline-offset: 2px;
+}
+
+.pronail-faq .pronail-faq-question {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 14px;
+  color: #000000;
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  overflow-wrap: normal;
+}
+
+.pronail-faq .pronail-faq-chevron {
+  display: block;
+  flex: 0 0 23px;
+  width: 23px;
+  min-width: 23px;
+  max-width: 23px;
+  height: 23px;
+  min-height: 23px;
+  max-height: 23px;
+  color: #000000;
+  transition: transform 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.pronail-faq .pronail-faq-button[aria-expanded='true'] .pronail-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.pronail-faq .pronail-faq-panel {
+  width: 100%;
+  min-width: 0;
+}
+
+.pronail-faq .pronail-faq-panel-clip {
+  min-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+}
+
+.pronail-faq .pronail-faq-answer {
+  padding: 14px 22px 24px;
+  background: #ffffff;
+}
+
+.pronail-faq .pronail-faq-answer-paragraph {
+  margin: 0 0 20px;
+  color: #000000;
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.pronail-faq .pronail-faq-answer-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.pronail-faq .pronail-faq-table-wrap {
+  padding: 16px 8px 24px;
+  background: #ffffff;
+}
+
+.pronail-faq .pronail-faq-shipping-table {
+  width: 100%;
+  table-layout: fixed;
+  border: 0;
+  border-collapse: collapse;
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.pronail-faq .pronail-faq-table-heading {
+  padding: 0 6px 12px;
+  text-align: left;
+  vertical-align: bottom;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.pronail-faq .pronail-faq-table-row {
+  border-top: 1px solid #dddddd;
+}
+
+.pronail-faq .pronail-faq-table-cell {
+  padding: 14px 6px;
+  vertical-align: top;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 380px) {
+  .pronail-faq .pronail-faq-shipping-table {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 640px) {
+  .pronail-faq-badges-image {
+    max-width: 520px;
+  }
+
+  .pronail-faq {
+    padding: 80px 24px 96px;
+  }
+
+  .pronail-faq .pronail-faq-title {
+    max-width: none;
+    font-size: 40px;
+  }
+
+  .pronail-faq .pronail-faq-mobile-break {
+    display: none;
+  }
+
+  .pronail-faq .pronail-faq-button {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .pronail-faq .pronail-faq-answer {
+    padding: 24px 36px 40px;
+  }
+
+  .pronail-faq .pronail-faq-answer-paragraph {
+    font-size: 21px;
+  }
+
+  .pronail-faq .pronail-faq-table-wrap {
+    padding: 24px 28px 36px;
+  }
+
+  .pronail-faq .pronail-faq-shipping-table {
+    font-size: 15px;
+  }
+
+  .pronail-faq .pronail-faq-table-heading,
+  .pronail-faq .pronail-faq-table-cell {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 /* O CTA flutuante fica escondido em telas pequenas: no mobile o CTA do Hero

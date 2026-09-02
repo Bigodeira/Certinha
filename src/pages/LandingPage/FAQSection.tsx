@@ -1,29 +1,58 @@
-// ─── src/pages/LandingPage/FAQSection.tsx ─────────────────────────────────────
-
 import { useState } from 'react'
+import qualityBadges from '../../tarjafda.png'
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+type FAQItem =
+  | { q: string; a: string[]; table?: never }
+  | { q: string; a?: never; table: { headers: string[]; rows: string[][] } }
 
-const FAQS = [
+const FAQS: FAQItem[] = [
   {
     q: 'How does ProNail Complex work?',
-    a: 'ProNail Complex is a Specialist-formulated mist spray containing extremely potent natural oils and vitamins. Unlike creams that sit on top of the nail, our micro-particles penetrate deep beneath the nail plate and skin to target the root cause of fungus and promote cellular repair.',
+    a: [
+      'ProNail Complex is an extremely potent combination of oils and skin-repairing vitamins that you apply every day, after you shower, to kill off fungus. What makes this product special is the fact that it comes in the form of a mist spray that releases the ingredients in extremely small particles that are capable of delving deep, nurturing your skin and nails at their very core.',
+    ],
   },
   {
-    q: 'How should I apply it?',
-    a: 'For best results, spray ProNail Complex daily after your shower when your pores are open. Let it absorb for a few seconds, then put on clean cotton socks to lock in the nutrients and protect your feet.',
+    q: 'Are there any side effects?',
+    a: [
+      'ProNail Complex has been designed for all ages and medical conditions. All of the ingredients have been proven to be safe in clinical trials and are constantly tested for purity and to ensure against toxins and contaminants.',
+      'With more than 87,000 customers, we havent seen any notable side effects. So were confident in saying that ProNail Complex is one of the purest fungus eliminating formulas youll find on the market.',
+      'As always, if you currently have a medical condition or youre taking other prescription medication, we advise you to show a bottle of ProNail Complex to your doctor before you use it, just to put your mind at ease.',
+    ],
   },
   {
-    q: 'Are the ingredients safe?',
-    a: 'Yes, ProNail Complex is made with 100% natural, GMO-free ingredients. Every batch is manufactured in an FDA-registered and GMP-certified facility, and constantly tested for purity and toxin prevention.',
+    q: 'What is your money back guarantee?',
+    a: [
+      'It is a risk-free option that we are offering you because we believe in this formula so much.',
+      'It means you can try ProNail Complex for a full 60 days.',
+      'And if you are not completely convinced by the amazing results, then just get your money back.',
+    ],
   },
   {
-    q: 'What is your refund policy?',
-    a: 'Every order is backed by an ironclad 60-Day 100% Money-Back Guarantee. If you are not completely satisfied with the results, you can return any bottle (even empty ones) for a full refund.',
+    q: 'How many bottles should I order?',
+    a: [
+      'Most of our clients order six bottles at a time and many double their order because they want to enjoy the benefits of this amazing formula for as long as possible or even share it with their friends and family.',
+      'It is a smart choice considering those who buy the 6 bottle pack get a massive discount, free shipping and 3 free online guides. Thats a lot of value and savings, especially since, once they start seeing results, our clients usually want to reorder.',
+    ],
+  },
+  {
+    q: 'How do I use ProNail Complex?',
+    a: [
+      'You simply step out of the shower and effortlessly spray this treatment all over your feet. This complex formula is absorbed into the skin and nails extremely quickly, so you wont have to walk around with greasy toenails all day long.',
+      'Then, put on some cotton socks to make sure you create an unfriendly environment for the fungus while nourishing your skin and helping it to start healing and rebuilding.',
+    ],
   },
   {
     q: 'Is this a one-off purchase?',
-    a: 'Yes, your order is a one-off purchase with no hidden autoship, clauses or charges. The price you see on the checkout page is the only price you will have to pay.',
+    a: [
+      'Yes, your order is a one-off purchase with no hidden autoship, clauses or charges. The price you see on the checkout page is the only price you will have to pay.',
+    ],
+  },
+  {
+    q: 'What are the ingredients inside ProNail Complex?',
+    a: [
+      'Inside every single drop of ProNail Complex there is a proprietary formula of strong ingredients, custom-made to make you proud of your healthy nails.',
+    ],
   },
   {
     q: '*Shipping policy',
@@ -41,161 +70,102 @@ const FAQS = [
 
 const EASE = 'cubic-bezier(0.28, 0.11, 0.32, 1)'
 
-// ─── FAQ ──────────────────────────────────────────────────────────────────────
-
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="section-pad" style={{ backgroundColor: 'var(--color-ground)' }}>
-      <div className="inner">
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(30px, 4vw, 48px)',
-              fontWeight: 600,
-              letterSpacing: '-0.015em',
-              lineHeight: 1.08,
-              margin: '0 0 12px',
-            }}
-          >
-            Frequently Asked Questions
-          </h2>
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 19,
-              fontWeight: 400,
-              color: 'var(--color-muted)',
-              margin: 0,
-              letterSpacing: '-0.005em',
-            }}
-          >
-            Everything you need to know about ProNail Complex.
-          </p>
-        </div>
+    <>
+      <div className="pronail-faq-badges-strip" aria-label="ProNail quality certifications">
+        <img
+          src={qualityBadges}
+          alt="GMP Certified, FDA Registered, 100% Natural Ingredients, Made in USA and GMO Free"
+          className="pronail-faq-badges-image"
+        />
+      </div>
 
-        <div style={{ maxWidth: 692, margin: '0 auto', borderTop: '1px solid var(--color-border)' }}>
+      <section
+        id="faq"
+        className="pronail-faq"
+      >
+        <div className="pronail-faq-inner">
+        <h2 className="pronail-faq-title">
+          Frequently Asked
+          <br className="pronail-faq-mobile-break" /> Questions
+        </h2>
+
+        <div className="pronail-faq-list">
           {FAQS.map(({ q, a, table }, i) => {
             const isOpen = openIndex === i
-            const isHovered = hoveredIndex === i
+            const panelId = `faq-panel-${i}`
+            const buttonId = `faq-button-${i}`
 
             return (
-              <div key={q} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <div key={q} className="pronail-faq-item">
                 <button
+                  id={buttonId}
+                  type="button"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
                   aria-expanded={isOpen}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: '22px 8px',
-                    background: isHovered ? 'var(--color-hover, #f5f5f7)' : 'none',
-                    border: 'none',
-                    borderRadius: 12,
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    gap: 20,
-                    transition: `background-color 0.35s ${EASE}`,
-                  }}
+                  aria-controls={panelId}
+                  className="pronail-faq-button"
                 >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 19,
-                      fontWeight: 500,
-                      letterSpacing: '-0.01em',
-                      color: 'var(--color-text)',
-                      lineHeight: 1.35,
-                    }}
-                  >
+                  <span className="pronail-faq-question">
                     {q}
                   </span>
 
-                  {/* Plus / minus icon */}
-                  <span
-                    style={{
-                      flexShrink: 0,
-                      position: 'relative',
-                      width: 24,
-                      height: 24,
-                    }}
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    width="23"
+                    height="23"
+                    className="pronail-faq-chevron"
                   >
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        width: 14,
-                        height: 1.6,
-                        background: 'var(--color-accent)',
-                        transform: `translate(-50%, -50%) rotate(${isOpen ? 180 : 0}deg)`,
-                        transition: `transform 0.35s ${EASE}`,
-                      }}
+                    <path
+                      d="m6.5 9 5.5 5.5L17.5 9"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.25"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        width: 1.6,
-                        height: 14,
-                        background: 'var(--color-accent)',
-                        transform: `translate(-50%, -50%) rotate(${isOpen ? 90 : 0}deg)`,
-                        opacity: isOpen ? 0 : 1,
-                        transition: `transform 0.35s ${EASE}, opacity 0.35s ${EASE}`,
-                      }}
-                    />
-                  </span>
+                  </svg>
                 </button>
 
-                {/* Animated panel using the grid-template-rows trick for smooth height transitions */}
                 <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className="pronail-faq-panel"
                   style={{
                     display: 'grid',
                     gridTemplateRows: isOpen ? '1fr' : '0fr',
                     transition: `grid-template-rows 0.45s ${EASE}`,
                   }}
                 >
-                  <div style={{ overflow: 'hidden' }}>
+                  <div className="pronail-faq-panel-clip">
                     {table ? (
-                      <div style={{ padding: '0 8px 24px' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+                      <div className="pronail-faq-table-wrap">
+                        <table className="pronail-faq-shipping-table">
                           <thead>
                             <tr>
-                              {table.headers.map((h) => (
+                              {table.headers.map((header) => (
                                 <th
-                                  key={h}
-                                  style={{
-                                    textAlign: 'left',
-                                    fontWeight: 600,
-                                    color: 'var(--color-text)',
-                                    padding: '0 12px 10px 0',
-                                    fontSize: 14,
-                                  }}
+                                  key={header}
+                                  scope="col"
+                                  className="pronail-faq-table-heading"
                                 >
-                                  {h}
+                                  {header}
                                 </th>
                               ))}
                             </tr>
                           </thead>
                           <tbody>
                             {table.rows.map((row) => (
-                              <tr key={row[0]}>
-                                {row.map((cell, ci) => (
+                              <tr key={row[0]} className="pronail-faq-table-row">
+                                {row.map((cell, cellIndex) => (
                                   <td
-                                    key={ci}
-                                    style={{
-                                      padding: '14px 12px 14px 0',
-                                      borderTop: '1px solid var(--color-border)',
-                                      color: ci === 0 ? 'var(--color-accent)' : 'var(--color-text)',
-                                      verticalAlign: 'top',
-                                    }}
+                                    key={cellIndex}
+                                    className="pronail-faq-table-cell"
                                   >
                                     {cell}
                                   </td>
@@ -206,20 +176,16 @@ export default function FAQSection() {
                         </table>
                       </div>
                     ) : (
-                      <p
-                        style={{
-                          padding: '0 8px 24px',
-                          margin: 0,
-                          maxWidth: 560,
-                          fontSize: 15,
-                          lineHeight: 1.55,
-                          color: 'var(--color-muted)',
-                          fontWeight: 400,
-                          letterSpacing: '-0.003em',
-                        }}
-                      >
-                        {a}
-                      </p>
+                      <div className="pronail-faq-answer">
+                        {a.map((paragraph) => (
+                          <p
+                            key={paragraph}
+                            className="pronail-faq-answer-paragraph"
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -227,7 +193,8 @@ export default function FAQSection() {
             )
           })}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   )
 }

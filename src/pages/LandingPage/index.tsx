@@ -24,6 +24,7 @@ export default function LandingPage() {
         <FinalCTA />
         <Pricing />
         <FAQSection />
+        <Pricing bottomOnly />
         <ScientificReferences />
       </main>
       <Footer />

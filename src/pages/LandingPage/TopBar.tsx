@@ -32,11 +32,23 @@ export default function TopBar() {
   return (
     <div
       role="banner"
+      className="pronail-topbar"
       style={{
         backgroundColor: 'var(--color-ground)',
-        borderBottom: '1px solid var(--color-border)',
       }}
     >
+      <style>{`
+        .pronail-topbar {
+          border-bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+          .pronail-topbar {
+            border-bottom: 1px solid var(--color-border);
+          }
+        }
+      `}</style>
+
       {/* BARRA DE CONFIANÇA CLICKBANK — MOBILE: bem mais fina/discreta */}
       <div
         className="flex md:hidden"
@@ -48,7 +60,7 @@ export default function TopBar() {
           borderBottom: '1px solid #eaeaea',
           fontFamily: 'Arial, sans-serif',
           position: 'relative',
-          padding: '6px 12px',
+          padding: '3px 12px',
         }}
       >
         <button
