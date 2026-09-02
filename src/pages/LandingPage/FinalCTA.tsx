@@ -134,6 +134,10 @@ export default function FinalCTA() {
                 <>
                   <img
                     src={img}
+                    width={1380}
+                    height={997}
+                    loading="lazy"
+                    decoding="async"
                     alt={title}
                     style={{
                       width: '100%',
@@ -190,6 +194,10 @@ export default function FinalCTA() {
                 <>
                   <img
                     src={img}
+                    width={1380}
+                    height={997}
+                    loading="lazy"
+                    decoding="async"
                     alt={title}
                     style={{
                       width: '100%',

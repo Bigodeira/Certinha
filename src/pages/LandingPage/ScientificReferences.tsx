@@ -94,6 +94,10 @@ export default function ScientificReferences() {
           <img
             src={imgReferencia}
             alt="JCAD, Mayo Clinic College of Medicine and Science, ScienceDaily, Frontiers Science News"
+            width={3364}
+            height={207}
+            loading="lazy"
+            decoding="async"
           />
         </div>
 

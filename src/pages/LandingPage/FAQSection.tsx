@@ -79,6 +79,10 @@ export default function FAQSection() {
         <img
           src={qualityBadges}
           alt="GMP Certified, FDA Registered, 100% Natural Ingredients, Made in USA and GMO Free"
+          width={1757}
+          height={292}
+          loading="lazy"
+          decoding="async"
           className="pronail-faq-badges-image"
         />
       </div>

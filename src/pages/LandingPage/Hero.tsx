@@ -130,6 +130,10 @@ export default function Hero() {
             <img
               src="/pronail1.png.png"
               alt="Produto Pronail"
+              width={1138}
+              height={1419}
+              loading="eager"
+              fetchPriority="high"
               style={{
                 display: 'block',
                 margin: '0 auto',
@@ -179,6 +183,10 @@ export default function Hero() {
               <img
                 src={typeof tarjaFda !== 'undefined' ? tarjaFda : ''}
                 alt="Selos de Qualidade FDA, GMP e 100% Natural"
+                width={1757}
+                height={292}
+                loading="eager"
+                decoding="async"
                 style={{
                   display: 'block',
                   width: '100%',
@@ -289,6 +297,10 @@ export default function Hero() {
               <img
                 src="/pronail1.png.png"
                 alt="Produto Pronail"
+                width={1138}
+                height={1419}
+                loading="eager"
+                fetchPriority="high"
                 style={{
                   maxWidth: '100%',
                   height: 'auto',

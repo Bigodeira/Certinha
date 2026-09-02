@@ -168,6 +168,10 @@ function IngredientCard({ name, fn, tag, icon }: {
             {icon && (
               <img
                 src={icon}
+                width={746}
+                height={746}
+                loading="lazy"
+                decoding="async"
                 alt="Ícone"
                 style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
               />
@@ -267,6 +271,10 @@ export default function Ingredients() {
                   >
                     <img
                       src={item.icon}
+                      width={746}
+                      height={746}
+                      loading="lazy"
+                      decoding="async"
                       alt={item.name}
                       style={{ width: 197, height: 197, objectFit: 'cover' }}
                     />

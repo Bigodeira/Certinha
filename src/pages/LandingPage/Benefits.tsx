@@ -153,6 +153,10 @@ export default function Benefits() {
           <img
             src={typeof pronailDuplo !== 'undefined' ? pronailDuplo : ''}
             alt="ProNail Complex"
+            width={1027}
+            height={891}
+            loading="lazy"
+            decoding="async"
             style={{
               maxWidth: '100%',
               width: 280,
@@ -361,6 +365,10 @@ export default function Benefits() {
               <img
                 src={typeof imgGarrafas !== 'undefined' ? imgGarrafas : ''}
                 alt="ProNail Complex"
+                width={1138}
+                height={1419}
+                loading="lazy"
+                decoding="async"
                 style={{
                   maxWidth: '100%',
                   height: 'auto',
@@ -395,6 +403,10 @@ export default function Benefits() {
           <img
             src={typeof tarjaFda !== 'undefined' ? tarjaFda : ''}
             alt="Selos de Qualidade FDA, GMP e 100% Natural"
+            width={1757}
+            height={292}
+            loading="lazy"
+            decoding="async"
             style={{
               width: '100%',
               maxWidth: '900px',

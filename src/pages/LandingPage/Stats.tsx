@@ -98,6 +98,10 @@ export default function Stats() {
                     <img
                       src={stat.icon}
                       alt=""
+                      width={512}
+                      height={512}
+                      loading="lazy"
+                      decoding="async"
                       style={{
                         width: 24,
                         height: 24,

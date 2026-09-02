@@ -22,6 +22,8 @@ export type PricingPackage = {
   title: string;
   subtitle: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
   price: string;
   perks: string[];
   oldTotal: string;
@@ -38,6 +40,8 @@ export const PRICING_PACKAGES: PricingPackage[] = [
     title: '2 BOTTLES',
     subtitle: '· 60 Day Supply ·',
     image: img2Bottles,
+    imageWidth: 323,
+    imageHeight: 692,
     price: '79',
     perks: ['YOU SAVE $200!', '60 DAYS GUARANTEE'],
     oldTotal: '$358',
@@ -52,6 +56,8 @@ export const PRICING_PACKAGES: PricingPackage[] = [
     title: '3 + 3 BOTTLES',
     subtitle: '· 180 Day Supply ·',
     image: img6Bottles,
+    imageWidth: 776,
+    imageHeight: 731,
     price: '49',
     perks: ['YOU SAVE $780!', 'BIGGEST DISCOUNT', '60 DAYS GUARANTEE', '3 FREE EBOOKS!'],
     oldTotal: '$1074',
@@ -66,6 +72,8 @@ export const PRICING_PACKAGES: PricingPackage[] = [
     title: '2 + 1 BOTTLES',
     subtitle: '· 90 Day Supply ·',
     image: img3Bottles,
+    imageWidth: 800,
+    imageHeight: 600,
     price: '69',
     perks: ['YOU SAVE $330!', '60 DAYS GUARANTEE'],
     oldTotal: '$537',

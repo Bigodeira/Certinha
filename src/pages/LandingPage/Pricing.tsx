@@ -56,6 +56,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
           <div className="px-5 pb-[34px] text-center">
             <img
               src={imgSeal}
+              width={654}
+              height={654}
+              loading="lazy"
+              decoding="async"
               alt="Fast and Free Shipping"
               className="mx-auto block h-auto w-[200px] max-w-[55vw]"
             />
@@ -85,7 +89,7 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
         </div>
       ) : (
         <div className="w-full flex justify-center items-center flex-wrap gap-[30px] px-5 bg-white pt-[60px] pb-[30px]">
-          <img src={imgSeal} alt="Fast and Free Shipping" className="w-[140px] h-auto" />
+          <img src={imgSeal} alt="Fast and Free Shipping" width={654} height={654} loading="lazy" decoding="async" className="w-[140px] h-auto" />
           <div className="text-center font-sans">
             <h2 className="text-[var(--color-deep)] text-[clamp(19px,5.5vw,32px)] m-0 mb-1 font-extrabold leading-[1.2]">
               Every 6 Bottles Order
@@ -112,7 +116,7 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
 
         {!isMobile && (
           <div className="w-full flex justify-center mt-[60px] pb-2.5">
-            <img src={imgCreditCards} alt="Cartões Aceitos" className="w-full max-w-[320px] h-auto" />
+            <img src={imgCreditCards} alt="Cartões Aceitos" width={786} height={102} loading="lazy" decoding="async" className="w-full max-w-[320px] h-auto" />
           </div>
         )}
 
@@ -124,6 +128,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
 
           <img
             src={imgEstrelas}
+            width={512}
+            height={512}
+            loading="lazy"
+            decoding="async"
             alt="4.5 de 5 estrelas"
             className={`relative z-[2] w-full h-auto ${
               isMobile ? 'max-w-[210px] -mt-[50px] -mb-[45px]' : 'max-w-[220px] -mt-[60px] -mb-[53px]'
@@ -155,6 +163,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
           >
             <img
               src={selo60dias}
+              width={612}
+              height={612}
+              loading="lazy"
+              decoding="async"
               alt="60-Day Money Back Guarantee"
               className={`w-full h-auto ${isMobile ? 'drop-shadow-[0_12px_18px_rgba(0,0,0,0.2)]' : ''}`}
             />
@@ -220,6 +232,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
 
               <img
                 src={imgEstrelas}
+                width={512}
+                height={512}
+                loading="lazy"
+                decoding="async"
                 alt="4.5 de 5 estrelas"
                 className="relative z-[2] -mt-[50px] -mb-[45px] h-auto w-full max-w-[210px]"
               />
@@ -279,6 +295,10 @@ function PricingCard({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: s
             <div className={`flex w-full flex-1 items-center justify-center ${pkg.highlight ? 'mt-4' : 'mt-7'}`}>
               <img
                 src={pkg.image}
+                width={pkg.imageWidth}
+                height={pkg.imageHeight}
+                loading="lazy"
+                decoding="async"
                 alt={pkg.title}
                 className={`block object-contain ${
                   pkg.highlight
@@ -293,6 +313,10 @@ function PricingCard({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: s
             {pkg.highlight && (
               <img
                 src={imgLivrosBonus}
+                width={577}
+                height={393}
+                loading="lazy"
+                decoding="async"
                 alt="3 Free eBooks"
                 className="mt-3 block h-auto w-full max-w-[165px] rounded object-contain"
               />
@@ -390,6 +414,10 @@ function BuyBlock({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: stri
 
         <img
           src={imgCreditCards}
+          width={786}
+          height={102}
+          loading="lazy"
+          decoding="async"
           alt="Cartões Aceitos"
           className={`max-w-full h-auto opacity-90 ${pkg.highlight ? 'w-[150px]' : 'w-[120px]'}`}
         />
@@ -443,6 +471,10 @@ function DesktopPricingCard({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] })
 
         <img
           src={pkg.image}
+          width={pkg.imageWidth}
+          height={pkg.imageHeight}
+          loading="lazy"
+          decoding="async"
           alt={pkg.title}
           className={`w-auto max-w-full object-contain rounded-[14px] shadow-[10px_8px_20px_rgba(0,0,0,0.2)] mb-5 block mx-auto ${
             pkg.highlight ? 'h-[clamp(170px,24vw,230px)]' : 'h-[clamp(160px,20vw,195px)]'
