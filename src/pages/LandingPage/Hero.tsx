@@ -22,7 +22,10 @@ const PN = {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export default function Hero() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(max-width: 768px)').matches;
+  });
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
