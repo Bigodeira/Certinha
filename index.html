@@ -27,11 +27,19 @@
 In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
 <script>
 function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
+  var destination = typeof(url) === 'string' ? url.trim() : url;
+  var redirected = false;
+  var redirectOnce = function () {
+    if (redirected || typeof(destination) === 'undefined') {
+      return;
     }
+    redirected = true;
+    window.location = destination;
   };
+  var callback = redirectOnce;
+
+  setTimeout(redirectOnce, 1200);
+
   // Gera um ID de transação único baseado no horário atual para satisfazer o Google Ads
   var uniqueId = 'TXN_' + new Date().getTime();
   
@@ -51,24 +59,24 @@ function gtag_report_conversion(url) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
-    <title>Pronail Complex | Beautiful Nails</title>
-    <meta name="description" content="Pronail Complex delivers a clinically-proven micro-keratin complex directly to the nail matrix. Visibly stronger, longer nails in 14 days. Dermatologist tested. Free from parabens and harsh chemicals." />
-    <meta name="keywords" content="nail strengthener, nail repair serum, nail growth treatment, keratin nail treatment, brittle nails, nail care, nail serum" />
+    <title>ProNail Complex | Toenail Care Mist Spray</title>
+    <meta name="description" content="Discover ProNail Complex, a daily-use mist spray with a blend of oils and vitamins designed to support healthy-looking toenails and surrounding skin." />
+    <meta name="keywords" content="ProNail Complex, toenail care, nail care mist, nail care oils, foot care" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://matjetofficial.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="product" />
-    <meta property="og:title" content="Pronail Complex | Beautiful Nails" />
-    <meta property="og:description" content="Clinically-proven nail strengthening serum. Micro-keratin complex. 94% of users see results in 14 days." />
+    <meta property="og:title" content="ProNail Complex | Toenail Care Mist Spray" />
+    <meta property="og:description" content="Discover ProNail Complex, a daily-use mist spray with a blend of oils and vitamins designed to support healthy-looking toenails and surrounding skin." />
     <meta property="og:url" content="https://matjetofficial.com/" />
     <meta property="og:site_name" content="Pronail Complex" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pronail Complex | Beautiful Nails" />
-    <meta name="twitter:description" content="Clinically-proven nail strengthening serum. Visibly stronger nails in 14 days." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ProNail Complex | Toenail Care Mist Spray" />
+    <meta name="twitter:description" content="Discover ProNail Complex, a daily-use mist spray with a blend of oils and vitamins designed to support healthy-looking toenails and surrounding skin." />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,31 +86,16 @@ function gtag_report_conversion(url) {
     <!-- Structured Data: Product -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org/",
+      "@context": "https://schema.org",
       "@type": "Product",
-      "name": "Pronail Complex",
-      "description": "Clinically-proven nail strengthening serum with micro-keratin complex. Visibly stronger, longer nails in 14 days.",
+      "name": "ProNail Complex",
+      "description": "Discover ProNail Complex, a daily-use mist spray with a blend of oils and vitamins designed to support healthy-looking toenails and surrounding skin.",
+      "url": "https://matjetofficial.com/",
       "brand": {
         "@type": "Brand",
-        "name": "Pronail Complex"
+        "name": "ProNail Complex"
       },
-      "category": "Nail Care / Cosmetics",
-      "offers": {
-        "@type": "Offer",
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "USD",
-        "seller": {
-          "@type": "Organization",
-          "name": "Pronail Complex"
-        }
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "2847",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
+      "category": "Nail Care"
     }
     </script>
 
@@ -114,34 +107,66 @@ function gtag_report_conversion(url) {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How long before I see results with Pronail Complex?",
+          "name": "How does ProNail Complex work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most users see measurable improvements within 14 days of daily use. For severely damaged nails, full repair typically takes 3 to 4 weeks."
+            "text": "ProNail Complex is an extremely potent combination of oils and skin-repairing vitamins that you apply every day, after you shower, to kill off fungus. What makes this product special is the fact that it comes in the form of a mist spray that releases the ingredients in extremely small particles that are capable of delving deep, nurturing your skin and nails at their very core."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I wear nail polish over Pronail Complex?",
+          "name": "Are there any side effects?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Apply Pronail Complex first, allow 60 seconds to absorb, then apply polish as usual. It works as both a base coat and a standalone treatment."
+            "text": "ProNail Complex has been designed for all ages and medical conditions. All of the ingredients have been proven to be safe in clinical trials and are constantly tested for purity and to ensure against toxins and contaminants.\n\nWith more than 87,000 customers, we havent seen any notable side effects. So were confident in saying that ProNail Complex is one of the purest fungus eliminating formulas youll find on the market.\n\nAs always, if you currently have a medical condition or youre taking other prescription medication, we advise you to show a bottle of ProNail Complex to your doctor before you use it, just to put your mind at ease."
           }
         },
         {
           "@type": "Question",
-          "name": "Is Pronail Complex safe for sensitive skin?",
+          "name": "What is your money back guarantee?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pronail Complex is dermatologically tested and free from parabens, formaldehyde, toluene, and DBP. Suitable for sensitive skin."
+            "text": "It is a risk-free option that we are offering you because we believe in this formula so much.\n\nIt means you can try ProNail Complex for a full 60 days.\n\nAnd if you are not completely convinced by the amazing results, then just get your money back."
           }
         },
         {
           "@type": "Question",
-          "name": "Is Pronail Complex cruelty-free and vegan?",
+          "name": "How many bottles should I order?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Pronail Complex is 100% cruelty-free, PETA-certified, and vegan. No animal-derived ingredients or by-products."
+            "text": "Most of our clients order six bottles at a time and many double their order because they want to enjoy the benefits of this amazing formula for as long as possible or even share it with their friends and family.\n\nIt is a smart choice considering those who buy the 6 bottle pack get a massive discount, free shipping and 3 free online guides. Thats a lot of value and savings, especially since, once they start seeing results, our clients usually want to reorder."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I use ProNail Complex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You simply step out of the shower and effortlessly spray this treatment all over your feet. This complex formula is absorbed into the skin and nails extremely quickly, so you wont have to walk around with greasy toenails all day long.\n\nThen, put on some cotton socks to make sure you create an unfriendly environment for the fungus while nourishing your skin and helping it to start healing and rebuilding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this a one-off purchase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, your order is a one-off purchase with no hidden autoship, clauses or charges. The price you see on the checkout page is the only price you will have to pay."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the ingredients inside ProNail Complex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inside every single drop of ProNail Complex there is a proprietary formula of strong ingredients, custom-made to make you proud of your healthy nails."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "*Shipping policy",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Delivery Address | Shipping Fee | Shipping Time\nUnited States | FREE | 5-7 working days\nCanada | $15.95 | 10-15 working days\nUK and Ireland | $15.95 | 10-15 working days\nAustralia and New Zealand | $15.95 | 10-15 working days"
           }
         }
       ]

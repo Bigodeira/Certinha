@@ -487,13 +487,15 @@ function DesktopBuyBlock({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
       <button
         id={`buy-button-${pkg.id}`}
         onClick={() => {
+          const destination = pkg.link.trim();
+
           if ((window as any).clarity) {
             (window as any).clarity('set', 'offer', pkg.title);
             (window as any).clarity('event', 'clickbank_cta_click');
           }
           (window as any).gtag_report_conversion
-            ? (window as any).gtag_report_conversion(pkg.link)
-            : (window.location.href = pkg.link);
+            ? (window as any).gtag_report_conversion(destination)
+            : (window.location.href = destination);
         }}
         className="w-full bg-[linear-gradient(to_bottom,_#ffe800,_#ffb300)] text-black border border-[#d49a00] rounded-[9px] p-[15px] text-[clamp(18px,3.5vw,22px)] font-black cursor-pointer mb-3.5 shadow-[0_6px_10px_rgba(0,0,0,0.22)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_12px_18px_rgba(0,0,0,0.42)]"
       >
