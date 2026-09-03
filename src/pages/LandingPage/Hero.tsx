@@ -1,7 +1,5 @@
 // ─── src/pages/LandingPage/Hero.tsx ───────────────────────────────────────────
 import { useState, useEffect } from 'react'
-import { FiChevronDown, FiArrowRight } from 'react-icons/fi'
-import { scrollToPricing } from './utils'
 import tarjaFda from '../../tarjafda.png'
 
 // ─── Paleta / identidade visual (extraída do site original do Pronail) ────────
@@ -38,7 +36,7 @@ export default function Hero() {
     <section
       aria-label="Hero"
       style={{
-        minHeight: isMobile ? 'auto' : '88vh',
+        minHeight: isMobile ? 'auto' : 'clamp(580px, 68vh, 700px)',
         background: isMobile
           ? `linear-gradient(180deg, ${PN.teal} 0%, ${PN.tealDark} 100%)`
           : `linear-gradient(160deg, ${PN.teal} 0%, ${PN.tealDark} 75%)`,
@@ -91,41 +89,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="inner" style={{ padding: isMobile ? '0px 20px 24px 20px' : '60px 24px', position: 'relative', zIndex: 1 }}>
-        {/* Eyebrow — oculto no mobile, mantido no desktop */}
-        {!isMobile && (
-          <div
-            className="anim-0"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 12,
-              marginBottom: 24,
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: 32,
-                height: 1,
-                backgroundColor: PN.whiteSoft,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: PN.fontBody,
-                fontSize: 11,
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: PN.whiteSoft,
-                fontWeight: 600,
-              }}
-            >
-              Advanced Nail Formula
-            </span>
-          </div>
-        )}
-
+      <div className="inner" style={{ padding: isMobile ? '0px 20px 24px 20px' : '40px 24px', position: 'relative', zIndex: 1 }}>
         {/* ═══════════════ MOBILE: Imagem → Título → Texto → Selos ═══════════════ */}
         {isMobile ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'left', width: '100%' }}>
@@ -203,151 +167,52 @@ export default function Hero() {
           </div>
         ) : (
           /* ═══════════════ DESKTOP ═══════════════ */
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '2rem',
-              flexWrap: 'wrap',
-            }}
-          >
-            {/* Coluna Esquerda */}
-            <div style={{ flex: 1.5, minWidth: '320px' }}>
-              {/* Title */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 0.9fr) minmax(0, 1.1fr)', alignItems: 'center', gap: 'clamp(32px, 4vw, 52px)' }}>
+            <div className="anim-0" style={{ display: 'flex', justifyContent: 'center' }}>
+              <img
+                src="/pronail1.png.png"
+                srcSet="/pronail1-640.png 640w, /pronail1-800.png 800w, /pronail1.png.png 1138w"
+                sizes="(min-width: 1440px) 440px, 38vw"
+                alt="Produto Pronail"
+                width={1138}
+                height={1419}
+                loading="eager"
+                fetchPriority="high"
+                style={{ width: '100%', maxWidth: 440, height: 'auto', objectFit: 'contain' }}
+              />
+            </div>
+
+            <div style={{ minWidth: 0 }}>
               <h1
                 className="anim-1"
-                aria-label="ProNail Complex"
                 style={{
                   fontFamily: PN.fontDisplay,
-                  fontSize: 'clamp(40px, 6vw, 64px)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.01em',
-                  lineHeight: 1.1,
+                  fontSize: 'clamp(40px, 3.6vw, 60px)',
+                  fontWeight: 700,
+                  letterSpacing: '-0.005em',
+                  lineHeight: 1.05,
                   margin: '0 0 28px',
-                  paddingRight: '20px',
                   color: PN.white,
                 }}
               >
                 The Uniquely Formulated Mist Spray That Supports Healthy Toenails
               </h1>
 
-              {/* Description + CTAs */}
-              <div className="anim-2" style={{ maxWidth: 580 }}>
-                <p
-                  style={{
-                    fontFamily: PN.fontBody,
-                    fontSize: 'clamp(16px, 1.5vw, 18px)',
-                    lineHeight: 1.6,
-                    color: PN.whiteSoft,
-                    marginBottom: 36,
-                    fontWeight: 400,
-                  }}
-                >
-                  ProNail Complex is a meticulously-crafted natural formula which combines extremely potent oils and skin-repairing vitamins.{' '}
-                  <strong style={{ color: PN.white, fontWeight: 700 }}>
-                    This doctor-formulated mist spray releases the ingredients in the form of micro particles so they can reach deep under your skin and nails.
-                  </strong>
-                </p>
+              <p className="anim-2" style={{ fontFamily: PN.fontBody, fontSize: 18, lineHeight: 1.6, color: PN.whiteSoft, fontWeight: 400, margin: '0 0 30px', maxWidth: 620 }}>
+                ProNail Complex is a meticulously-crafted natural formula which combines extremely potent oils and skin-repairing vitamins. This doctor-formulated mist spray releases the ingredients in the form of micro particles so they can reach deep under your skin and nails.
+              </p>
 
-                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-
-                  <a
-                    href="#pricing"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToPricing();
-                    }}
-                    rel="nofollow sponsored"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      backgroundColor: PN.white,
-                      color: PN.ink,
-                      padding: '16px 36px',
-                      borderRadius: 100,
-                      fontSize: 14,
-                      fontWeight: 700,
-                      letterSpacing: '0.04em',
-                      textDecoration: 'none',
-                      boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
-                      transition: 'transform 0.2s',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
-                  >
-                    Claim Your Discount <FiArrowRight size={15} />
-                  </a>
-
-                  <a
-                    href="#benefits"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      color: PN.whiteSoft,
-                      fontSize: 14,
-                      fontWeight: 500,
-                      textDecoration: 'none',
-                    }}
-                  >
-                    See benefits <FiChevronDown size={15} />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Coluna Direita */}
-            <div style={{ flex: 1, minWidth: '320px', display: 'flex', justifyContent: 'center' }}>
               <img
-                src="/pronail1.png.png"
-                alt="Produto Pronail"
-                width={1138}
-                height={1419}
-                loading="eager"
-                fetchPriority="high"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  objectFit: 'contain',
-                }}
+                className="anim-3"
+                src={tarjaFda}
+                alt="Selos de Qualidade FDA, GMP e 100% Natural"
+                width={1757}
+                height={292}
+                loading="lazy"
+                decoding="async"
+                style={{ display: 'block', width: '100%', maxWidth: 540, height: 'auto', objectFit: 'contain' }}
               />
             </div>
-          </div>
-        )}
-
-        {/* Trust Badges — texto, no lugar dos ícones em imagem no mobile;
-            segue exibido normalmente no desktop */}
-        {!isMobile && (
-          <div
-            className="anim-3"
-            style={{
-              display: 'flex',
-              rowGap: 24,
-              columnGap: 24,
-              flexWrap: 'wrap',
-              justifyContent: 'flex-start',
-              marginTop: 48,
-              paddingTop: 24,
-              borderTop: '1px solid rgba(255,255,255,0.18)',
-            }}
-          >
-            {['Specialist Formulated', '100% Natural Blend', '60-Day Guarantee', 'Non-GMO Formula'].map(badge => (
-              <span
-                key={badge}
-                style={{
-                  fontFamily: PN.fontBody,
-                  fontSize: 11,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  color: PN.whiteSoft,
-                  fontWeight: 600,
-                  textAlign: 'left',
-                }}
-              >
-                {badge}
-              </span>
-            ))}
           </div>
         )}
       </div>

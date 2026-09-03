@@ -13,8 +13,8 @@ export default function Footer() {
   return (
     <footer role="contentinfo" className="w-full overflow-x-hidden bg-white font-sans text-black">
       <nav aria-label="Footer navigation" className="w-full bg-[#252525] px-3 py-10">
-        <div className="mx-auto flex w-full max-w-[1000px] flex-col gap-6">
-          <ul className="m-0 flex w-full list-none items-center justify-between gap-2 p-0">
+        <div className="mx-auto flex w-full max-w-[1000px] flex-col gap-6 min-[769px]:grid min-[769px]:max-w-[860px] min-[769px]:grid-cols-[repeat(7,max-content)] min-[769px]:justify-center min-[769px]:gap-x-8 min-[769px]:gap-y-0">
+          <ul className="m-0 flex w-full list-none items-center justify-between gap-2 p-0 min-[769px]:contents">
             <li>
               <a
                 href="https://pronailcomplex.com//help/contact-us.php?hopId=091df0bb-acfd-418e-9580-2ca8552d9249"
@@ -53,7 +53,7 @@ export default function Footer() {
             </li>
           </ul>
 
-          <ul className="m-0 flex w-full list-none items-center justify-between gap-3 p-0">
+          <ul className="m-0 flex w-full list-none items-center justify-between gap-3 p-0 min-[769px]:contents">
             <li>
               <a
                 href="https://pronailcomplex.com//help/privacy.php?hopId=091df0bb-acfd-418e-9580-2ca8552d9249"

@@ -50,91 +50,46 @@ export default function FinalCTA() {
     <section
       aria-label="Purchase call to action"
       style={{
-        backgroundColor: isMobile ? '#5B9DA1' : 'var(--color-deep)',
+        backgroundColor: '#5B9DA1',
         padding: isMobile ? '28px 20px 40px' : '80px 24px',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {!isMobile && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(90,173,167,0.08) 0%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-      )}
-
-      <div className="inner" style={{ position: 'relative', maxWidth: '900px', margin: '0 auto' }}>
+      <div className="inner" style={{ position: 'relative', maxWidth: '1080px', margin: '0 auto' }}>
 
         <h2 style={{
           fontFamily: 'serif',
-          fontSize: isMobile ? '24px' : 'clamp(26px, 5vw, 36px)',
+          fontSize: isMobile ? '24px' : 'clamp(30px, 3vw, 38px)',
           fontWeight: 700,
           lineHeight: isMobile ? 1.28 : 1.25,
           color: '#ffffff',
           margin: isMobile ? '0 0 22px' : '0 0 32px',
         }}>
-          {isMobile ? (
-            <>Order 6 Bottles and Get <u>3 FREE Bonuses!</u></>
-          ) : (
-            'Order 6 Bottles and Get 3 FREE Bonuses!'
-          )}
+          Order 6 Bottles and Get <u>3 FREE Bonuses!</u>
         </h2>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 16 : 20, maxWidth: 440, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))', gap: isMobile ? 16 : 20, maxWidth: isMobile ? 440 : 1080, margin: '0 auto', alignItems: 'stretch' }}>
           {BONUSES.map(({ img, label, title, retail, desc }) => (
             <article
               key={label}
               style={{
                 position: 'relative',
                 borderRadius: isMobile ? 20 : 24,
-                background: isMobile ? '#ffffff' : 'linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 100%)',
+                background: '#ffffff',
                 boxShadow: isMobile
                   ? '0 1px 1px rgba(255,255,255,0.6) inset, 0 18px 36px -16px rgba(0,0,0,0.45), 0 0 30px rgba(93,202,165,0.08)'
                   : '0 1px 1px rgba(255,255,255,0.6) inset, 0 24px 48px -18px rgba(0,0,0,0.45), 0 0 40px rgba(93,202,165,0.08)',
                 overflow: 'hidden',
                 textAlign: 'center',
-                ...(isMobile && {
-                  padding: '8px',
-                  isolation: 'isolate',
-                  transform: 'translateZ(0)',
-                  WebkitMaskImage: '-webkit-radial-gradient(white, black)',
-                }),
+                padding: '8px',
+                isolation: 'isolate',
+                transform: 'translateZ(0)',
+                WebkitMaskImage: '-webkit-radial-gradient(white, black)',
               }}
             >
-              {!isMobile && (
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: 14,
-                    left: 16,
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: '#ffffff',
-                    background: 'rgba(0,0,0,0.55)',
-                    backdropFilter: 'blur(6px)',
-                    padding: '5px 10px',
-                    borderRadius: 100,
-                    zIndex: 2,
-                  }}
-                >
-                  {label}
-                </span>
-              )}
-
-              {isMobile ? (
-                // MOBILE: moldura branca (padding do article), imagem sem
-                // corte com cantos arredondados só em cima, seguida de uma
-                // barra escura full-width com o rótulo + título, igual ao
-                // print de referência.
-                <>
+              <>
                   <img
                     src={img}
                     width={1380}
@@ -153,7 +108,7 @@ export default function FinalCTA() {
                   <div
                     style={{
                       background: '#1a1a1a',
-                      padding: '14px 20px 16px',
+                      padding: isMobile ? '14px 20px 16px' : '14px 18px 16px',
                     }}
                   >
                     <div
@@ -180,62 +135,18 @@ export default function FinalCTA() {
                     </div>
                   </div>
 
-                  <div style={{ padding: '18px 20px 22px' }}>
+                  <div style={{ padding: isMobile ? '18px 20px 22px' : '20px 22px 24px' }}>
                     <div style={{ fontSize: 17, fontWeight: 700, color: '#111111' }}>
                       Retail Price - {retail}{' '}
                       <span style={{ color: 'var(--color-accent-dark, #0E5C55)', fontWeight: 800 }}>
                         Today: FREE
                       </span>
                     </div>
-                    <p style={{ fontSize: 13, lineHeight: 1.55, color: '#5b5f5e', fontWeight: 400, margin: '12px 0 0' }}>
+                    <p style={{ fontSize: isMobile ? 13 : 14, lineHeight: 1.6, color: '#5b5f5e', fontWeight: 400, margin: '12px 0 0' }}>
                       {desc}
                     </p>
                   </div>
-                </>
-              ) : (
-                // DESKTOP: igual ao original, sem alteração.
-                <>
-                  <img
-                    src={img}
-                    width={1380}
-                    height={997}
-                    loading="lazy"
-                    decoding="async"
-                    alt={title}
-                    style={{
-                      width: '100%',
-                      height: 190,
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
-                  <div style={{ padding: '22px 22px 26px' }}>
-                    <h4
-                      style={{
-                        fontSize: 17,
-                        fontWeight: 700,
-                        letterSpacing: '-0.005em',
-                        color: '#111111',
-                        lineHeight: 1.35,
-                        margin: '0 0 18px',
-                      }}
-                    >
-                      {title}
-                    </h4>
-                    <div style={{ fontSize: 20, fontWeight: 700, color: '#111111', marginBottom: 4 }}>
-                      <span style={{ textDecoration: 'line-through', color: '#9a9a9a', fontWeight: 500, marginRight: 6 }}>
-                        {retail}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--color-accent-dark, #0E5C55)', marginBottom: 14 }}>
-                      Today: FREE
-                    </div>
-                    <p style={{ fontSize: 14, lineHeight: 1.6, color: '#5b5f5e', fontWeight: 400, margin: 0 }}>
-                      {desc}
-                    </p>
-                  </div>
-                </>
-              )}
+              </>
             </article>
           ))}
         </div>

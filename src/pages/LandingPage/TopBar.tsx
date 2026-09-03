@@ -313,55 +313,47 @@ export default function TopBar() {
       <div
         className="hidden md:flex py-6 px-6"
         style={{
-          maxWidth: 1200,
-          margin: '0 auto',
+          width: '100%',
+          margin: 0,
           alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 24,
-          flexWrap: 'wrap',
+          justifyContent: 'center',
+          backgroundColor: '#2A2A2E',
           position: 'relative',
         }}
       >
-        <a href="/"
-          aria-label="ProNail Complex — back to homepage"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 400,
-            letterSpacing: '0.15em',
-            color: 'var(--color-text)',
-            textDecoration: 'none',
-          }}
-        >
-          PRONAIL <span style={{ color: 'var(--color-accent)', fontWeight: 300 }}>COMPLEX</span>
-        </a>
+        <div style={{ width: '100%', maxWidth: 1200, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40 }}>
+          <a href="/"
+            aria-label="ProNail Complex — back to homepage"
+            style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.05, color: '#ffffff', textDecoration: 'none', display: 'flex', flexDirection: 'column', textTransform: 'uppercase' }}
+          >
+            <span>Pronail</span>
+            <span>Complex</span>
+          </a>
 
-        {/* Links de navegação — visíveis apenas no desktop. */}
-        <ul
-          className="flex"
-          style={{ listStyle: 'none', margin: 0, padding: 0, gap: 32 }}
-        >
-          {['Benefits', 'Ingredients', 'FAQ'].map(label => (
-            <li key={label}>
-              <a
-                href={`#${label.toLowerCase().replace(/ /g, '-')}`}
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 13,
-                  fontWeight: 400,
-                  letterSpacing: '0.04em',
-                  color: 'var(--color-muted)',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                }}
-                onMouseEnter={e => ((e.target as HTMLAnchorElement).style.color = 'var(--color-text)')}
-                onMouseLeave={e => ((e.target as HTMLAnchorElement).style.color = 'var(--color-muted)')}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
+            <ul className="flex" style={{ listStyle: 'none', margin: 0, padding: 0, gap: 32 }}>
+              {['Benefits', 'Ingredients', 'FAQ'].map(label => (
+                <li key={label}>
+                  <a
+                    href={`#${label.toLowerCase().replace(/ /g, '-')}`}
+                    style={{ fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 500, letterSpacing: '0.03em', color: 'rgba(255,255,255,0.82)', textDecoration: 'none', transition: 'color 0.2s' }}
+                    onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = '#ffffff')}
+                    onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.82)')}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={handleBuyNowClick}
+              style={{ padding: '12px 24px', border: 0, borderRadius: 100, color: '#fff', background: 'linear-gradient(180deg, #ff5a5f 0%, #e63946 60%, #c62333 100%)', boxShadow: '0 8px 20px -8px rgba(198,35,51,0.7)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
+            >
+              Buy Now
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Botão hambúrguer — visível apenas no mobile.

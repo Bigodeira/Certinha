@@ -76,7 +76,7 @@ export default function ScientificReferences() {
           margin-bottom: 0;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 769px) {
           .pronail-scientific-references-logos {
             width: 100%;
             margin-right: 0;

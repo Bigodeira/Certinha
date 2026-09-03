@@ -31,7 +31,7 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
   }, []);
 
   const displayPackages = isMobile ? getMobileOrderedPackages() : PRICING_PACKAGES;
-  const bottomDisplayPackages = getMobileOrderedPackages();
+  const bottomDisplayPackages = isMobile ? getMobileOrderedPackages() : PRICING_PACKAGES;
 
   return (
     <>
@@ -91,18 +91,19 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
           </div>
         </div>
       ) : (
-        <div className="w-full flex justify-center items-center flex-wrap gap-[30px] px-5 bg-white pt-[60px] pb-[30px]">
-          <img src={imgSeal} alt="Fast and Free Shipping" width={654} height={654} loading="lazy" decoding="async" className="w-[140px] h-auto" />
-          <div className="text-center font-sans">
-            <h2 className="text-[var(--color-deep)] text-[clamp(19px,5.5vw,32px)] m-0 mb-1 font-extrabold leading-[1.2]">
-              Every 6 Bottles Order
-            </h2>
-            <h2 className="text-[var(--color-accent)] text-[clamp(19px,5.5vw,32px)] m-0 mb-2 font-extrabold underline leading-[1.2]">
-              Gets FREE Shipping Too!
-            </h2>
-            <p className="text-[#666666] text-[clamp(13px,3.2vw,18px)] m-0 font-medium">
-              *97% Of Customers Order 6 Bottles (Our Recommended Option)
-            </p>
+        <div className="w-full bg-[#252525]">
+          <div className="mx-auto flex max-w-[1180px] items-center justify-center gap-10 px-8 py-10">
+            <img src={imgSeal} alt="Fast and Free Shipping" width={654} height={654} loading="lazy" decoding="async" className="h-auto w-[150px]" />
+            <div className="text-left font-sans">
+              <h2 className="m-0 mb-1 text-[32px] font-semibold leading-[1.15] text-white">Every 6 Bottles Order</h2>
+              <h2 className="m-0 text-[32px] font-semibold leading-[1.15] text-[#eaff00] underline">Gets FREE Shipping Too!</h2>
+              <p className="m-0 mt-3 text-[18px] font-normal leading-[1.3] text-white">*97% Of Customers Order 6 Bottles (Our Recommended Option)</p>
+            </div>
+          </div>
+          <div className="relative w-full bg-[#3C97AB] px-8 py-6 text-center font-sans">
+            <h3 className="m-0 text-[24px] font-bold leading-[1.3] text-white">Claim Your Discounted ProNail Complex</h3>
+            <div className="text-[24px] font-bold leading-[1.3] text-white">Below While Stocks Last!</div>
+            <div aria-hidden="true" className="absolute -bottom-3.5 left-1/2 h-0 w-0 -translate-x-1/2 border-l-[15px] border-r-[15px] border-t-[14px] border-l-transparent border-r-transparent border-t-[#3C97AB]" />
           </div>
         </div>
       )}
@@ -111,17 +112,17 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
         id="pricing"
         className={`bg-[#f9f9f9] text-[#333] ${isMobile ? 'px-3.5 pt-8 pb-3.5' : 'px-6 pt-[100px] pb-6'}`}
       >
-        <div className="max-w-[1000px] mx-auto flex flex-wrap justify-center items-stretch gap-5">
+        <div
+          className={
+            isMobile
+              ? 'max-w-[1180px] mx-auto flex flex-wrap justify-center items-stretch gap-5'
+              : 'mx-auto grid max-w-[1120px] grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(0,1fr)] items-center gap-[clamp(14px,2vw,24px)]'
+          }
+        >
           {isMobile
             ? displayPackages.map((pkg) => <PricingCard key={pkg.id} pkg={pkg} />)
             : displayPackages.map((pkg) => <DesktopPricingCard key={pkg.id} pkg={pkg} />)}
         </div>
-
-        {!isMobile && (
-          <div className="w-full flex justify-center mt-[60px] pb-2.5">
-            <img src={imgCreditCards} alt="Cartões Aceitos" width={786} height={102} loading="lazy" decoding="async" className="w-full max-w-[320px] h-auto" />
-          </div>
-        )}
 
         <div
           className={`w-full flex flex-col items-center pb-0 ${isMobile ? 'mt-7' : 'mt-[30px]'}`}
@@ -207,10 +208,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
           No desktop essa seção não renderiza nada, preservando o layout
           desktop original intacto.
       ════════════════════════════════════════════════════════════════════ */}
-      {bottomOnly && isMobile && (
+      {bottomOnly && (
         <>
-          <div className="relative w-full bg-[#252525] px-5 py-7 text-center font-sans">
-            <h2 className="m-0 text-[clamp(24px,6.7vw,27px)] font-bold leading-[1.15] tracking-[-0.01em] text-white">
+          <div className={`relative w-full bg-[#252525] text-center font-sans ${isMobile ? 'px-5 py-7' : 'px-8 py-10'}`}>
+            <h2 className={`m-0 font-bold leading-[1.15] tracking-[-0.01em] text-white ${isMobile ? 'text-[clamp(24px,6.7vw,27px)]' : 'text-[34px]'}`}>
               Claim Your Discounted ProNail
               <br />
               Complex
@@ -223,15 +224,21 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
             />
           </div>
 
-          <section id="pricing-bottom" className="bg-white px-3.5 pt-[60px] pb-3.5 text-[#333]">
-            <div className="max-w-[1000px] mx-auto flex flex-wrap justify-center items-stretch gap-5">
-              {bottomDisplayPackages.map((pkg) => (
-                <PricingCard key={pkg.id} pkg={pkg} idSuffix="-bottom" />
-              ))}
+          <section id="pricing-bottom" className={`bg-white text-[#333] ${isMobile ? 'px-3.5 pt-[60px] pb-3.5' : 'px-6 pt-[72px] pb-10'}`}>
+            <div
+              className={
+                isMobile
+                  ? 'max-w-[1180px] mx-auto flex flex-wrap justify-center items-stretch gap-5'
+                  : 'mx-auto grid max-w-[1120px] grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)_minmax(0,1fr)] items-center gap-[clamp(14px,2vw,24px)]'
+              }
+            >
+              {isMobile
+                ? bottomDisplayPackages.map((pkg) => <PricingCard key={pkg.id} pkg={pkg} idSuffix="-bottom" />)
+                : bottomDisplayPackages.map((pkg) => <DesktopPricingCard key={pkg.id} pkg={pkg} idSuffix="-bottom" />)}
             </div>
 
-            <div className="w-full flex flex-col items-center mt-7 pb-0" style={{ fontFamily: "'Montserrat', Arial, sans-serif" }}>
-              <p className="m-0 -mb-4 text-[23px] font-medium text-[#1a1a1a]">Our customers say</p>
+            <div className={`w-full flex flex-col items-center pb-0 ${isMobile ? 'mt-7' : 'mt-10'}`} style={{ fontFamily: "'Montserrat', Arial, sans-serif" }}>
+              <p className={`m-0 font-medium text-[#1a1a1a] ${isMobile ? '-mb-4 text-[23px]' : '-mb-6 text-2xl'}`}>Our customers say</p>
 
               <img
                 src={imgEstrelas}
@@ -240,10 +247,10 @@ export default function Pricing({ bottomOnly = false }: { bottomOnly?: boolean }
                 loading="lazy"
                 decoding="async"
                 alt="4.5 de 5 estrelas"
-                className="relative z-[2] -mt-[50px] -mb-[45px] h-auto w-full max-w-[210px]"
+                className={`relative z-[2] h-auto w-full ${isMobile ? '-mt-[50px] -mb-[45px] max-w-[210px]' : '-mt-[60px] -mb-[53px] max-w-[220px]'}`}
               />
 
-              <p className="m-0 -mt-4 text-[20px] text-[#1a1a1a]">
+              <p className={`m-0 text-[20px] text-[#1a1a1a] ${isMobile ? '-mt-4' : '-mt-6'}`}>
                 based on <strong className="font-black">14,369 reviews!</strong>
               </p>
             </div>
@@ -422,7 +429,7 @@ function BuyBlock({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: stri
           loading="lazy"
           decoding="async"
           alt="Cartões Aceitos"
-          className={`max-w-full h-auto opacity-90 ${pkg.highlight ? 'w-[150px]' : 'w-[120px]'}`}
+          className={`max-w-full h-auto object-contain opacity-90 ${pkg.highlight ? 'w-[150px]' : 'w-[120px]'}`}
         />
 
         <div className="text-[11px] text-[#4CAF50] font-bold">{pkg.shipping}</div>
@@ -432,95 +439,96 @@ function BuyBlock({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: stri
 }
 
 // ─── DesktopPricingCard / DesktopBuyBlock ──────────────────────────────────────
-// Layout de desktop (hover, escala, badge separado) — inalterado.
+// Layout vertical exclusivo do desktop, inspirado na proporção da oferta original.
 
-function DesktopPricingCard({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
+export function DesktopPricingCard({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: string }) {
   return (
     <div
-      id={pkg.highlight ? 'pricing-highlight' : undefined}
-      className={`group w-full overflow-hidden text-center relative flex flex-col rounded-[10px] transition-all duration-300 ${
+      id={pkg.highlight ? `pricing-highlight${idSuffix}` : undefined}
+      className={`group relative flex w-full flex-col self-center overflow-hidden rounded-[14px] text-center transition-all duration-300 ${
         pkg.highlight
-          ? 'flex-[1_1_340px] max-w-[400px] mx-6 bg-[#fdf8ce] border-4 border-[var(--color-deep)] shadow-[0_16px_34px_rgba(0,0,0,0.2)] scale-110 -translate-y-2.5 hover:scale-[1.14] hover:-translate-y-2.5 hover:shadow-[0_26px_48px_rgba(0,0,0,0.3)] hover:z-10 z-[2]'
-          : 'flex-[1_1_280px] max-w-[320px] bg-white border border-[#e0e0e0] shadow-[0_6px_14px_rgba(0,0,0,0.08)] hover:scale-[1.02] hover:shadow-[0_12px_24px_rgba(0,0,0,0.12)] hover:z-[5] z-[1]'
+          ? 'z-[2] min-h-[760px] -translate-y-3.5 border-2 border-[#3C97AB] bg-[#F9F8DA] shadow-[0_22px_42px_-16px_rgba(34,80,91,0.42)] hover:-translate-y-[17px] hover:shadow-[0_28px_48px_-16px_rgba(34,80,91,0.48)]'
+          : 'z-[1] min-h-[700px] border border-[#cfd4d7] bg-white shadow-[0_14px_30px_-18px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_20px_34px_-18px_rgba(0,0,0,0.34)]'
       }`}
     >
-      {pkg.highlight ? (
-        <div className="bg-[#ff4d4d] text-white font-extrabold text-[clamp(13px,2vw,15px)] tracking-[0.5px] uppercase px-3.5 py-[11px] text-center">
-          $163 E-Book Bonus
-        </div>
-      ) : (
-        <div className="bg-[var(--color-accent)] text-white font-extrabold text-[13px] tracking-[0.5px] uppercase px-3.5 py-[9px] text-center">
-          {pkg.badgeLabel}
-        </div>
-      )}
+      <div className={`px-4 py-3 text-center ${pkg.highlight ? 'bg-[#3C97AB]' : 'bg-[#99C7D1]'}`}>
+        <span className="text-[clamp(16px,1.45vw,19px)] font-bold tracking-[0.01em] text-white">
+          {mobileHeaderLabel(pkg)}
+        </span>
+      </div>
 
-      <div className={pkg.highlight ? 'px-8 pt-[22px]' : 'px-[26px] pt-5'}>
-        <p
-          className={`text-xs font-extrabold uppercase tracking-[1px] m-0 mb-2 ${
-            pkg.highlight ? 'text-[#b8860b]' : 'text-[var(--color-accent)]'
-          }`}
-        >
-          {pkg.badgeLabel}
-        </p>
-
+      <div className={`flex flex-1 flex-col ${pkg.highlight ? 'px-[clamp(20px,2.3vw,30px)] pb-7 pt-7' : 'px-[clamp(18px,2.1vw,26px)] pb-6 pt-6'}`}>
         <h3
-          className={`text-[var(--color-deep)] m-0 mb-0.5 uppercase tracking-[0.5px] font-extrabold leading-[1.15] ${
-            pkg.highlight ? 'text-[clamp(25px,4.5vw,30px)]' : 'text-[clamp(22px,3.8vw,27px)]'
+          className={`m-0 mb-0.5 font-bold leading-[1.1] tracking-[-0.01em] ${
+            pkg.highlight ? 'text-[clamp(25px,2.4vw,31px)] text-[#3C97AB]' : 'text-[clamp(22px,2.1vw,28px)] text-[#99C7D1]'
           }`}
         >
-          {pkg.title}
+          {mobileTitle(pkg)}
         </h3>
-        <p className="text-[13px] text-[#666] m-0 mb-5">{pkg.subtitle}</p>
+        <p className="m-0 text-[13px] font-medium text-[#77797d]">{pkg.subtitle}</p>
 
-        <img
-          src={pkg.image}
-          width={pkg.imageWidth}
-          height={pkg.imageHeight}
-          loading="lazy"
-          decoding="async"
-          alt={pkg.title}
-          className={`w-auto max-w-full object-contain rounded-[14px] shadow-[10px_8px_20px_rgba(0,0,0,0.2)] mb-5 block mx-auto ${
-            pkg.highlight ? 'h-[clamp(170px,24vw,230px)]' : 'h-[clamp(160px,20vw,195px)]'
-          }`}
-        />
+        <div className={`flex items-center justify-center ${pkg.highlight ? 'mt-4 h-[200px]' : 'mt-5 h-[190px]'}`}>
+          <img
+            src={pkg.image}
+            width={pkg.imageWidth}
+            height={pkg.imageHeight}
+            loading="lazy"
+            decoding="async"
+            alt={pkg.title}
+            className={`block h-full max-w-full object-contain ${pkg.id === 'pack-3' ? 'w-full' : 'w-auto'}`}
+          />
+        </div>
 
-        <div className="mb-6">
+        {pkg.highlight && (
+          <img
+            src={imgLivrosBonus}
+            width={577}
+            height={393}
+            loading="lazy"
+            decoding="async"
+            alt="3 Free eBooks"
+            className="mx-auto mt-1 block h-[72px] w-auto max-w-full object-contain"
+          />
+        )}
+
+        <div className={`flex items-baseline justify-center ${pkg.highlight ? 'mt-3 text-[#3C97AB]' : 'mt-5 text-[#99C7D1]'}`}>
+          <span className={`${pkg.highlight ? 'text-[68px]' : 'text-[58px]'} font-extrabold leading-none tracking-[-0.04em]`}>
+            ${pkg.price}
+          </span>
+          <span className="ml-1 text-[14px] font-semibold text-[#8a8a8e]">/ Bottle</span>
+        </div>
+
+        <div className={`${pkg.highlight ? 'mt-4' : 'mt-5'} mx-auto w-full max-w-[270px]`}>
           {pkg.perks.map((perk, i) => (
             <div
               key={i}
-              className={`border-[1.5px] border-dashed border-[#aaa] rounded-md mb-2 font-bold leading-[1.25] ${
-                pkg.highlight ? 'p-[11px] text-sm bg-[#fcf49a]' : 'p-2.5 text-[13px] bg-white'
+              className={`mb-2 flex min-h-[31px] items-center justify-center gap-1.5 rounded-[5px] px-2 py-1.5 text-[11px] font-bold leading-[1.15] text-[#363638] ${
+                pkg.highlight && i === 0 ? 'bg-[#FFFF8F]' : 'border-[1.5px] border-dashed border-[#aeb0b3]'
               }`}
             >
-              <span className="text-[#4caf50] mr-1">✔</span> {perk}
+              <span className="inline-flex h-[14px] w-[14px] shrink-0 rotate-45 items-center justify-center rounded-[4px] bg-[#5AC150]">
+                <svg width="7" height="7" viewBox="0 0 10 8" fill="none" className="-rotate-45">
+                  <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              {perk}
             </div>
           ))}
         </div>
 
-        <div className="text-[var(--color-deep)] mb-5 flex justify-center items-baseline">
-          <span
-            className={`font-bold leading-none ${
-              pkg.highlight ? 'text-[clamp(52px,10vw,68px)]' : 'text-[clamp(44px,8.5vw,57px)]'
-            }`}
-          >
-            ${pkg.price}
-          </span>
-          <span className={`ml-1 ${pkg.highlight ? 'text-[17px]' : 'text-[15px]'}`}>/ Bottle</span>
+        <div className="mt-auto pt-5">
+          <DesktopBuyBlock pkg={pkg} idSuffix={idSuffix} />
         </div>
-      </div>
-
-      <div className={pkg.highlight ? 'px-8 pb-11' : 'px-[26px] pb-[38px]'}>
-        <DesktopBuyBlock pkg={pkg} />
       </div>
     </div>
   );
 }
 
-function DesktopBuyBlock({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
+export function DesktopBuyBlock({ pkg, idSuffix = '' }: { pkg: PricingPackage; idSuffix?: string }) {
   return (
-    <div>
+    <div className="w-full">
       <button
-        id={`buy-button-${pkg.id}`}
+        id={`buy-button-${pkg.id}${idSuffix}`}
         onClick={() => {
           const destination = pkg.link.trim();
 
@@ -532,17 +540,27 @@ function DesktopBuyBlock({ pkg }: { pkg: (typeof PRICING_PACKAGES)[number] }) {
             ? (window as any).gtag_report_conversion(destination)
             : (window.location.href = destination);
         }}
-        className="w-full bg-[linear-gradient(to_bottom,_#ffe800,_#ffb300)] text-black border border-[#d49a00] rounded-[9px] p-[15px] text-[clamp(18px,3.5vw,22px)] font-black cursor-pointer mb-3.5 shadow-[0_6px_10px_rgba(0,0,0,0.22)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_12px_18px_rgba(0,0,0,0.42)]"
+        className="mb-3 w-full cursor-pointer rounded-[8px] border border-[#d49a00] bg-[linear-gradient(180deg,_#ffe27a_0%,_#f8c400_55%,_#f0a500_100%)] px-3 py-3 text-[clamp(18px,2vw,22px)] font-black text-[#231a00] shadow-[0_6px_12px_-5px_rgba(200,140,0,0.75)] transition-all duration-200 hover:scale-[1.025] hover:shadow-[0_10px_18px_-5px_rgba(200,140,0,0.82)]"
       >
         BUY NOW
       </button>
 
-      <div className="text-sm text-[#333] mb-2.5">
+      <div className="mb-2 text-sm text-[#333]">
         TOTAL: <del className="text-[#888] mr-1.5">{pkg.oldTotal}</del>
         <span className="font-bold text-lg">{pkg.newTotal}</span>
       </div>
 
-      <div className="text-[13px] text-[#555]">{pkg.shipping}</div>
+      <img
+        src={imgCreditCards}
+        width={786}
+        height={102}
+        loading="lazy"
+        decoding="async"
+        alt="Cartões Aceitos"
+        className={`mx-auto mb-2 h-auto max-w-full object-contain opacity-90 ${pkg.highlight ? 'w-[175px]' : 'w-[150px]'}`}
+      />
+
+      <div className={`text-[12px] font-medium ${pkg.shipping.includes('FREE') ? 'text-[#4CAF50]' : 'text-[#555]'}`}>{pkg.shipping}</div>
     </div>
   );
 }

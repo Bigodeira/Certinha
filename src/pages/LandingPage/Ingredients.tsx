@@ -151,82 +151,6 @@ const INGREDIENTS = [
   },
 ]
 
-// ─── Ingredient Card (desktop — inalterado) ────────────────────────────────────
-
-function IngredientCard({ name, fn, tag, icon }: {
-  name: string
-  fn: string
-  tag: string
-  icon: string
-}) {
-  return (
-    <div
-      style={{
-        padding: '32px',
-        backgroundColor: 'var(--color-deep)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        gap: 20,
-      }}
-    >
-      <div>
-        <span
-          style={{
-            display: 'inline-block',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 9,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--color-accent)',
-            border: '1px solid rgba(90,173,167,0.3)',
-            padding: '3px 8px',
-            borderRadius: 100,
-            marginBottom: 16,
-          }}
-        >
-          {tag}
-        </span>
-        <div
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 400,
-            color: '#fff',
-            marginBottom: 8,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {icon && (
-              <img
-                src={icon}
-                width={746}
-                height={746}
-                loading="lazy"
-                decoding="async"
-                alt="Ícone"
-                style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
-              />
-            )}
-            <span>{name}</span>
-          </div>
-        </div>
-        <p
-          style={{
-            fontSize: 13,
-            color: 'rgba(255,255,255,0.6)',
-            lineHeight: 1.6,
-            margin: 0,
-            fontWeight: 300,
-          }}
-        >
-          {fn}
-        </p>
-      </div>
-    </div>
-  )
-}
-
 // ─── Ingredients ──────────────────────────────────────────────────────────────
 
 export default function Ingredients() {
@@ -247,27 +171,24 @@ export default function Ingredients() {
       id="ingredients"
       className="section-pad"
       style={{
-        backgroundColor: isMobile ? '#ffffff' : 'var(--color-deep)',
+        backgroundColor: '#ffffff',
         paddingTop: isMobile ? 40 : undefined,
         paddingBottom: isMobile ? 48 : undefined,
       }}
     >
       <div className="inner">
-        {isMobile ? (
-          /* ═══════════════ MOBILE: layout igual ao site original ═══════════════ */
-          <>
-            {/* Título + parágrafo — centralizados, preto sobre fundo branco */}
-            <div style={{ textAlign: 'center', marginBottom: 44 }}>
+        <>
+            <div style={{ textAlign: 'center', marginBottom: isMobile ? 44 : 48 }}>
               <p
                 style={{
                   fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-                  fontSize: 'clamp(32px, 10vw, 40px)',
+                  fontSize: isMobile ? 'clamp(32px, 10vw, 40px)' : 'clamp(36px, 3vw, 48px)',
                   fontWeight: 800,
                   letterSpacing: '-0.01em',
                   lineHeight: 1.2,
                   color: '#111111',
                   margin: '0 auto 22px auto',
-                  maxWidth: 420,
+                  maxWidth: isMobile ? 420 : 760,
                 }}
               >
                 Inside every drop of "ProNail Complex" you'll find:
@@ -275,21 +196,19 @@ export default function Ingredients() {
               <p
                 style={{
                   fontFamily: "'Inter', Arial, sans-serif",
-                  fontSize: 20,
+                  fontSize: isMobile ? 20 : 18,
                   lineHeight: 1.55,
                   color: '#3a3a3a',
                   fontWeight: 400,
                   margin: '0 auto',
-                  maxWidth: 400,
+                  maxWidth: isMobile ? 400 : 720,
                 }}
               >
                 An optimally dosed proprietary blend of <strong>oils and vitamins</strong>, carefully mixed to complement one another into a <strong>powerful nail-strengthening formula</strong>.
               </p>
             </div>
 
-            {/* Lista de ingredientes — foto grande circular + nome em pílula escura,
-                todos empilhados, sem botão de "ver mais" */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, minmax(0, 1fr))', alignItems: 'start', gap: isMobile ? 40 : '40px 24px' }}>
               {INGREDIENTS.map((item) => (
                 <div
                   key={item.name}
@@ -297,8 +216,8 @@ export default function Ingredients() {
                 >
                   <div
                     style={{
-                      width: 209,
-                      height: 209,
+                      width: isMobile ? 209 : 'clamp(150px, 14vw, 188px)',
+                      height: isMobile ? 209 : 'clamp(150px, 14vw, 188px)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -307,13 +226,13 @@ export default function Ingredients() {
                     <img
                       src={item.icon}
                       srcSet={`${item.smallIcon} 400w, ${item.icon} 746w`}
-                      sizes="197px"
+                      sizes={isMobile ? '197px' : '(min-width: 1440px) 176px, 13vw'}
                       width={746}
                       height={746}
                       loading="lazy"
                       decoding="async"
                       alt={item.name}
-                      style={{ width: 197, height: 197, objectFit: 'cover' }}
+                      style={{ width: isMobile ? 197 : 'clamp(142px, 13vw, 176px)', height: isMobile ? 197 : 'clamp(142px, 13vw, 176px)', objectFit: 'cover' }}
                     />
                   </div>
                   <div
@@ -322,12 +241,12 @@ export default function Ingredients() {
                       color: '#ffffff',
                       fontFamily: "'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
                       fontWeight: 700,
-                      fontSize: 22,
-                      padding: '15px 20px',
+                      fontSize: isMobile ? 22 : 16,
+                      padding: isMobile ? '15px 20px' : '12px 16px',
                       borderRadius: 12,
                       textAlign: 'center',
                       width: '100%',
-                      maxWidth: 340,
+                      maxWidth: isMobile ? 340 : 230,
                     }}
                   >
                     {item.name}
@@ -335,52 +254,7 @@ export default function Ingredients() {
                 </div>
               ))}
             </div>
-          </>
-        ) : (
-          /* ═══════════════ DESKTOP: layout original, intocado ═══════════════ */
-          <>
-            <div style={{ marginBottom: 48 }}>
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-accent)',
-                  marginBottom: 12,
-                }}
-              >
-                The Complete Formula
-              </p>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(28px, 3.5vw, 44px)',
-                  fontWeight: 300,
-                  lineHeight: 1.2,
-                  color: '#fff',
-                  margin: 0,
-                  maxWidth: 520,
-                }}
-              >
-                Clinically Selected Botanicals & Active Minerals
-              </h2>
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: 1,
-                backgroundColor: 'rgba(255,255,255,0.06)',
-              }}
-            >
-              {INGREDIENTS.map((item) => (
-                <IngredientCard key={item.name} {...item} />
-              ))}
-            </div>
-          </>
-        )}
+        </>
       </div>
     </section>
   )
